@@ -1,0 +1,7 @@
+example_id                                             | status | run_time        |
+------------------------------------------------------ | ------ | --------------- |
+./spec/graphql/mutations/order_mutation_spec.rb[1:1:1] | passed | 0.01882 seconds |
+./spec/graphql/mutations/order_mutation_spec.rb[1:1:2] | passed | 0.09283 seconds |
+./spec/graphql/resolvers/order_resolver_spec.rb[1:1]   | passed | 1.11 seconds    |
+./spec/graphql/types/product_type_spec.rb[1:1]         | passed | 0.08619 seconds |
+./spec/graphql/types/product_type_spec.rb[1:2:1]       | passed | 0.11995 seconds |
