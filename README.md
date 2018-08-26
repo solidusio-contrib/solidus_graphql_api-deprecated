@@ -1,6 +1,16 @@
 SolidusGraphqlApi
 =================
 
+NOTE: WIP
+
+THIS GEM IS CURRENTLY NOT FUNCTIONAL
+
+Please find me in the Solidus Slack #graphql channel if you are interested.
+
+
+
+
+
 Introduction goes here.
 
 Installation
