@@ -10,14 +10,15 @@ Gem::Specification.new do |s|
   s.description = 'GraphQL comes to Solidus'
   s.license     = 'BSD-3-Clause'
 
-  # s.author    = 'You'
-  # s.email     = 'you@example.com'
-  # s.homepage  = 'http://www.example.com'
-
   s.files = Dir["{app,config,db,lib}/**/*", 'LICENSE', 'Rakefile', 'README.md']
-  s.test_files = Dir['test/**/*']
+    spec.files         = `git ls-files -z`.split("\x0").reject do |f|
+    f.match(%r{^(test|spec|features)/})
+  end
+  spec.bindir        = "exe"
+  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
 
   s.add_dependency 'solidus_core', '~> 2.7.0'
+  s.add_dependency "graphql", "~> 1.8.10"
 
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'poltergeist'
