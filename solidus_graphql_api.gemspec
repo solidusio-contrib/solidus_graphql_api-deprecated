@@ -3,10 +3,11 @@ $:.push File.expand_path('../lib', __FILE__)
 require 'solidus_graphql_api/version'
 
 Gem::Specification.new do |s|
+  s.author      = 'Daniel Honig'
   s.name        = 'solidus_graphql_api'
   s.version     = SolidusGraphqlApi::VERSION
-  s.summary     = 'TODO'
-  s.description = 'TODO'
+  s.summary     = 'Solidus GraphQL Api'
+  s.description = 'GraphQL comes to Solidus'
   s.license     = 'BSD-3-Clause'
 
   # s.author    = 'You'
