@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'solidus_core', '~> 2.7.0'
   s.add_dependency 'graphql', "~> 1.8.10"
-  s.add_dependency 'graphiql-rails', '~> 1.4.11'
 
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'poltergeist'

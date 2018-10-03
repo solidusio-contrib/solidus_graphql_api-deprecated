@@ -1,4 +1,4 @@
-class SolidusGraphQLApiSchema < GraphQL::Schema
+class SolidusSchema < GraphQL::Schema
   mutation(::Solidus::GraphQL::MutationType)
   query(::Solidus::GraphQL::QueryType)
 end
