@@ -1,33 +1,68 @@
-SolidusGraphqlApi
-=================
+Solidus GraphQL API
+===================
 
-NOTE: WIP
+NOTE: This is a work in progress.
 
-THIS GEM IS CURRENTLY NOT FUNCTIONAL
-
-Please find me in the Solidus Slack #graphql channel if you are interested.
-
-
-
-
-
-Introduction goes here.
+Please join the Solidus Slack #graphql channel if you are interested.
 
 Installation
 ------------
 
-Add solidus_graphql_api to your Gemfile:
+1) Add solidus_graphql_api to your `Gemfile`. The complete block added to `Gemfile` could look like this:
 
 ```ruby
-gem 'solidus_graphql_api'
+gem 'solidus'
+gem 'solidus_auth_devise'
+gem 'solidus_graphql_api', github: 'boomerdigital/solidus_graphql_api'
+
+gem 'graphiql-rails', group: :development
 ```
 
-Bundle your dependencies and run the installation generator:
+NOTE: If this is your new Rails + Solidus application, please don't forget to run the Solidus installation steps, which at a minimum consist of adding the database `username`, `password`, and `host` in `config/database.yml`'s `default` block and running `bundle exec rails g spree:install`.
+
+2) Run `bundle` and GraphQL API's install generator. (The install generator currently does not contain anything other than stub files):
 
 ```shell
 bundle
 bundle exec rails g solidus_graphql_api:install
 ```
+
+3) Add routes to your application's `config/routes.rb` to serve GraphQL and optionally also GraphiQL queries in development mode:
+
+```ruby
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+
+  post "/graphql", to: "graphql#execute"
+```
+
+Running
+-------
+
+To run the whole app, run your usual `bundle exec rails s`.
+
+To perform a test GraphQL query, you can use any of the following methods:
+
+```shell
+echo 'query={ products { id }}' | POST http://localhost:3000/graphql
+
+POST http://localhost:3000/graphql <<< 'query={ products { id }}'
+
+curl -d 'query={ products { id }}' http://localhost:3000/graphql
+
+wget -q -O- --post-data 'query={ products { id }}' http://localhost:3000/graphql
+```
+
+Assuming you are running this on a default Rails/Solidus installation with sample data, the response should look like this:
+
+```json
+{"data":{"products":[{"id":"3"},{"id":"1"},{"id":"2"},{"id":"4"},{"id":"8"},{"id":"5"},{"id":"9"},{"id":"7"},{"id":"6"}]}}
+```
+
+To open GraphiQL browser, visit [http://localhost:3000/graphiql](http://localhost:3000/graphiql) in your browser while in development environment.
+
+To see what query types can currently be specified, see GraphiQL's web interface or file `lib/solidus_graphql_api/graphql/types/query_type.rb`.
 
 Testing
 -------
