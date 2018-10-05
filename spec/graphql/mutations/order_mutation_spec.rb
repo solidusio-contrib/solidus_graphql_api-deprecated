@@ -21,12 +21,12 @@ RSpec.describe "Order mutation" do
        }
       }
       GRAPHQL
-      response = SolidusGraphQLApiSchema.execute(query_str)
+      response = SolidusSchema.execute(query_str)
       expect(response["data"]["createOrder"]["orderToken"]).not_to be nil
     end
 
 
-    it 'should add an item when addign an item' do
+    it 'should add an item when adding an item' do
       query_str = <<-GRAPHQL
       mutation{
       createOrder(input:{email:"test@example.come"} ){
@@ -38,7 +38,7 @@ RSpec.describe "Order mutation" do
        }
       }
       GRAPHQL
-      response = SolidusGraphQLApiSchema.execute(query_str)
+      response = SolidusSchema.execute(query_str)
       orderToken = response["data"]["createOrder"]["orderToken"]
       add_item_query_str = <<-GRAPHQL
       mutation{
@@ -54,7 +54,7 @@ RSpec.describe "Order mutation" do
       }
      }
       GRAPHQL
-      response = SolidusGraphQLApiSchema.execute(add_item_query_str)
+      response = SolidusSchema.execute(add_item_query_str)
       puts "Info #{response.to_json}"
       quantity=response["data"]["addOrUpdateItem"]["lineItem"]["quantity"]
       expect(quantity.to_i).to be 2

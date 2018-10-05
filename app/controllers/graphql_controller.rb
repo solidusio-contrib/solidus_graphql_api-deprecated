@@ -18,7 +18,7 @@ class GraphqlController < Spree::Api::BaseController
        current_spree_user: current_spree_user,
        current_store: current_store,
     }
-    result = SolidusGraphQLApiSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
+    result = SolidusSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
   rescue => e
     raise e unless Rails.env.development?
