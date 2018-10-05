@@ -33,7 +33,7 @@ module Solidus
 
       class OptionValues
         #ToDo for review
-        def self.call(product,args, tx)
+        def self.call(product,args, ctx)
             option_types_and_values= product.variant_option_values_by_option_type
             values=[]
             option_types_and_values.each do |key, array|

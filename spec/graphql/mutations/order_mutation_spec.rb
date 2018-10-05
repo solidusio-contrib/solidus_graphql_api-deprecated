@@ -26,7 +26,7 @@ RSpec.describe "Order mutation" do
     end
 
 
-    it 'should add an item when addign an item' do
+    it 'should add an item when adding an item' do
       query_str = <<-GRAPHQL
       mutation{
       createOrder(input:{email:"test@example.come"} ){
