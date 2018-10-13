@@ -14,9 +14,9 @@ module Spree
         field :images, [Image, null: true], null: true
         field :option_types, Option.connection_type, null: true
 
-        field :variants, Variant.connection_type, null: true, resolve: VariantResolver::ByProduct
+        field :variants, Variant.connection_type, null: true, resolve: Resolvers::Variant::ByProduct
 
-        field :option_values_by_option_type, OptionValue.connection_type, null: true, resolve: ProductResolver::OptionValues
+        field :option_values_by_option_type, OptionValue.connection_type, null: true, resolve: Resolvers::Product::OptionValues
       end
     end
   end

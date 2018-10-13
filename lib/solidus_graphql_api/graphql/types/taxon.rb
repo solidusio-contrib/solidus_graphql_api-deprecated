@@ -11,7 +11,7 @@ module Spree
         field :seo_title, String, null: true
 
         field :products, Product.connection_type, null: true, connection: true do
-          resolve ProductResolver::ByTaxon
+          resolve Resolvers::Product::ByTaxon
         end
       end
     end

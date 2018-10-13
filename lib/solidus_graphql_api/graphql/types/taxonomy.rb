@@ -15,7 +15,7 @@ module Spree
         end
 
         field :taxons, Taxon.connection_type, null: true, connection: true do
-          resolve TaxonResolver::ByTaxonomy
+          resolve Resolvers::Taxon::ByTaxonomy
         end
       end
     end

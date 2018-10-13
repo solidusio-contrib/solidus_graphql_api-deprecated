@@ -8,7 +8,7 @@ module Spree
         field :id, ID, null: false
         field :amount, Float, null: true
         field :state, String, null: false
-        field :order, Order, null: false,  resolve: OrderResolver::FromPayment
+        field :order, Order, null: false,  resolve: Resolvers::Order::FromPayment
         field :source_id, ID, null: false
         field :source_type, String, null: false
         field :payment_method_id, ID, null: false

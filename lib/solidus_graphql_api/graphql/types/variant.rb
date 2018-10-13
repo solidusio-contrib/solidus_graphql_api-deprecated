@@ -27,7 +27,7 @@ module Spree
           object.product.price_for(options)
         end
 
-        field :product, Product, null: true, resolve:ProductResolver::ByVariant
+        field :product, Product, null: true, resolve: Resolvers::Product::ByVariant
       end
     end
   end
