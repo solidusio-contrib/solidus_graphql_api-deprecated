@@ -6,7 +6,7 @@ describe 'OrderResolver' do
   let!(:context){{}}
   it 'should Return an from a payment' do
     payment=order.payments.first
-    expect(::Solidus::GraphQL::OrderResolver::FromPayment.call(payment,{},context).id).to equal(order.id)
+    expect(::Spree::GraphQL::OrderResolver::FromPayment.call(payment,{},context).id).to equal(order.id)
 
   end
 end

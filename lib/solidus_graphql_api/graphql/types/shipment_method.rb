@@ -1,4 +1,4 @@
-module Solidus
+module Spree
   module GraphQL
     class ShipmentMethodType < ::Types::BaseObject
        field :id, ID, null: false

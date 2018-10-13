@@ -1,5 +1,5 @@
 require_relative 'variant_type'
-module Solidus
+module Spree
   module GraphQL
     class LineItemType < Types::BaseObject
       graphql_name "LineItem"

@@ -1,5 +1,5 @@
 require_relative 'line_item_type'
-module Solidus
+module Spree
   module GraphQL
 
     class OrderType < Types::BaseObject

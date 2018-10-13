@@ -1,4 +1,4 @@
-module Solidus
+module Spree
   module GraphQL
     TaxonType = ::GraphQL::ObjectType.define do
       graphql_name "Taxon"

@@ -1,4 +1,4 @@
-module Solidus
+module Spree
   module GraphQL
     class Style < ::GraphQL::Schema::Object
       field :style_graphql_name, String, null: true

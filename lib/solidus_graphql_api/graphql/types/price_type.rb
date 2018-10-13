@@ -1,4 +1,4 @@
-module Solidus
+module Spree
   module GraphQL
     class PriceType < Types::BaseObject
       graphql_name "Price"
