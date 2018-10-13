@@ -1,4 +1,4 @@
-module Solidus
+module Spree
   module GraphQL
     class OptionValueType  < ::Types::BaseObject
       graphql_name "OptionValue"

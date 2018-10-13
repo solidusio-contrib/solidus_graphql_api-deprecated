@@ -13,7 +13,7 @@ describe "graphql product" do
     }
     GRAPHQL
 
-    response = SolidusSchema.execute(available_products)
+    response = Spree::GraphQL::Schema.execute(available_products)
     products = response.dig("data", "products")
     expect(products.count).to eq(2)
     expect(products.map {|node| node[:name]}).to_not include(inactive_product.name)
@@ -40,7 +40,7 @@ describe "graphql product" do
     }
       GRAPHQL
 
-      response = SolidusSchema.execute(variants)
+      response = Spree::GraphQL::Schema.execute(variants)
 
     end
   end

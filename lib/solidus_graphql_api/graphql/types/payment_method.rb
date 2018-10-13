@@ -1,4 +1,4 @@
-module Solidus
+module Spree
   module GraphQL
     class PaymentMethodType < ::Types::BaseObject
       field :id, ID, null: false

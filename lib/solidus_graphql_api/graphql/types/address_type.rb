@@ -1,4 +1,4 @@
-module Solidus
+module Spree
   module GraphQL
     class AddressType < ::GraphQL::Schema::Object
       graphql_name "Address"
