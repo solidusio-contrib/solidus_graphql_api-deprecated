@@ -1,4 +1,4 @@
-RSpec.describe "Order mutation" do
+describe 'Mutations' do
 
   let!(:order) {create(:order)}
   let(:variant) {create(:variant)}
@@ -6,7 +6,7 @@ RSpec.describe "Order mutation" do
   let(:context) {{}}
 
 
-  describe "OrderMutation" do
+  describe 'Order' do
 
 
     it 'should create a new order when given an e-mail address' do
@@ -58,7 +58,6 @@ RSpec.describe "Order mutation" do
       puts "Info #{response.to_json}"
       quantity=response["data"]["addOrUpdateItem"]["lineItem"]["quantity"]
       expect(quantity.to_i).to be 2
-
 
     end
   end
