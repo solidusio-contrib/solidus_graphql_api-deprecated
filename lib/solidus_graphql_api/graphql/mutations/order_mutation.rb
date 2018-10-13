@@ -21,7 +21,7 @@ module Spree
 
 
           field :order_token, String, null: true
-          field :order, OrderType, null: false
+          field :order, Types::Order, null: false
           field :errors, [String], null: false
 
           def resolve(email:)
@@ -50,8 +50,8 @@ module Spree
           argument :quantity, Integer, required: true
           argument :order_token, String, required: false
 
-          field :order, OrderType, null: true
-          field :line_item, LineItemType, null: true
+          field :order, Types::Order, null: true
+          field :line_item, Types::LineItem, null: true
           field :errors, [String], null: true
 
           def resolve(variant_id:, quantity:, order_token:)
@@ -80,9 +80,9 @@ module Spree
           argument :order_token, String, required: true
           argument :quantity, Integer, required: true
 
-          field :order, OrderType, null: false
+          field :order, Types::Order, null: false
           field :errors, [String], null: false
-          field :line_item, LineItemType, null: true
+          field :line_item, Types::LineItem, null: true
 
 
           def resolve(variant_id:, quantity:, order_token:)

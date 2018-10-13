@@ -1,2 +1,8 @@
-class Types::BaseEnum < ::GraphQL::Schema::Enum
+module Spree
+  module GraphQL
+    module Types
+      class BaseEnum < ::GraphQL::Schema::Enum
+      end
+    end
+  end
 end

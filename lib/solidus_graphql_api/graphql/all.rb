@@ -16,26 +16,27 @@ require_relative './resolvers/payment_resolver'
 #Types
 require_relative './types/shipment_method'
 require_relative './types/payment_method'
-require_relative './types/address_type'
-require_relative './types/currency_type'
-require_relative './types/price_type'
-require_relative './types/option_value_type'
-require_relative './types/option_type'
-require_relative './types/payment_type'
-require_relative './types/style_type'
-require_relative './types/attachment_type'
-require_relative './types/image_type'
-require_relative './types/product_type'
-require_relative './types/variant_type'
-require_relative './types/order_type'
+require_relative './types/address'
+require_relative './types/currency'
+require_relative './types/price'
+require_relative './types/option_value'
+require_relative './types/option'
+require_relative './types/payment'
+require_relative './types/style'
+require_relative './types/attachment'
+require_relative './types/image'
+require_relative './types/product'
+require_relative './types/variant'
+require_relative './types/order'
+require_relative './types/line_item'
 
 
 #queries
-require_relative './types/query_type'
+require_relative './types/query'
 
 #mutations
 
 require_relative './mutations/base_mutation'
 require_relative './mutations/order_mutation'
-require_relative './types/mutation_type'
+require_relative './types/mutation'
 
