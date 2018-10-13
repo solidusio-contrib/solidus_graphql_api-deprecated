@@ -1,4 +1,4 @@
-require_relative 'line_item'
+require_relative './line_item'
 module Spree
   module GraphQL
     module Types

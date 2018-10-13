@@ -1,4 +1,4 @@
-require_relative 'variant'
+require_relative './variant'
 module Spree
   module GraphQL
     module Types
