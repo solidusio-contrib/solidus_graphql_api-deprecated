@@ -46,19 +46,16 @@ To perform a test GraphQL query, you can use any of the following methods:
 
 ```shell
 # When using HTTP GET (arguments passed as query strings):
-
 wget -qO- 'http://localhost:3000/graphql?query={ products { id }}'
 GET 'http://localhost:3000/graphql?query={ products { id }}'
 
 # When using HTTP POST (arguments passed in JSON body):
-
 curl http://localhost:3000/graphql -H content-type:application/json -d '{ "query": " { products { id }}" }' 
 wget http://localhost:3000/graphql --header content-type:application/json -qO- --post-data '{ "query": " { products { id }}" }' 
 echo '{ "query": "{products { id }}" }' |  POST -c application/json http://localhost:3000/graphql
 POST -c application/json http://localhost:3000/graphql <<< '{ "query": "{products { id }}" }'
 
 # When using HTTP POST with query strings (also works, may be simpler to write):
-
 curl http://localhost:3000/graphql -d 'query={ products { id }}'
 wget http://localhost:3000/graphql -qO- --post-data 'query={ products { id }}'
 echo 'query={ products { id }}' | POST http://localhost:3000/graphql
