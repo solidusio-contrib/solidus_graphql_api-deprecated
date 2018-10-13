@@ -2,16 +2,16 @@
 require_relative './types/base_object'
 
 #Resolvers
-require_relative './resolvers/product_resolver'
-require_relative './resolvers/variant_resolver'
-require_relative './resolvers/user_resolver'
-require_relative './resolvers/line_item_resolver'
-require_relative './resolvers/order_resolver'
-require_relative './resolvers/address_resolver'
-require_relative './resolvers/shipment_method_resolver'
-require_relative './resolvers/payment_method_resolver'
-require_relative './resolvers/address_resolver'
-require_relative './resolvers/payment_resolver'
+require_relative './resolvers/product'
+require_relative './resolvers/variant'
+require_relative './resolvers/user'
+require_relative './resolvers/line_item'
+require_relative './resolvers/order'
+require_relative './resolvers/address'
+require_relative './resolvers/shipment_method'
+require_relative './resolvers/payment_method'
+require_relative './resolvers/address'
+require_relative './resolvers/payment'
 
 #Types
 require_relative './types/shipment_method'
@@ -36,7 +36,7 @@ require_relative './types/query'
 
 #mutations
 
-require_relative './mutations/base_mutation'
-require_relative './mutations/order_mutation'
+require_relative './mutations/base'
+require_relative './mutations/order'
 require_relative './types/mutation'
 
