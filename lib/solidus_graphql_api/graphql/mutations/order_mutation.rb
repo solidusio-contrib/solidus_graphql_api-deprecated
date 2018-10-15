@@ -1,4 +1,4 @@
-module Solidus
+module Spree
   module GraphQL
     module Mutations
       module Order
@@ -11,8 +11,8 @@ module Solidus
           Spree::Variant.find(variant_id)
         end
 
-        class CreateOrder < ::Solidus::GraphQL::Mutations::BaseMutation
-          include Solidus::GraphQL::Mutations::Order
+        class CreateOrder < ::Spree::GraphQL::Mutations::BaseMutation
+          include Spree::GraphQL::Mutations::Order
 
           graphql_name 'CreateOrder'
           description 'Create an Order '
@@ -41,8 +41,8 @@ module Solidus
           end
         end
 
-        class AddOrUpdateCartItem < ::Solidus::GraphQL::Mutations::BaseMutation
-          include Solidus::GraphQL::Mutations::Order
+        class AddOrUpdateCartItem < ::Spree::GraphQL::Mutations::BaseMutation
+          include Spree::GraphQL::Mutations::Order
           graphql_name 'AddOrUpdateCartItem'
           description 'Add or update an item'
 
@@ -73,8 +73,8 @@ module Solidus
           end
         end
 
-        class RemoveItemFromCart < ::Solidus::GraphQL::Mutations::BaseMutation
-          include Solidus::GraphQL::Mutations::Order
+        class RemoveItemFromCart < ::Spree::GraphQL::Mutations::BaseMutation
+          include Spree::GraphQL::Mutations::Order
           graphql_name 'AddItemToCart'
           argument :variant_id, ID, required: true
           argument :order_token, String, required: true

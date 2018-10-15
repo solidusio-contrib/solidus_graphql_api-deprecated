@@ -1,4 +1,4 @@
-module Solidus
+module Spree
   module GraphQL
     class ShipmentMethodResolver
       class All

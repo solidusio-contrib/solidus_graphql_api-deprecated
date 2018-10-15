@@ -1,4 +1,4 @@
-module Solidus
+module Spree
   module GraphQL
     class CurrencyType < Types::BaseObject
       graphql_name "Currency"

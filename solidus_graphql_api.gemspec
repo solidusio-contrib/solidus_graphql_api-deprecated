@@ -5,8 +5,8 @@ require 'solidus_graphql_api/version'
 Gem::Specification.new do |s|
   s.author      = 'Daniel Honig'
   s.name        = 'solidus_graphql_api'
-  s.version     = SolidusGraphqlApi::VERSION
-  s.summary     = 'Solidus GraphQL Api'
+  s.version     = Spree::GraphQL::VERSION
+  s.summary     = 'Solidus GraphQL API'
   s.description = 'GraphQL comes to Solidus'
   s.license     = 'BSD-3-Clause'
 

@@ -1,4 +1,4 @@
-module Solidus
+module Spree
   module GraphQL
     class ProductType < ::Types::BaseObject
       graphql_name "Product"

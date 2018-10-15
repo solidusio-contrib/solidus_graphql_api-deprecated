@@ -1,4 +1,4 @@
-module Solidus
+module Spree
   module GraphQL
     require_relative './attachment_type'
     class ImageType < ::Types::BaseObject

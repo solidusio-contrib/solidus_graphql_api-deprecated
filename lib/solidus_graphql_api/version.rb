@@ -1,3 +1,5 @@
-module SolidusGraphqlApi
-  VERSION = '0.0.1'
+module Spree
+  module GraphQL
+    VERSION = '0.0.1'
+  end
 end

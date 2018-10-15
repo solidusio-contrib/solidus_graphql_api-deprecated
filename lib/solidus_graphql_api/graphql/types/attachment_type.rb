@@ -1,4 +1,4 @@
-module Solidus
+module Spree
   module GraphQL
     class Attachment < ::GraphQL::Schema::Object
     graphql_name "Attachment"
