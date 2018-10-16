@@ -7,6 +7,10 @@ module Spree
           description 'Products'
         end
 
+        field :taxonomies, [Taxonomy], null: true, resolve: Resolvers::Taxonomy::All  do
+          description "Taxonomies"
+        end
+
         field :shipping_methods, [ShipmentMethod], null: true, resolve: Resolvers::ShipmentMethod::All do
           description 'Shipping Methods'
         end

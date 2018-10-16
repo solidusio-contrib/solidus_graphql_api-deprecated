@@ -18,13 +18,13 @@ gem 'solidus_graphql_api', github: 'boomerdigital/solidus_graphql_api'
 gem 'graphiql-rails', group: :development
 ```
 
-NOTE: If this is your new Rails + Solidus application, please don't forget to run the Solidus installation steps, which at a minimum consist of adding the database `username`, `password`, and `host` in `config/database.yml`'s `default` block and running `bundle exec rails g spree:install`.
-
 2) Run `bundle`:
 
 ```shell
 bundle
 ```
+
+NOTE: If this is your new Rails + Solidus application, please don't forget to run the Solidus installation steps, which at a minimum consist of adding the database `username`, `password`, and `host` in `config/database.yml`'s `default` block and running `bundle exec rails g spree:install`.
 
 3) Add routes to your application's `config/routes.rb` to serve GraphQL and optionally also GraphiQL queries in development mode:
 
@@ -82,7 +82,7 @@ bundle
 bundle exec rake
 ```
 
-When testing your applications integration with this extension you may use it's factories.
+When testing your applications integration with this extension you may use its factories.
 Simply add this require statement to your spec_helper:
 
 ```ruby
