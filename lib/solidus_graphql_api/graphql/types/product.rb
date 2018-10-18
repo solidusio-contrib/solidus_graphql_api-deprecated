@@ -12,11 +12,11 @@ module Spree
         field :master, Variant, null: true
         field :slug, String, null: true
         field :images, [Image, null: true], null: true
-        field :option_types, Option.connection_type, null: true
+        field :option_types, [Option], null: true, resolve: Resolvers::Product::OptionTypes
 
-        field :variants, Variant.connection_type, null: true, resolve: Resolvers::Variant::ByProduct
+        field :variants, [Variant], null: true, resolve: Resolvers::Product::Variants
 
-        field :option_values_by_option_type, OptionValue.connection_type, null: true, resolve: Resolvers::Product::OptionValues
+        field :option_values_by_option_type, [OptionValue], null: true, resolve: Resolvers::Product::OptionValues
       end
     end
   end

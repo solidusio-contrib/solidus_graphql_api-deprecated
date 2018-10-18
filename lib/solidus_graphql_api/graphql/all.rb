@@ -13,6 +13,7 @@ require_relative './resolvers/shipment_method'
 require_relative './resolvers/payment_method'
 require_relative './resolvers/address'
 require_relative './resolvers/payment'
+require_relative './resolvers/option_type'
 
 # Types
 require_relative './types/address'

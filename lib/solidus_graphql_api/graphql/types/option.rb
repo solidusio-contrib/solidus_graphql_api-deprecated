@@ -5,7 +5,7 @@ module Spree
         graphql_name 'Option'
 
         field :id, ID, null: false
-        field :graphql_name, String, null: false
+        field :name, String, null: false
         field :presentation, String, null: true
         field :position, Integer, null: true
       end

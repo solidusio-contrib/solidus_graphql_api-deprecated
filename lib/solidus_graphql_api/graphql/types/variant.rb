@@ -11,7 +11,7 @@ module Spree
 
         field :id, ID, null: true
         field :sku, String, null: true
-        field :graphql_name, String, null: true
+        field :name, String, null: true
         field :weight, String, null: true
         field :height, String, null: true
         field :images, [Image, null: true], null: true
