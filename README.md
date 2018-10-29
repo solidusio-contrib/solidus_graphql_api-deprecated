@@ -46,31 +46,31 @@ To perform a test GraphQL query, you can use any of the following methods:
 
 ```shell
 # If using HTTP GET (arguments passed as query strings):
-wget -qO- 'http://localhost:3000/graphql?query={ products { id }}'
-GET 'http://localhost:3000/graphql?query={ products { id }}'
+wget -qO- 'http://localhost:3000/graphql?query={ shop { name } }'
+GET 'http://localhost:3000/graphql?query={ shop { name } }'
 
 # If using HTTP POST (arguments passed in JSON body):
-curl http://localhost:3000/graphql -H content-type:application/json -d '{ "query": " { products { id }}" }' 
-wget http://localhost:3000/graphql --header content-type:application/json -qO- --post-data '{ "query": " { products { id }}" }' 
-echo '{ "query": "{products { id }}" }' |  POST -c application/json http://localhost:3000/graphql
-POST -c application/json http://localhost:3000/graphql <<< '{ "query": "{products { id }}" }'
+curl http://localhost:3000/graphql -H content-type:application/json -d '{ "query": " { shop { name } }" }'
+wget http://localhost:3000/graphql --header content-type:application/json -qO- --post-data '{ "query": " { shop { name } }" }'
+echo '{ "query": "{ shop { name } }" }' | POST -c application/json http://localhost:3000/graphql
+POST -c application/json http://localhost:3000/graphql <<< '{ "query": "{ shop { name } }" }'
 
 # If using HTTP POST with query strings (also works, may be simpler to write during testing):
-curl http://localhost:3000/graphql -d 'query={ products { id }}'
-wget http://localhost:3000/graphql -qO- --post-data 'query={ products { id }}'
-echo 'query={ products { id }}' | POST http://localhost:3000/graphql
-POST http://localhost:3000/graphql <<< 'query={ products { id }}'
+curl http://localhost:3000/graphql -d 'query={ shop { name } }'
+wget http://localhost:3000/graphql -qO- --post-data 'query={ shop { name } }'
+echo 'query={ shop { name } }' | POST http://localhost:3000/graphql
+POST http://localhost:3000/graphql <<< 'query={ shop { name } }'
 ```
 
 Assuming you are running this on a default Rails/Solidus installation with sample data, the response should look like this:
 
 ```json
-{"data":{"products":[{"id":"3"},{"id":"1"},{"id":"2"},{"id":"4"},{"id":"8"},{"id":"5"},{"id":"9"},{"id":"7"},{"id":"6"}]}}
+{"data":{"shop":{"name":"Sample Store"}}}
 ```
 
 To open GraphiQL browser, visit [http://localhost:3000/graphiql](http://localhost:3000/graphiql) in your browser while in development environment.
 
-To see what queries can currently be specified, see GraphiQL's web interface or files `lib/solidus_graphql_api/graphql/types/query_type.rb` and `lib/solidus_graphql_api/graphql/types/mutation_type.rb`.
+To see what queries can currently be specified, see GraphiQL's web interface or files `lib/solidus_graphql_api/graphql/schema/types/query_root.rb` and `lib/solidus_graphql_api/graphql/schema/types/mutation.rb`.
 
 Testing
 -------
