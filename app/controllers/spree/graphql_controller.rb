@@ -19,7 +19,7 @@ module Spree
          current_spree_user: current_spree_user,
          current_store: current_store,
       }
-      result = Spree::GraphQL::Schema.execute(query, variables: variables, context: context, operation_name: operation_name)
+      result = Spree::GraphQL::Schema::Schema.execute(query, variables: variables, context: context, operation_name: operation_name)
       render json: result
     rescue => e
       raise e unless Rails.env.development?

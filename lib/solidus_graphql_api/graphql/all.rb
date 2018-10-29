@@ -1,43 +1,62 @@
-require_relative './types/base_object'
+require 'graphql'
 
-# Resolvers
-require_relative './resolvers/product'
-require_relative './resolvers/taxon'
-require_relative './resolvers/taxonomy'
-require_relative './resolvers/variant'
-require_relative './resolvers/user'
-require_relative './resolvers/line_item'
-require_relative './resolvers/order'
-require_relative './resolvers/address'
-require_relative './resolvers/shipment_method'
-require_relative './resolvers/payment_method'
-require_relative './resolvers/address'
-require_relative './resolvers/payment'
-require_relative './resolvers/option_type'
+module Spree
+  module GraphQL
 
-# Types
-require_relative './types/address'
-require_relative './types/currency'
-require_relative './types/price'
-require_relative './types/option_value'
-require_relative './types/option'
-require_relative './types/payment'
-require_relative './types/style'
-require_relative './types/attachment'
-require_relative './types/image'
-require_relative './types/taxon'
-require_relative './types/taxonomy'
-require_relative './types/product'
-require_relative './types/shipment_method'
-require_relative './types/payment_method'
-require_relative './types/variant'
-require_relative './types/order'
-require_relative './types/line_item'
+    module Schema
+      module Inputs
+      end
+      module Interfaces
+      end
+      module Payloads
+      end
+      module Types
+      end
+    end
 
-# Queries
-require_relative './types/query'
+    module Inputs
+    end
+    module Interfaces
+    end
+    module Payloads
+    end
+    module Types
+    end
 
-# Mutations
-require_relative './mutations/base'
-require_relative './mutations/order'
-require_relative './types/mutation'
+    class NotImplementedError < ::GraphQL::ExecutionError
+      def initialize
+        super "Not implemented yet"
+      end
+    end
+  end
+end
+
+# When requiring new files, please remember that most files need to be added
+# to both "Implemntation part" and "Schema part" listed further below.
+
+# Implementation parts:
+
+require_relative "./types/base_object.rb"
+require_relative "./types/base_enum.rb"
+require_relative "./types/base_scalar.rb"
+require_relative "./types/base_input.rb"
+require_relative "./types/base_interface.rb"
+require_relative "./types/base_union.rb"
+
+require_relative "./types/shop.rb"
+
+require_relative "./types/query_root.rb"
+
+# Schema parts:
+
+require_relative "./schema/types/base_object.rb"
+require_relative "./schema/types/base_enum.rb"
+require_relative "./schema/types/base_scalar.rb"
+require_relative "./schema/types/base_input.rb"
+require_relative "./schema/types/base_interface.rb"
+require_relative "./schema/types/base_union.rb"
+
+require_relative "./schema/types/shop.rb"
+
+require_relative "./schema/types/query_root.rb"
+require_relative "./schema/schema.rb"
