@@ -1,14 +1,15 @@
 ENV['RAILS_ENV'] ||= 'test'
 
 
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../dummy/config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 
 require 'rspec/rails'
 require 'ffaker'
 require 'factory_bot'
 require 'spree/testing_support/factories'
-require 'spree/testing_support/capybara_ext'
+#require 'spree/testing_support/capybara_ext'
+require "spree/testing_support/preferences"
 require 'spree/testing_support/authorization_helpers'
 require 'spree/testing_support/order_walkthrough'
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
@@ -25,9 +26,6 @@ require "byebug"
 # in spec/support/ and its subdirectories.
 Dir[File.dirname(__FILE__) + "/support/**/*.rb"].each { |f| require f }
 
-require "spree/testing_support/factories"
-require "spree/testing_support/preferences"
-require "spree/testing_support/authorization_helpers"
 
 ActiveJob::Base.queue_adapter = :test
 

@@ -1,8 +1,3 @@
-module Spree
-  module GraphQL
-    module Types
-      class BaseUnion < ::GraphQL::Schema::Union
-      end
-    end
-  end
+module Spree::GraphQL::Types::BaseUnion
 end
+
