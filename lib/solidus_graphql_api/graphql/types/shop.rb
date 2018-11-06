@@ -20,7 +20,7 @@ module Spree::GraphQL::Types::Shop
   # description: A description of the shop.
   # @return [Types::String]
   def description()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.meta_description
   end
 
   # moneyFormat: A string representing the way currency is formatted when the currency isn’t specified.
@@ -32,7 +32,7 @@ module Spree::GraphQL::Types::Shop
   # name: The shop’s name.
   # @return [Types::String!]
   def name()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.name
   end
 
   # paymentSettings: Settings related to payments.

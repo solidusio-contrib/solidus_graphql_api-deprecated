@@ -313,6 +313,7 @@ module Spree::GraphQL
     # description: A description of the shop.
     # @return [Types::String]
     describe 'description' do
+      let!(:description) {'Sample Store Description'}
       let!(:query) {
         %q{
           query {
@@ -326,16 +327,17 @@ module Spree::GraphQL
         {
           data: {
             shop: {
-              description: 'String',
+              description: description,
             }
           },
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        ctx[:current_store].meta_description = description
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
     end
 
     # moneyFormat: A string representing the way currency is formatted when the currency isn’t specified.
@@ -382,16 +384,16 @@ module Spree::GraphQL
         {
           data: {
             shop: {
-              name: 'String',
+              name: shop.name,
             }
           },
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
     end
 
     # paymentSettings: Settings related to payments.
