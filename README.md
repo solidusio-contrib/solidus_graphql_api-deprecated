@@ -375,9 +375,9 @@ For helper types and classes which are not directly accessible from the outside 
 - [ ] DiscountCodeApplication.value
 - [ ] DisplayableError.field
 - [ ] DisplayableError.message
-- [ ] Domain.host
-- [ ] Domain.sslEnabled
-- [ ] Domain.url
+- [x] Domain.host
+- [x] Domain.sslEnabled
+- [x] Domain.url
 - [ ] Fulfillment.fulfillmentLineItems(first, after, last, before, reverse)
 - [ ] FulfillmentLineItem.lineItem
 - [ ] FulfillmentLineItem.quantity
@@ -552,7 +552,7 @@ For helper types and classes which are not directly accessible from the outside 
 - [ ] ShopPolicy.url
 - [x] Shop.description
 - [x] Shop.name
-- [ ] Shop.primaryDomain
+- [x] Shop.primaryDomain
 - [ ] Shop.privacyPolicy
 - [ ] Shop.productByHandle(handle)
 - [ ] Shop.products(first, after, last, before, reverse, sortKey, query)

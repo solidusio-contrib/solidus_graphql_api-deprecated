@@ -459,19 +459,19 @@ module Spree::GraphQL
           data: {
             shop: {
               primaryDomain: {
-                host: 'String',
-                sslEnabled: 'Boolean',
-                url: 'URL',
+                host: ctx[:current_store].url,
+                sslEnabled: Rails.configuration.force_ssl,
+                url: ((@ssl_enabled ? 'https://' : 'http://') + ctx[:current_store].url),
               },
             }
           },
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
     end
 
     # privacyPolicy: The shop’s privacy policy.

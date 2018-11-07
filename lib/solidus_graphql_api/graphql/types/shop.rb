@@ -44,7 +44,7 @@ module Spree::GraphQL::Types::Shop
   # primaryDomain: The shop’s primary domain.
   # @return [Types::Domain!]
   def primary_domain()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    ::Spree::Domain.new(context[:current_store].url, Rails.configuration.force_ssl)
   end
 
   # privacyPolicy: The shop’s privacy policy.
