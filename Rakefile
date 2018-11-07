@@ -19,7 +19,7 @@ task :first_run do
   end
 end
 
-desc 'Generates a dummy app for testing'
+desc 'Shorthand to generate dummy app for testing the extension with defaults'
 task :test_app do
   ENV['LIB_NAME'] = 'solidus_graphql_api'
   Rake::Task['extension:test_app'].invoke
