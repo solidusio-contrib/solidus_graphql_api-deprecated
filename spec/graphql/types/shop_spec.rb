@@ -356,16 +356,16 @@ module Spree::GraphQL
         {
           data: {
             shop: {
-              moneyFormat: 'String',
+              moneyFormat: '${{amount}}',
             }
           },
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
     end
 
     # name: The shop’s name.

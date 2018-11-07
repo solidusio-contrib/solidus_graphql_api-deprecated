@@ -544,7 +544,7 @@ For helper types and classes which are not directly accessible from the outside 
 - [ ] ShippingRate.title
 - [ ] Shop.collectionByHandle(handle)
 - [ ] Shop.collections(first, after, last, before, reverse, sortKey, query)
-- [ ] Shop.moneyFormat
+- [x] Shop.moneyFormat
 - [ ] Shop.paymentSettings
 - [ ] ShopPolicy.body
 - [ ] ShopPolicy.id

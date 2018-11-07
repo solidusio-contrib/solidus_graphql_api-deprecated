@@ -26,7 +26,9 @@ module Spree::GraphQL::Types::Shop
   # moneyFormat: A string representing the way currency is formatted when the currency isn’t specified.
   # @return [Types::String!]
   def money_format()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    format = ::Spree::Money.new(123456789, currency: Spree::Config.currency, no_cents: true).format
+    format.sub! /1.+?9/, '{{amount}}'
+    format
   end
 
   # name: The shop’s name.
