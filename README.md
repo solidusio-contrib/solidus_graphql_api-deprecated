@@ -492,11 +492,11 @@ For helper types and classes which are not directly accessible from the outside 
 - [ ] PricingPercentageValue.percentage
 - [ ] Product.availableForSale
 - [ ] Product.collections(first, after, last, before, reverse)
-- [ ] Product.createdAt
+- [x] Product.createdAt
 - [ ] Product.descriptionHtml
-- [ ] Product.description(truncateAt)
-- [ ] Product.handle
-- [ ] Product.id
+- [x] Product.description(truncateAt)
+- [x] Product.handle
+- [x] Product.id
 - [ ] Product.images(first, after, last, before, reverse, sortKey, maxWidth, maxHeight, crop, scale)
 - [ ] Product.onlineStoreUrl
 - [ ] ProductOption.id
@@ -507,10 +507,10 @@ For helper types and classes which are not directly accessible from the outside 
 - [ ] ProductPriceRange.maxVariantPrice
 - [ ] ProductPriceRange.minVariantPrice
 - [ ] Product.productType
-- [ ] Product.publishedAt
+- [x] Product.publishedAt
 - [ ] Product.tags
-- [ ] Product.title
-- [ ] Product.updatedAt
+- [x] Product.title
+- [x] Product.updatedAt
 - [ ] ProductVariant.availableForSale
 - [ ] Product.variantBySelectedOptions(selectedOptions)
 - [ ] ProductVariant.compareAtPrice
@@ -555,7 +555,7 @@ For helper types and classes which are not directly accessible from the outside 
 - [x] Shop.primaryDomain
 - [ ] Shop.privacyPolicy
 - [ ] Shop.productByHandle(handle)
-- [ ] Shop.products(first, after, last, before, reverse, sortKey, query)
+- [x] Shop.products(first, after, last, before, reverse, sortKey, query) - (`query` not supported yet)
 - [ ] Shop.productTypes(first)
 - [ ] Shop.refundPolicy
 - [ ] Shop.shipsToCountries

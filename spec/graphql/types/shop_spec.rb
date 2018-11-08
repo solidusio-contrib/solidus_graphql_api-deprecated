@@ -4,6 +4,7 @@ require 'spec_helper'
 module Spree::GraphQL
   describe 'Types::Shop' do
     let!(:shop) { create(:store) }
+    let!(:products) { create_list(:product, 10) }
     let!(:ctx) { { current_store: current_store } }
     let!(:variables) { }
 
@@ -889,124 +890,10 @@ module Spree::GraphQL
           query {
             shop {
               products(
-                first: Int,
-                after: "",
-                last: Int,
-                before: "",
-                reverse: false,
-                sortKey: "TITLE | PRODUCT_TYPE | VENDOR | UPDATED_AT | CREATED_AT | BEST_SELLING | PRICE | ID | RELEVANCE",
-                query: ""
+                first: 1
               ) {
-                edges {
-                  node {
-                    availableForSale
-                    collections(
-                      first: Int,
-                      after: "",
-                      last: Int,
-                      before: "",
-                      reverse: false
-                    ) {
-                      edges {
-                        # ...
-                      }
-                      pageInfo {
-                        # ...
-                      }
-                    }
-                    createdAt
-                    description(truncateAt: Int)
-                    descriptionHtml
-                    handle
-                    id
-                    images(
-                      first: Int,
-                      after: "",
-                      last: Int,
-                      before: "",
-                      reverse: false,
-                      sortKey: "CREATED_AT | POSITION | ID | RELEVANCE",
-                      maxWidth: Int,
-                      maxHeight: Int,
-                      crop: "CENTER | TOP | BOTTOM | LEFT | RIGHT",
-                      scale: Int
-                    ) {
-                      edges {
-                        # ...
-                      }
-                      pageInfo {
-                        # ...
-                      }
-                    }
-                    onlineStoreUrl
-                    options(first: Int) {
-                      id
-                      name
-                      values
-                    }
-                    priceRange {
-                      maxVariantPrice {
-                        # ...
-                      }
-                      minVariantPrice {
-                        # ...
-                      }
-                    }
-                    productType
-                    publishedAt
-                    tags
-                    title
-                    updatedAt
-                    variantBySelectedOptions(
-                      selectedOptions: [{
-                        name: "String",
-                        value: "String"
-                      }]
-                    ) {
-                      available
-                      availableForSale
-                      compareAtPrice
-                      id
-                      image(
-                        maxWidth: Int,
-                        maxHeight: Int,
-                        crop: "CENTER | TOP | BOTTOM | LEFT | RIGHT",
-                        scale: Int
-                      ) {
-                        # ...
-                      }
-                      price
-                      product
-                      selectedOptions {
-                        # ...
-                      }
-                      sku
-                      title
-                      weight
-                      weightUnit
-                    }
-                    variants(
-                      first: Int,
-                      after: "",
-                      last: Int,
-                      before: "",
-                      reverse: false,
-                      sortKey: "TITLE | SKU | POSITION | ID | RELEVANCE"
-                    ) {
-                      edges {
-                        # ...
-                      }
-                      pageInfo {
-                        # ...
-                      }
-                    }
-                    vendor
-                  }
-                }
-                pageInfo {
-                  hasNextPage
-                  hasPreviousPage
-                }
+                edges { node { handle id } }
+                pageInfo { hasNextPage hasPreviousPage }
               }
             }
           }
@@ -1017,78 +904,12 @@ module Spree::GraphQL
           data: {
             shop: {
               products: {
-                edges: {
-                  node: [{
-                    availableForSale: 'Boolean',
-                    collections: {
-                      edges: {
-                        # ...
-                      },
-                      pageInfo: {
-                        # ...
-                      },
-                    },
-                    createdAt: 'DateTime',
-                    description: 'String',
-                    descriptionHtml: 'HTML',
-                    handle: 'String',
-                    id: 'ID',
-                    images: {
-                      edges: {
-                        # ...
-                      },
-                      pageInfo: {
-                        # ...
-                      },
-                    },
-                    onlineStoreUrl: 'URL',
-                    options: {
-                      id: 'ID',
-                      name: 'String',
-                      values: 'String',
-                    },
-                    priceRange: {
-                      maxVariantPrice: {
-                        # ...
-                      },
-                      minVariantPrice: {
-                        # ...
-                      },
-                    },
-                    productType: 'String',
-                    publishedAt: 'DateTime',
-                    tags: 'String',
-                    title: 'String',
-                    updatedAt: 'DateTime',
-                    variantBySelectedOptions: {
-                      available: 'Boolean',
-                      availableForSale: 'Boolean',
-                      compareAtPrice: 'Money',
-                      id: 'ID',
-                      image: {
-                        # ...
-                      },
-                      price: 'Money',
-                      product: 'Product...',
-                      selectedOptions: {
-                        # ...
-                      },
-                      sku: 'String',
-                      title: 'String',
-                      weight: 'Float',
-                      weightUnit: 'KILOGRAMS | GRAMS | POUNDS | OUNCES',
-                    },
-                    variants: {
-                      edges: {
-                        # ...
-                      },
-                      pageInfo: {
-                        # ...
-                      },
-                    },
-                    vendor: 'String',
-                  }],
-                },
+                edges: [{
+                  node: {
+                    id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.first),
+                    handle: products.first.slug,
+                  },
+                }],
                 pageInfo: {
                   hasNextPage: true,
                   hasPreviousPage: false,
@@ -1099,10 +920,207 @@ module Spree::GraphQL
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
+
+      context 'reverse' do
+        let!(:query) {
+          %q{
+            query {
+              shop {
+                products(
+                  first: 1
+                  reverse: true,
+                ) {
+                  edges { node { handle id } }
+                  pageInfo { hasNextPage hasPreviousPage }
+                }
+              }
+            }
+          }
+        }
+        let!(:result) {
+          {
+            data: {
+              shop: {
+                products: {
+                  edges: [{
+                    node: {
+                      id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.last),
+                      handle: products.last.slug,
+                    },
+                  }],
+                  pageInfo: {
+                    hasNextPage: true,
+                    hasPreviousPage: false,
+                  },
+                },
+              }
+            },
+            #errors: {},
+          }
+        }
+        it 'succeeds' do
+          execute
+          expect(response_hash).to eq(result_hash)
+        end
+      end
+      context 'sortKey' do
+        context 'createdAt' do
+          let!(:query) {
+            %q{
+              query {
+                shop {
+                  products( last: 1 reverse: false, sortKey: CREATED_AT) {
+                    edges { node { createdAt } }
+                    pageInfo { hasNextPage hasPreviousPage }
+                  }
+                }
+              }
+            }
+          }
+          let!(:result) {
+            {
+              data: {
+                shop: {
+                  products: {
+                    edges: [{
+                      node: {
+                        createdAt: products.sort{|a,b| a.created_at <=> b.created_at }.last.created_at.iso8601,
+                      },
+                    }],
+                    pageInfo: {
+                      hasNextPage: false,
+                      hasPreviousPage: true,
+                    },
+                  },
+                }
+              },
+              #errors: {},
+            }
+          }
+          it 'succeeds' do
+            execute
+            expect(response_hash).to eq(result_hash)
+          end
+        end
+        context 'updatedAt' do
+          let!(:query) {
+            %q{
+              query {
+                shop {
+                  products( last: 1 reverse: false, sortKey: CREATED_AT) {
+                    edges { node { updatedAt } }
+                    pageInfo { hasNextPage hasPreviousPage }
+                  }
+                }
+              }
+            }
+          }
+          let!(:result) {
+            {
+              data: {
+                shop: {
+                  products: {
+                    edges: [{
+                      node: {
+                        updatedAt: products.sort{|a,b| a.updated_at <=> b.updated_at }.last.updated_at.iso8601,
+                      },
+                    }],
+                    pageInfo: {
+                      hasNextPage: false,
+                      hasPreviousPage: true,
+                    },
+                  },
+                }
+              },
+              #errors: {},
+            }
+          }
+          it 'succeeds' do
+            execute
+            expect(response_hash).to eq(result_hash)
+          end
+        end
+        context 'title' do
+          let!(:query) {
+            %q{
+              query {
+                shop {
+                  products( first: 1 reverse: false, sortKey: TITLE) {
+                    edges { node { title } }
+                    pageInfo { hasNextPage hasPreviousPage }
+                  }
+                }
+              }
+            }
+          }
+          let!(:result) {
+            {
+              data: {
+                shop: {
+                  products: {
+                    edges: [{
+                      node: {
+                        title: products.sort{|a,b| a.name <=> b.name }.first.name,
+                      },
+                    }],
+                    pageInfo: {
+                      hasNextPage: true,
+                      hasPreviousPage: false,
+                    },
+                  },
+                }
+              },
+              #errors: {},
+            }
+          }
+          it 'succeeds' do
+            execute
+            expect(response_hash).to eq(result_hash)
+          end
+        end
+        context 'id' do
+          let!(:query) {
+            %q{
+              query {
+                shop {
+                  products( first: 1 reverse: true, sortKey: ID) {
+                    edges { node { id } }
+                    pageInfo { hasNextPage hasPreviousPage }
+                  }
+                }
+              }
+            }
+          }
+          let!(:result) {
+            {
+              data: {
+                shop: {
+                  products: {
+                    edges: [{
+                      node: {
+                        id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.sort{|a,b| a.id <=> b.id }.last),
+                      },
+                    }],
+                    pageInfo: {
+                      hasNextPage: true,
+                      hasPreviousPage: false,
+                    },
+                  },
+                }
+              },
+              #errors: {},
+            }
+          }
+          it 'succeeds' do
+            execute
+            expect(response_hash).to eq(result_hash)
+          end
+        end
+      end
     end
 
     # refundPolicy: The shop’s refund policy.

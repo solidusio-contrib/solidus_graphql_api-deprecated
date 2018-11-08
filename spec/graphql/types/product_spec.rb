@@ -3,6 +3,7 @@ require 'spec_helper'
 
 module Spree::GraphQL
   describe 'Types::Product' do
+    let!(:shop) { create(:store) }
     let!(:product) { create(:product) }
     let!(:ctx) { { current_store: current_store } }
     let!(:variables) { }
@@ -154,8 +155,14 @@ module Spree::GraphQL
       let!(:query) {
         %q{
           query {
-            product {
-              createdAt
+            shop {
+              products(first: 1) {
+                edges {
+                  node {
+                    createdAt
+                  }
+                }
+              }
             }
           }
         }
@@ -163,17 +170,23 @@ module Spree::GraphQL
       let!(:result) {
         {
           data: {
-            product: {
-              createdAt: 'DateTime',
+            shop: {
+              products: {
+                edges: [{
+                  node: {
+                    createdAt: product.created_at.iso8601
+                  }
+                }]
+              }
             }
           },
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
     end
 
     # description: Stripped description of the product, single line with HTML tags removed.
@@ -183,8 +196,14 @@ module Spree::GraphQL
       let!(:query) {
         %q{
           query {
-            product {
-              description(truncateAt: Int)
+            shop {
+              products(first: 1) {
+                edges {
+                  node {
+                    description
+                  }
+                }
+              }
             }
           }
         }
@@ -192,17 +211,49 @@ module Spree::GraphQL
       let!(:result) {
         {
           data: {
-            product: {
-              description: 'String',
+            shop: {
+              products: {
+                edges: [{
+                  node: {
+                    description: product.description,
+                  }
+                }]
+              }
             }
           },
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
+
+      context 'truncateAt' do
+        let!(:query) {
+          %q{
+            query {
+              shop { products(first: 1) { edges { node {
+                description(truncateAt: 5)
+              } } } }
+            }
+          }
+        }
+        let!(:result) {
+          {
+            data: {
+              shop: { products: { edges: [{ node: {
+                description: product.description[0..1] + '...'
+              } }] } }
+            },
+            #errors: {},
+          }
+        }
+        it 'succeeds' do
+          execute
+          expect(response_hash).to eq(result_hash)
+        end
+      end
     end
 
     # descriptionHtml: The description of the product, complete with HTML formatting.
@@ -239,8 +290,14 @@ module Spree::GraphQL
       let!(:query) {
         %q{
           query {
-            product {
-              handle
+            shop {
+              products(first: 1) {
+                edges {
+                  node {
+                    handle
+                  }
+                }
+              }
             }
           }
         }
@@ -248,17 +305,23 @@ module Spree::GraphQL
       let!(:result) {
         {
           data: {
-            product: {
-              handle: 'String',
+            shop: {
+              products: {
+                edges: [{
+                  node: {
+                    handle: product.slug
+                  }
+                }]
+              }
             }
           },
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
     end
 
     # id: Globally unique identifier.
@@ -513,8 +576,14 @@ module Spree::GraphQL
       let!(:query) {
         %q{
           query {
-            product {
-              publishedAt
+            shop {
+              products(first: 1) {
+                edges {
+                  node {
+                    publishedAt
+                  }
+                }
+              }
             }
           }
         }
@@ -522,17 +591,23 @@ module Spree::GraphQL
       let!(:result) {
         {
           data: {
-            product: {
-              publishedAt: 'DateTime',
+            shop: {
+              products: {
+                edges: [{
+                  node: {
+                    publishedAt: product.available_on.iso8601
+                  }
+                }]
+              }
             }
           },
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
     end
 
     # tags: A categorization that a product can be tagged with, commonly used for filtering and searching. Each comma-separated tag has a character limit of 255.
@@ -569,8 +644,14 @@ module Spree::GraphQL
       let!(:query) {
         %q{
           query {
-            product {
-              title
+            shop {
+              products(first: 1) {
+                edges {
+                  node {
+                    title
+                  }
+                }
+              }
             }
           }
         }
@@ -578,17 +659,23 @@ module Spree::GraphQL
       let!(:result) {
         {
           data: {
-            product: {
-              title: 'String',
+            shop: {
+              products: {
+                edges: [{
+                  node: {
+                    title: product.name
+                  }
+                }]
+              }
             }
           },
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
     end
 
     # updatedAt: The date and time when the product was last modified.
@@ -597,8 +684,14 @@ module Spree::GraphQL
       let!(:query) {
         %q{
           query {
-            product {
-              updatedAt
+            shop {
+              products(first: 1) {
+                edges {
+                  node {
+                    updatedAt
+                  }
+                }
+              }
             }
           }
         }
@@ -606,17 +699,23 @@ module Spree::GraphQL
       let!(:result) {
         {
           data: {
-            product: {
-              updatedAt: 'DateTime',
+            shop: {
+              products: {
+                edges: [{
+                  node: {
+                    updatedAt: product.updated_at.iso8601
+                  }
+                }]
+              }
             }
           },
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
     end
 
     # variantBySelectedOptions: Find a product’s variant based on its selected options. This is useful for converting a user’s selection of product options into a single matching variant. If there is not a variant for the selected options, `null` will be returned.

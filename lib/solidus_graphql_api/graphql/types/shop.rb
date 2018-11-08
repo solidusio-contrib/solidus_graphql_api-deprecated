@@ -73,8 +73,36 @@ module Spree::GraphQL::Types::Shop
   # @param sort_key [Types::ProductSortKeys] ('ID') Sort the underlying list by the given key.
   # @param query [Types::String] Supported filter parameters:  - `title`  - `product_type`  - `vendor`  - `created_at`  - `updated_at`  - `variants.price`  - `tag` See the detailed [search syntax](https://help.solidus.io/api/getting-started/search-syntax).
   # @return [Types::Product.connection_type!]
-  def products(reverse:, sort_key:, query:)
-    raise ::Spree::GraphQL::NotImplementedError.new
+  def products(reverse:, sort_key:, query: nil)
+    if query
+      raise ::Spree::GraphQL::NotImplementedError.new
+    end
+
+    r = ::Spree::Product.all
+    r.reverse_order! if reverse
+    if sort_key
+      r.order! \
+      case sort_key
+      when 'TITLE'
+        :name
+      when 'PRODUCT_TYPE'
+        raise ::Spree::GraphQL::NotImplementedError.new
+      when 'VENDOR'
+        raise ::Spree::GraphQL::NotImplementedError.new
+      when 'UPDATED_AT'
+        :updated_at
+      when 'CREATED_AT'
+        :created_at
+      when 'BEST_SELLING'
+        raise ::Spree::GraphQL::NotImplementedError.new
+      when 'PRICE'
+        raise ::Spree::GraphQL::NotImplementedError.new
+      when 'ID'
+        :id
+      when 'RELEVANCE'
+        raise ::Spree::GraphQL::NotImplementedError.new
+      end
+    end
   end
 
   # refundPolicy: The shop’s refund policy.

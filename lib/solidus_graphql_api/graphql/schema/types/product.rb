@@ -17,7 +17,7 @@ For example, a digital download (such as a movie, music or ebook file) also qual
   end
   field :description, ::GraphQL::Types::String, null: false do
     description %q{Stripped description of the product, single line with HTML tags removed.}
-    argument :truncate_at, ::GraphQL::Types::Int, required: false, description: %q{Truncates string after the given length.}
+    argument :truncate_at, ::GraphQL::Types::Int, required: false, default_value: nil, description: %q{Truncates string after the given length.}
   end
   field :description_html, ::Spree::GraphQL::Schema::Types::HTML, null: false do
     description %q{The description of the product, complete with HTML formatting.}
@@ -26,9 +26,6 @@ For example, a digital download (such as a movie, music or ebook file) also qual
     description %q{A human-friendly unique string for the Product automatically generated from its title.
 They are used by the Liquid templating language to refer to objects.
 }
-  end
-  field :id, ::GraphQL::Types::ID, null: false do
-    description %q{Globally unique identifier.}
   end
   field :images, ::Spree::GraphQL::Schema::Types::Image.connection_type, null: false do
     description %q{List of images associated with the product.}
