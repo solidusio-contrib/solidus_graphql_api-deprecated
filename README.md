@@ -36,7 +36,7 @@ NOTE: If this is your new Rails + Solidus application, please don't forget to ru
   end
 ```
 
-## First Test
+## Testing and Usage
 
 To run the whole app, run your usual `bundle exec rails s`.
 
@@ -70,22 +70,7 @@ To open GraphiQL browser, visit [http://localhost:3000/graphiql](http://localhos
 
 To see what queries can currently be specified, see GraphiQL's web interface or files `lib/solidus_graphql_api/graphql/schema/types/query_root.rb` and `lib/solidus_graphql_api/graphql/schema/types/mutation.rb`.
 
-## Tests
-
-To run tests, invoke `rake`. `rake` will default to building a dummy app in `spec/dummy`, and finally running the specs.
-
-```shell
-bundle
-bundle exec rake
-
-# Or individually:
-bundle exec rake test_app
-bundle exec rake spec
-
-# Or using rspec for tests directly:
-bundle exec rspec
-bundle exec rspec spec/graphql/types/product_spec.rb
-```
+Please note that all GraphQL API fields which do not yet contain an actual implementation will return a `NotImplementedError`. For all such fields that you attempt to use but they aren't available, please submit an issue or report them in Solidus Slack channel #graphql. That will help prioritize work and ensure we begin with the implementation on the next working day.
 
 ## How to Contribute
 
@@ -174,6 +159,23 @@ expect(response_hash).to eq(result_hash)
 ```
 
 For helper types and classes which are not directly accessible from the outside (such as type `Domain`), it is not necessary to make GraphQL calls but classes themselves can be tested. Please see the spec files for examples.
+
+### Test Suite
+
+To run solidus_graphql_api tests, invoke `rake`. `rake` will default to building a dummy app in `spec/dummy`, and finally running the specs.
+
+```shell
+bundle
+bundle exec rake
+
+# Or individually:
+bundle exec rake test_app
+bundle exec rake spec
+
+# Or using rspec for tests directly:
+bundle exec rspec
+bundle exec rspec spec/graphql/types/product_spec.rb
+```
 
 ## State of Implementation
 
@@ -296,12 +298,12 @@ For helper types and classes which are not directly accessible from the outside 
 - [ ] CheckoutUserError.field
 - [ ] CheckoutUserError.message
 - [ ] Checkout.webUrl
-- [ ] Collection.descriptionHtml
+- [x] Collection.descriptionHtml
 - [x] Collection.description(truncateAt)
 - [x] Collection.handle
 - [x] Collection.id
 - [ ] Collection.image(maxWidth, maxHeight, crop, scale)
-- [ ] Collection.products(first, after, last, before, reverse, sortKey)
+- [x] Collection.products(first, after, last, before, reverse, sortKey)
 - [x] Collection.title
 - [x] Collection.updatedAt
 - [ ] Comment.author
@@ -579,3 +581,9 @@ The primary three TODOs related to this extension are:
 1. Add authentication (https://github.com/boomerdigital/solidus_graphql_api/issues/14)
 1. Add authorization (https://github.com/boomerdigital/solidus_graphql_api/issues/15)
 1. Add remaining missing implementations from the above list
+1. (Mid priority) Return values from fields should be adjusted to exact specifics of the upstream API. E.g. the `description` field should be a "stripped description of item, single line with HTML tags removed"
+1. (Mid priority) Fields which are perfectly sane to default to empty strings should do so. For example, all `description` fields
+1. (Mid priority) "Collections" can be nested, and so they are currently based on Taxons, ignoring Taxonomies. However, `collections` returns all top-level taxons regardless of taxonomy they belong to. List of desired taxonomies to search in should be configurable.
+1. (Mid priority) Input args which are ENUMs (for example, those which apply filtering/sorting options to a data set) should have methods that do this implemented in the enum classes themselves, and not placed and copied in every similar field implementation
+1. (Lower priority) Add user-level errors in case of incorrect input
+1. (Lower priority) Make tests shorter by testing multiple simple fields at once

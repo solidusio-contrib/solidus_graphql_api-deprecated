@@ -1,21 +1,16 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::Collection
-  include ::ActionView::Helpers::TextHelper
   # description: Stripped description of the collection, single line with HTML tags removed.
   # @param truncate_at [Types::Int] Truncates string after the given length.
   # @return [Types::String!]
-  def description(truncate_at: nil)
-    if truncate_at
-      truncate(object.description, length: truncate_at)
-    else
-      object.description
-    end
+  def description(truncate_at: 1024)
+    ActionView::Base.full_sanitizer.sanitize(object.description).gsub!(/\s+/, ' ').strip!.truncate(truncate_at)
   end
 
   # descriptionHtml: The description of the collection, complete with HTML formatting.
   # @return [Types::HTML!]
   def description_html()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.description
   end
 
   # handle: A human-friendly unique string for the collection automatically generated from its title. Limit of 255 characters.
@@ -39,7 +34,11 @@ module Spree::GraphQL::Types::Collection
   # @param sort_key [Types::ProductCollectionSortKeys] ('COLLECTION_DEFAULT') Sort the underlying list by the given key.
   # @return [Types::Product.connection_type!]
   def products(reverse:, sort_key:)
-    raise ::Spree::GraphQL::NotImplementedError.new
+    ::Spree::GraphQL::Types::ProductCollectionSortKeys.apply!(
+      object.products,
+      reverse: reverse,
+      sort_key: sort_key,
+    )
   end
 
   # title: The collection’s name. Limit of 255 characters.
