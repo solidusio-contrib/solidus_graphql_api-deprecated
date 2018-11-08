@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::Checkout
-  include ::Spree::GraphQL::Interfaces::Node
-
   # appliedGiftCards
   # @return [[Types::AppliedGiftCard!]!]
   def applied_gift_cards()

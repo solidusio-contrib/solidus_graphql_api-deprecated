@@ -1,7 +1,6 @@
-class Spree::GraphQL::Schema::Types::Comment < Spree::GraphQL::Schema::Types::BaseObject
+class Spree::GraphQL::Schema::Types::Comment < Spree::GraphQL::Schema::Types::BaseObjectNode
   graphql_name 'Comment'
   description nil
-  implements ::Spree::GraphQL::Schema::Interfaces::Node
   include ::Spree::GraphQL::Types::Comment
   field :author, ::Spree::GraphQL::Schema::Types::CommentAuthor, null: false do
     description %q{The comment’s author.}

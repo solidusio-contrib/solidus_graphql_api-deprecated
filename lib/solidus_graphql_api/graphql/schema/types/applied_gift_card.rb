@@ -1,7 +1,6 @@
-class Spree::GraphQL::Schema::Types::AppliedGiftCard < Spree::GraphQL::Schema::Types::BaseObject
+class Spree::GraphQL::Schema::Types::AppliedGiftCard < Spree::GraphQL::Schema::Types::BaseObjectNode
   graphql_name 'AppliedGiftCard'
   description %q{Details about the gift card used on the checkout.}
-  implements ::Spree::GraphQL::Schema::Interfaces::Node
   include ::Spree::GraphQL::Types::AppliedGiftCard
   field :amount_used, ::Spree::GraphQL::Schema::Types::Money, null: false do
     description %q{The amount that was used taken from the Gift Card by applying it.}

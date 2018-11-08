@@ -1,8 +1,9 @@
 # Solidus GraphQL API
 
-NOTE: This is a work in progress.
+NOTE: This is a work in progress. Please join the Solidus Slack #graphql channel at [https://solidusio.slack.com/](https://solidusio.slack.com/) if you are interested.
 
-Please join the Solidus Slack #graphql channel at [https://solidusio.slack.com/](https://solidusio.slack.com/) if you are interested.
+The complete list of Solidus GraphQL calls and their implementation status can be found below, towards the end of the document.
+
 
 ## Installation
 
@@ -110,7 +111,7 @@ Notes / additional help on adding code and tests follow:
 
 As you might know, every GraphQL field returns either an object for more querying on it, or a leaf value.
 
-For example, a query such as `{ shop { primaryDomain { url }}}` expects `QueryRoot.shop` to return an instance of `Shop`, `shop.primaryDomain` to return an instance of `Domain`, and finally `primaryDomain.url` to return the leaf value containing the URL.
+For example, a query such as `{ shop { primaryDomain { url }}}` expects `QueryRoot.shop` to return an instance of `Shop`, `shop.primaryDomain` to return an instance of `Domain`, and finally `primaryDomain.url` to return the leaf value containing the URL. If it happens that non-leaf fields return a leaf value (or leaf fields return a non-leaf value), an error is raised.
 
 In the simplest cases, especially those in which the created GraphQL types have direct equivalents in Solidus core, the implementations can be trivial. For example, for `{ shop { name }}`, `shop` may just return an instance of `Spree::Store` and `name` may just call `name` on that instance.
 
@@ -131,7 +132,7 @@ def primaryDomain()
 end
 ```
 
-Option 2: for more important types which may be created and have additional methods defined on them, we can create a model (`./app/models/domain.rb`) and instantiate it from `primaryDomain`:
+Option 2: for more important types which may be created and have additional methods defined on them, we can create a Ruby class (`./lib/spree/domain.rb`) and instantiate it from `primaryDomain`:
 
 ```
 class Spree::GraphQL::Domain
@@ -146,11 +147,15 @@ end
 
 ```
 
+(If a type is backed by a database and represents a model, `app/models/` would be used instead of `lib/spree/`.)
+
 ### Adding Corresponding tests
 
 As mentioned, tests come with pre-defined template code as well.
 
 The header of each test defines the GraphQL query and expected result, followed by an `it` block which actually runs the query and comparison.
+
+The pre-generated code and placeholders are verbose and detailed. It is easier to delete parts of content that won't be needed in a test than to write large parts of queries and code manually.
 
 The command to execute queries is just `execute`. It runs `Schema.execute()` with defaulting to `query()`, `context()` and `variables()` unless these params are manually provided.
 
@@ -160,7 +165,7 @@ For it, there are helpers defined &mdash; `response_json()` to get JSON string o
 
 For the expected result, there are analogously-named helpers defined on it: `result_json()` and `result_hash()`.
 
-So to match the response to the expected result, one can use either of the following methods, regardless of the format in which the response and result were originally given:
+So, to match the response to the expected result, one can use either of the following methods, regardless of the format in which the response and result were originally given:
 
 ```
 expect(response_json).to eq(result_json)
@@ -168,7 +173,7 @@ expect(response_json).to eq(result_json)
 expect(response_hash).to eq(result_hash)
 ```
 
-For helper types and classes which are not directly accessible from the outside (such as type `Domain`), it is not necessary to make GraphQL calls but the model itself can be tested. Please see its spec file for an example.
+For helper types and classes which are not directly accessible from the outside (such as type `Domain`), it is not necessary to make GraphQL calls but classes themselves can be tested. Please see the spec files for examples.
 
 ## State of Implementation
 
@@ -529,8 +534,8 @@ For helper types and classes which are not directly accessible from the outside 
 - [ ] QueryRoot.blogByHandle(handle)
 - [ ] QueryRoot.blogs(first, after, last, before, reverse, sortKey, query)
 - [ ] QueryRoot.customer(customerAccessToken)
-- [ ] QueryRoot.node(id)
-- [ ] QueryRoot.nodes(ids)
+- [x] QueryRoot.node(id)
+- [x] QueryRoot.nodes(ids)
 - [x] QueryRoot.shop
 - [ ] ScriptDiscountApplication.allocationMethod
 - [ ] ScriptDiscountApplication.description

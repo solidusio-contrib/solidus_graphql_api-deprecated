@@ -1,7 +1,6 @@
-class Spree::GraphQL::Schema::Types::Payment < Spree::GraphQL::Schema::Types::BaseObject
+class Spree::GraphQL::Schema::Types::Payment < Spree::GraphQL::Schema::Types::BaseObjectNode
   graphql_name 'Payment'
   description %q{A payment applied to a checkout.}
-  implements ::Spree::GraphQL::Schema::Interfaces::Node
   include ::Spree::GraphQL::Types::Payment
   field :amount, ::Spree::GraphQL::Schema::Types::Money, null: false do
     description %q{The amount of the payment.}

@@ -1,7 +1,11 @@
-class Spree::GraphQL::Schema::Types::QueryRoot < Spree::GraphQL::Schema::Types::BaseObject
+class Spree::GraphQL::Schema::Types::QueryRoot < Spree::GraphQL::Schema::Types::BaseObjectNode
   graphql_name 'QueryRoot'
   description %q{The schema’s entry-point for queries. This acts as the public, top-level API from which all queries must start.}
   include ::Spree::GraphQL::Types::QueryRoot
+
+  field :node, field: ::GraphQL::Relay::Node.field
+  field :nodes, field: ::GraphQL::Relay::Node.plural_field
+
   field :articles, ::Spree::GraphQL::Schema::Types::Article.connection_type, null: false do
     description %q{List of the shop's articles.}
     argument :reverse, ::GraphQL::Types::Boolean, required: false, default_value: false, description: %q{Reverse the order of the underlying list.}
@@ -37,14 +41,7 @@ See the detailed [search syntax](https://help.solidus.io/api/getting-started/sea
     description nil
     argument :customer_access_token, ::GraphQL::Types::String, required: true, description: %q{The customer access token}
   end
-  field :node, ::Spree::GraphQL::Schema::Interfaces::Node, null: true do
-    description nil
-    argument :id, ::GraphQL::Types::ID, required: true, description: %q{The ID of the Node to return.}
-  end
-  field :nodes, [::Spree::GraphQL::Schema::Interfaces::Node, null: true], null: false do
-    description nil
-    argument :ids, [::GraphQL::Types::ID], required: true, description: %q{The IDs of the Nodes to return.}
-  end
+
   field :shop, ::Spree::GraphQL::Schema::Types::Shop, null: false do
     description nil
   end

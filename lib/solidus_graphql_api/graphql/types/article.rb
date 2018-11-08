@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::Article
-  include ::Spree::GraphQL::Interfaces::Node
-
   # authorV2: The article's author.
   # @return [Types::ArticleAuthor]
   def author_v2()

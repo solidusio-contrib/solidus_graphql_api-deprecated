@@ -1,7 +1,6 @@
-class Spree::GraphQL::Schema::Types::MailingAddress < Spree::GraphQL::Schema::Types::BaseObject
+class Spree::GraphQL::Schema::Types::MailingAddress < Spree::GraphQL::Schema::Types::BaseObjectNode
   graphql_name 'MailingAddress'
   description %q{Represents a mailing address for customers and shipping.}
-  implements ::Spree::GraphQL::Schema::Interfaces::Node
   include ::Spree::GraphQL::Types::MailingAddress
   field :address1, ::GraphQL::Types::String, null: true do
     description %q{The first line of the address. Typically the street address or PO Box number.

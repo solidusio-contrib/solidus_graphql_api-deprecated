@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::Product
-  include ActionView::Helpers::TextHelper
-  include ::Spree::GraphQL::Interfaces::Node
-
+  include ::ActionView::Helpers::TextHelper
   # availableForSale: Indicates if at least one product variant is available for sale.
   # @return [Types::Boolean!]
   def available_for_sale()

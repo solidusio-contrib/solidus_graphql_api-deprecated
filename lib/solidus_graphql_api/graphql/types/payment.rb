@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::Payment
-  include ::Spree::GraphQL::Interfaces::Node
 
   # amount: The amount of the payment.
   # @return [Types::Money!]
