@@ -5,6 +5,9 @@ module Spree::GraphQL
   describe 'Types::Shop' do
     let!(:shop) { create(:store) }
     let!(:products) { create_list(:product, 10) }
+    # Taxonomy factory implicitly creates a taxon.
+    let!(:taxonomies) { create_list(:taxonomy, 10) }
+    let!(:collections) { taxonomies.map(&:taxons).flatten }
     let!(:ctx) { { current_store: current_store } }
     let!(:variables) { }
 
@@ -205,61 +208,10 @@ module Spree::GraphQL
           query {
             shop {
               collections(
-                first: Int,
-                after: "",
-                last: Int,
-                before: "",
-                reverse: false,
-                sortKey: "TITLE | UPDATED_AT | ID | RELEVANCE",
-                query: ""
+                first: 1
               ) {
-                edges {
-                  node {
-                    description(truncateAt: Int)
-                    descriptionHtml
-                    handle
-                    id
-                    image(
-                      maxWidth: Int,
-                      maxHeight: Int,
-                      crop: "CENTER | TOP | BOTTOM | LEFT | RIGHT",
-                      scale: Int
-                    ) {
-                      altText
-                      id
-                      originalSrc
-                      src
-                      transformedSrc(
-                        maxWidth: Int,
-                        maxHeight: Int,
-                        crop: "CENTER | TOP | BOTTOM | LEFT | RIGHT",
-                        scale: Int,
-                        preferredContentType: "PNG | JPG | WEBP"
-                      )
-                    }
-                    products(
-                      first: Int,
-                      after: "",
-                      last: Int,
-                      before: "",
-                      reverse: false,
-                      sortKey: "TITLE | PRICE | BEST_SELLING | CREATED | ID | MANUAL | COLLECTION_DEFAULT | RELEVANCE"
-                    ) {
-                      edges {
-                        # ...
-                      }
-                      pageInfo {
-                        # ...
-                      }
-                    }
-                    title
-                    updatedAt
-                  }
-                }
-                pageInfo {
-                  hasNextPage
-                  hasPreviousPage
-                }
+                edges { node { title id } }
+                pageInfo { hasNextPage hasPreviousPage }
               }
             }
           }
@@ -270,31 +222,12 @@ module Spree::GraphQL
           data: {
             shop: {
               collections: {
-                edges: {
-                  node: [{
-                    description: 'String',
-                    descriptionHtml: 'HTML',
-                    handle: 'String',
-                    id: 'ID',
-                    image: {
-                      altText: 'String',
-                      id: 'ID',
-                      originalSrc: 'URL',
-                      src: 'URL',
-                      transformedSrc: 'URL',
-                    },
-                    products: {
-                      edges: {
-                        # ...
-                      },
-                      pageInfo: {
-                        # ...
-                      },
-                    },
-                    title: 'String',
-                    updatedAt: 'DateTime',
-                  }],
-                },
+                edges: [{
+                  node: {
+                    id: ::Spree::GraphQL::Schema::Schema.id_from_object(collections.first),
+                    title: collections.first.name,
+                  },
+                }],
                 pageInfo: {
                   hasNextPage: true,
                   hasPreviousPage: false,
@@ -305,10 +238,169 @@ module Spree::GraphQL
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
+
+      context 'reverse' do
+        let!(:query) {
+          %q{
+            query {
+              shop {
+                collections(
+                  first: 1
+                  reverse: true,
+                ) {
+                  edges { node { title id } }
+                  pageInfo { hasNextPage hasPreviousPage }
+                }
+              }
+            }
+          }
+        }
+        let!(:result) {
+          {
+            data: {
+              shop: {
+                collections: {
+                  edges: [{
+                    node: {
+                      id: ::Spree::GraphQL::Schema::Schema.id_from_object(collections.last),
+                      title: collections.last.name,
+                    },
+                  }],
+                  pageInfo: {
+                    hasNextPage: true,
+                    hasPreviousPage: false,
+                  },
+                },
+              }
+            },
+            #errors: {},
+          }
+        }
+        it 'succeeds' do
+          execute
+          expect(response_hash).to eq(result_hash)
+        end
+      end
+      context 'sortKey' do
+        context 'updatedAt' do
+          let!(:query) {
+            %q{
+              query {
+                shop {
+                  collections( last: 1 reverse: false, sortKey: UPDATED_AT) {
+                    edges { node { updatedAt } }
+                    pageInfo { hasNextPage hasPreviousPage }
+                  }
+                }
+              }
+            }
+          }
+          let!(:result) {
+            {
+              data: {
+                shop: {
+                  collections: {
+                    edges: [{
+                      node: {
+                        updatedAt: collections.sort{|a,b| a.updated_at <=> b.updated_at }.last.updated_at.iso8601,
+                      },
+                    }],
+                    pageInfo: {
+                      hasNextPage: false,
+                      hasPreviousPage: true,
+                    },
+                  },
+                }
+              },
+              #errors: {},
+            }
+          }
+          it 'succeeds' do
+            execute
+            expect(response_hash).to eq(result_hash)
+          end
+        end
+        context 'title' do
+          let!(:query) {
+            %q{
+              query {
+                shop {
+                  collections( first: 1 reverse: false, sortKey: TITLE) {
+                    edges { node { title } }
+                    pageInfo { hasNextPage hasPreviousPage }
+                  }
+                }
+              }
+            }
+          }
+          let!(:result) {
+            {
+              data: {
+                shop: {
+                  collections: {
+                    edges: [{
+                      node: {
+                        title: collections.sort{|a,b| a.name <=> b.name }.first.name,
+                      },
+                    }],
+                    pageInfo: {
+                      hasNextPage: true,
+                      hasPreviousPage: false,
+                    },
+                  },
+                }
+              },
+              #errors: {},
+            }
+          }
+          it 'succeeds' do
+            execute
+            expect(response_hash).to eq(result_hash)
+          end
+        end
+        context 'id' do
+          let!(:query) {
+            %q{
+              query {
+                shop {
+                  collections( first: 1 reverse: true, sortKey: ID) {
+                    edges { node { id } }
+                    pageInfo { hasNextPage hasPreviousPage }
+                  }
+                }
+              }
+            }
+          }
+          let!(:result) {
+            {
+              data: {
+                shop: {
+                  collections: {
+                    edges: [{
+                      node: {
+                        id: ::Spree::GraphQL::Schema::Schema.id_from_object(collections.sort{|a,b| a.id <=> b.id }.last),
+                      },
+                    }],
+                    pageInfo: {
+                      hasNextPage: true,
+                      hasPreviousPage: false,
+                    },
+                  },
+                }
+              },
+              #errors: {},
+            }
+          }
+          it 'succeeds' do
+            execute
+            expect(response_hash).to eq(result_hash)
+          end
+        end
+      end
     end
 
     # description: A description of the shop.
@@ -1011,7 +1103,7 @@ module Spree::GraphQL
             %q{
               query {
                 shop {
-                  products( last: 1 reverse: false, sortKey: CREATED_AT) {
+                  products( last: 1 reverse: false, sortKey: UPDATED_AT) {
                     edges { node { updatedAt } }
                     pageInfo { hasNextPage hasPreviousPage }
                   }

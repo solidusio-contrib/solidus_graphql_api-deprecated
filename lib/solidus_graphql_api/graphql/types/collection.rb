@@ -1,10 +1,15 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::Collection
+  include ::ActionView::Helpers::TextHelper
   # description: Stripped description of the collection, single line with HTML tags removed.
   # @param truncate_at [Types::Int] Truncates string after the given length.
   # @return [Types::String!]
-  def description(truncate_at:)
-    raise ::Spree::GraphQL::NotImplementedError.new
+  def description(truncate_at: nil)
+    if truncate_at
+      truncate(object.description, length: truncate_at)
+    else
+      object.description
+    end
   end
 
   # descriptionHtml: The description of the collection, complete with HTML formatting.
@@ -16,13 +21,7 @@ module Spree::GraphQL::Types::Collection
   # handle: A human-friendly unique string for the collection automatically generated from its title. Limit of 255 characters.
   # @return [Types::String!]
   def handle()
-    raise ::Spree::GraphQL::NotImplementedError.new
-  end
-
-  # id: Globally unique identifier.
-  # @return [Types::ID!]
-  def id()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.permalink
   end
 
   # image: Image associated with the collection.
@@ -46,12 +45,12 @@ module Spree::GraphQL::Types::Collection
   # title: The collection’s name. Limit of 255 characters.
   # @return [Types::String!]
   def title()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.name
   end
 
   # updatedAt: The date and time when the collection was last modified.
   # @return [Types::DateTime!]
   def updated_at()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.updated_at.iso8601
   end
 end

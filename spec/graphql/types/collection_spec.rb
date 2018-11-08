@@ -3,7 +3,16 @@ require 'spec_helper'
 
 module Spree::GraphQL
   describe 'Types::Collection' do
-    let!(:collection) { create(:collection) }
+    let!(:taxonomy) { create(:taxonomy) }
+    let!(:collection) {
+      t = ::Spree::Taxon.first
+      t.description = 'A description of the collection'
+      t.permalink = 'permalink/handle'
+      t.name = 'Taxon Title'
+      t.save
+      t
+    }
+    let!(:shop) { create(:store) }
     let!(:ctx) { { current_store: current_store } }
     let!(:variables) { }
 
@@ -14,8 +23,14 @@ module Spree::GraphQL
       let!(:query) {
         %q{
           query {
-            collection {
-              description(truncateAt: Int)
+            shop {
+              collections(first: 1) {
+                edges {
+                  node {
+                    description
+                  }
+                }
+              }
             }
           }
         }
@@ -23,17 +38,49 @@ module Spree::GraphQL
       let!(:result) {
         {
           data: {
-            collection: {
-              description: 'String',
+            shop: {
+              collections: {
+                edges: [{
+                  node: {
+                    description: collection.description,
+                  }
+                }]
+              }
             }
           },
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
+
+      context 'truncateAt' do
+        let!(:query) {
+          %q{
+            query {
+              shop { collections(first: 1) { edges { node {
+                description(truncateAt: 5)
+              } } } }
+            }
+          }
+        }
+        let!(:result) {
+          {
+            data: {
+              shop: { collections: { edges: [{ node: {
+                description: collection.description[0..1] + '...'
+              } }] } }
+            },
+            #errors: {},
+          }
+        }
+        it 'succeeds' do
+          execute
+          expect(response_hash).to eq(result_hash)
+        end
+      end
     end
 
     # descriptionHtml: The description of the collection, complete with HTML formatting.
@@ -70,8 +117,14 @@ module Spree::GraphQL
       let!(:query) {
         %q{
           query {
-            collection {
-              handle
+            shop {
+              collections(first: 1) {
+                edges {
+                  node {
+                    handle
+                  }
+                }
+              }
             }
           }
         }
@@ -79,17 +132,23 @@ module Spree::GraphQL
       let!(:result) {
         {
           data: {
-            collection: {
-              handle: 'String',
+            shop: {
+              collections: {
+                edges: [{
+                  node: {
+                    handle: collection.permalink,
+                  }
+                }]
+              }
             }
           },
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
     end
 
     # id: Globally unique identifier.
@@ -406,8 +465,14 @@ module Spree::GraphQL
       let!(:query) {
         %q{
           query {
-            collection {
-              title
+            shop {
+              collections(first: 1) {
+                edges {
+                  node {
+                    title
+                  }
+                }
+              }
             }
           }
         }
@@ -415,17 +480,23 @@ module Spree::GraphQL
       let!(:result) {
         {
           data: {
-            collection: {
-              title: 'String',
+            shop: {
+              collections: {
+                edges: [{
+                  node: {
+                    title: collection.name,
+                  }
+                }]
+              }
             }
           },
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
     end
 
     # updatedAt: The date and time when the collection was last modified.
@@ -434,8 +505,14 @@ module Spree::GraphQL
       let!(:query) {
         %q{
           query {
-            collection {
-              updatedAt
+            shop {
+              collections(first: 1) {
+                edges {
+                  node {
+                    updatedAt
+                  }
+                }
+              }
             }
           }
         }
@@ -443,17 +520,23 @@ module Spree::GraphQL
       let!(:result) {
         {
           data: {
-            collection: {
-              updatedAt: 'DateTime',
+            shop: {
+              collections: {
+                edges: [{
+                  node: {
+                    updatedAt: collection.updated_at.iso8601
+                  }
+                }]
+              }
             }
           },
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
     end
   end
 end

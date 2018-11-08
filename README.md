@@ -297,13 +297,13 @@ For helper types and classes which are not directly accessible from the outside 
 - [ ] CheckoutUserError.message
 - [ ] Checkout.webUrl
 - [ ] Collection.descriptionHtml
-- [ ] Collection.description(truncateAt)
-- [ ] Collection.handle
-- [ ] Collection.id
+- [x] Collection.description(truncateAt)
+- [x] Collection.handle
+- [x] Collection.id
 - [ ] Collection.image(maxWidth, maxHeight, crop, scale)
 - [ ] Collection.products(first, after, last, before, reverse, sortKey)
-- [ ] Collection.title
-- [ ] Collection.updatedAt
+- [x] Collection.title
+- [x] Collection.updatedAt
 - [ ] Comment.author
 - [ ] CommentAuthor.email
 - [ ] CommentAuthor.name
@@ -548,7 +548,7 @@ For helper types and classes which are not directly accessible from the outside 
 - [ ] ShippingRate.price
 - [ ] ShippingRate.title
 - [ ] Shop.collectionByHandle(handle)
-- [ ] Shop.collections(first, after, last, before, reverse, sortKey, query)
+- [x] Shop.collections(first, after, last, before, reverse, sortKey, query) - (`query` not supported yet)
 - [x] Shop.moneyFormat
 - [ ] Shop.paymentSettings
 - [ ] ShopPolicy.body

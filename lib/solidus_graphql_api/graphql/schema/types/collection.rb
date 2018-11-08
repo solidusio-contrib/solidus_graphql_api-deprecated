@@ -15,9 +15,6 @@ class Spree::GraphQL::Schema::Types::Collection < Spree::GraphQL::Schema::Types:
 Limit of 255 characters.
 }
   end
-  field :id, ::GraphQL::Types::ID, null: false do
-    description %q{Globally unique identifier.}
-  end
   field :image, ::Spree::GraphQL::Schema::Types::Image, null: true do
     description %q{Image associated with the collection.}
     argument :max_width, ::GraphQL::Types::Int, required: false, description: %q{Image width in pixels between 1 and 2048. This argument is deprecated: Use `maxWidth` on `Image.transformedSrc` instead.}

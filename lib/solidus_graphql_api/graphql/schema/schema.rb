@@ -15,13 +15,14 @@ class Spree::GraphQL::Schema::Schema < GraphQL::Schema
     case obj
     when ::Spree::Product
       ::Spree::GraphQL::Schema::Types::Product
+    when ::Spree::Taxon
+      ::Spree::GraphQL::Schema::Types::Collection
 
       #::Spree::GraphQL::Schema::Types::AppliedGiftCard
       #::Spree::GraphQL::Schema::Types::Article
       #::Spree::GraphQL::Schema::Types::Blog
       #::Spree::GraphQL::Schema::Types::Checkout
       #::Spree::GraphQL::Schema::Types::CheckoutLineItem
-      #::Spree::GraphQL::Schema::Types::Collection
       #::Spree::GraphQL::Schema::Types::Comment
       #::Spree::GraphQL::Schema::Types::MailingAddress
       #::Spree::GraphQL::Schema::Types::Order

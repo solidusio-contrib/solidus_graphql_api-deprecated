@@ -13,8 +13,28 @@ module Spree::GraphQL::Types::Shop
   # @param sort_key [Types::CollectionSortKeys] ('ID') Sort the underlying list by the given key.
   # @param query [Types::String] Supported filter parameters:  - `title`  - `collection_type`  - `updated_at` See the detailed [search syntax](https://help.solidus.io/api/getting-started/search-syntax).
   # @return [Types::Collection.connection_type!]
-  def collections(reverse:, sort_key:, query:)
-    raise ::Spree::GraphQL::NotImplementedError.new
+  def collections(reverse:, sort_key:, query: nil)
+    if query
+      raise ::Spree::GraphQL::NotImplementedError.new
+    end
+
+    r = ::Spree::Taxon.where(parent_id: nil)
+    r.reverse_order! if reverse
+    if sort_key
+      r.order! \
+      case sort_key
+      when 'TITLE'
+        :name
+      when 'UPDATED_AT'
+        :updated_at
+      when 'ID'
+        :id
+      when 'RELEVANCE'
+        raise ::Spree::GraphQL::NotImplementedError.new
+      end
+    end
+
+    r
   end
 
   # description: A description of the shop.
@@ -103,6 +123,8 @@ module Spree::GraphQL::Types::Shop
         raise ::Spree::GraphQL::NotImplementedError.new
       end
     end
+
+    r
   end
 
   # refundPolicy: The shop’s refund policy.
