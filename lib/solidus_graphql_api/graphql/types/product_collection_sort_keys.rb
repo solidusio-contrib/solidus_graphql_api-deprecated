@@ -22,6 +22,8 @@ module Spree::GraphQL::Types::ProductCollectionSortKeys
         # if/when this field gets added to the model.
       when 'RELEVANCE'
         raise ::Spree::GraphQL::NotImplementedError.new
+      else
+        raise ::Spree::GraphQL::NotImplementedError.new
       end
     end
     if args[:reverse]

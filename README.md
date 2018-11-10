@@ -500,7 +500,7 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] Product.availableForSale
 - [ ] Product.collections(first, after, last, before, reverse)
 - [x] Product.createdAt
-- [ ] Product.descriptionHtml
+- [x] Product.descriptionHtml
 - [x] Product.description(truncateAt)
 - [x] Product.handle
 - [x] Product.id

@@ -17,24 +17,11 @@ module Spree::GraphQL::Types::Shop
     if query
       raise ::Spree::GraphQL::NotImplementedError.new
     end
-
-    r = ::Spree::Taxon.where(parent_id: nil)
-    r.reverse_order! if reverse
-    if sort_key
-      r.order! \
-      case sort_key
-      when 'TITLE'
-        :name
-      when 'UPDATED_AT'
-        :updated_at
-      when 'ID'
-        :id
-      when 'RELEVANCE'
-        raise ::Spree::GraphQL::NotImplementedError.new
-      end
-    end
-
-    r
+    ::Spree::GraphQL::Types::CollectionSortKeys.apply!(
+      ::Spree::Taxon.where(parent_id: nil),
+      reverse: reverse,
+      sort_key: sort_key,
+    )
   end
 
   # description: A description of the shop.
@@ -97,34 +84,11 @@ module Spree::GraphQL::Types::Shop
     if query
       raise ::Spree::GraphQL::NotImplementedError.new
     end
-
-    r = ::Spree::Product.all
-    r.reverse_order! if reverse
-    if sort_key
-      r.order! \
-      case sort_key
-      when 'TITLE'
-        :name
-      when 'PRODUCT_TYPE'
-        raise ::Spree::GraphQL::NotImplementedError.new
-      when 'VENDOR'
-        raise ::Spree::GraphQL::NotImplementedError.new
-      when 'UPDATED_AT'
-        :updated_at
-      when 'CREATED_AT'
-        :created_at
-      when 'BEST_SELLING'
-        raise ::Spree::GraphQL::NotImplementedError.new
-      when 'PRICE'
-        raise ::Spree::GraphQL::NotImplementedError.new
-      when 'ID'
-        :id
-      when 'RELEVANCE'
-        raise ::Spree::GraphQL::NotImplementedError.new
-      end
-    end
-
-    r
+    ::Spree::GraphQL::Types::ProductSortKeys.apply!(
+      ::Spree::Product.all,
+      reverse: reverse,
+      sort_key: sort_key,
+    )
   end
 
   # refundPolicy: The shop’s refund policy.
