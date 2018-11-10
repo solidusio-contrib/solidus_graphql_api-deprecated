@@ -1256,6 +1256,7 @@ module Spree::GraphQL
     # shipsToCountries: Countries that the shop ships to.
     # @return [[Types::CountryCode!]!]
     describe 'shipsToCountries' do
+      include Spree::GraphQL::Helpers::BaseHelper
       let!(:query) {
         %q{
           query {
@@ -1269,16 +1270,16 @@ module Spree::GraphQL
         {
           data: {
             shop: {
-              shipsToCountries: ['AF | AX | AL | DZ | AD | AO | AI | AG | AR | AM | AW | AU | AT | AZ | BS | BH | BD | BB | BY | BE | BZ | BJ | BM | BT | BO | BQ | BA | BW | BV | BR | IO | BN | BG | BF | BI | KH | CA | CV | KY | CF | TD | CL | CN | CX | CC | CO | KM | CG | CD | CK | CR | HR | CU | CW | CY | CZ | CI | DK | DJ | DM | DO | EC | EG | SV | GQ | ER | EE | ET | FK | FO | FJ | FI | FR | GF | PF | TF | GA | GM | GE | DE | GH | GI | GR | GL | GD | GP | GT | GG | GN | GW | GY | HT | HM | VA | HN | HK | HU | IS | IN | ID | IR | IQ | IE | IM | IL | IT | JM | JP | JE | JO | KZ | KE | KI | KP | XK | KW | KG | LA | LV | LB | LS | LR | LY | LI | LT | LU | MO | MK | MG | MW | MY | MV | ML | MT | MQ | MR | MU | YT | MX | MD | MC | MN | ME | MS | MA | MZ | MM | NA | NR | NP | NL | AN | NC | NZ | NI | NE | NG | NU | NF | NO | OM | PK | PS | PA | PG | PY | PE | PH | PN | PL | PT | QA | CM | RE | RO | RU | RW | BL | SH | KN | LC | MF | PM | WS | SM | ST | SA | SN | RS | SC | SL | SG | SX | SK | SI | SB | SO | ZA | GS | KR | SS | ES | LK | VC | SD | SR | SJ | SZ | SE | CH | SY | TW | TJ | TZ | TH | TL | TG | TK | TO | TT | TN | TR | TM | TC | TV | UG | UA | AE | GB | US | UM | UY | UZ | VU | VE | VN | VG | WF | EH | YE | ZM | ZW'],
+              shipsToCountries: available_countries.map(&:iso),
             }
           },
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
     end
 
     # termsOfService: The shop’s terms of service.

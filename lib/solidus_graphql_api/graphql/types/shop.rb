@@ -1,5 +1,7 @@
 # frozen_string_literal: true
+require_relative '../../../spree/helpers/base_helper'
 module Spree::GraphQL::Types::Shop
+  include ::Spree::GraphQL::Helpers::BaseHelper
 
   # collectionByHandle: Find a collection by its handle.
   # @param handle [Types::String!] The handle of the collection.
@@ -97,10 +99,10 @@ module Spree::GraphQL::Types::Shop
     raise ::Spree::GraphQL::NotImplementedError.new
   end
 
-  # shipsToCountries: Countries that the shop ships to.
+  # shipsToCountries: Countries that the shop ships to. 2-letter ISO codes.
   # @return [[Types::CountryCode!]!]
   def ships_to_countries()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    available_countries.map(&:iso)
   end
 
   # termsOfService: The shop’s terms of service.
