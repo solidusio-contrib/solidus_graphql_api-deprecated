@@ -6,9 +6,6 @@ A product may have a maximum of 3 options.
 255 characters limit each.
 }
   include ::Spree::GraphQL::Types::ProductOption
-  field :id, ::GraphQL::Types::ID, null: false do
-    description %q{Globally unique identifier.}
-  end
   field :name, ::GraphQL::Types::String, null: false do
     description %q{The product option’s name.}
   end

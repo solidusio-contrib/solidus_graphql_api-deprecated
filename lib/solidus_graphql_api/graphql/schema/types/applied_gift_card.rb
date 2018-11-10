@@ -8,9 +8,6 @@ class Spree::GraphQL::Schema::Types::AppliedGiftCard < Spree::GraphQL::Schema::T
   field :balance, ::Spree::GraphQL::Schema::Types::Money, null: false do
     description %q{The amount left on the Gift Card.}
   end
-  field :id, ::GraphQL::Types::ID, null: false do
-    description %q{Globally unique identifier.}
-  end
   field :last_characters, ::GraphQL::Types::String, null: false do
     description %q{The last characters of the Gift Card code}
   end

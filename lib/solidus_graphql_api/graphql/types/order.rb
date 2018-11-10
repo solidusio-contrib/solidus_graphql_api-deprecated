@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::Order
+
   # currencyCode: The code of the currency used for the payment.
   # @return [Types::CurrencyCode!]
   def currency_code()
@@ -28,12 +29,6 @@ module Spree::GraphQL::Types::Order
   # email: The customer's email address.
   # @return [Types::String]
   def email()
-    raise ::Spree::GraphQL::NotImplementedError.new
-  end
-
-  # id: Globally unique identifier.
-  # @return [Types::ID!]
-  def id()
     raise ::Spree::GraphQL::NotImplementedError.new
   end
 
@@ -93,7 +88,7 @@ module Spree::GraphQL::Types::Order
   end
 
   # successfulFulfillments: List of the order’s successful fulfillments.
-  # @param first [Types::Int] Truncate the array result to this size.
+  # @param first [Types::Int] (nil) Truncate the array result to this size.
   # @return [[Types::Fulfillment!]]
   def successful_fulfillments(first:)
     raise ::Spree::GraphQL::NotImplementedError.new

@@ -8,14 +8,11 @@ class Spree::GraphQL::Schema::Types::ProductVariant < Spree::GraphQL::Schema::Ty
   field :compare_at_price, ::Spree::GraphQL::Schema::Types::Money, null: true do
     description %q{The compare at price of the variant. This can be used to mark a variant as on sale, when `compareAtPrice` is higher than `price`.}
   end
-  field :id, ::GraphQL::Types::ID, null: false do
-    description %q{Globally unique identifier.}
-  end
   field :image, ::Spree::GraphQL::Schema::Types::Image, null: true do
     description %q{Image associated with the product variant. This field falls back to the product image if no image is available.}
-    argument :max_width, ::GraphQL::Types::Int, required: false, description: %q{Image width in pixels between 1 and 2048. This argument is deprecated: Use `maxWidth` on `Image.transformedSrc` instead.}
-    argument :max_height, ::GraphQL::Types::Int, required: false, description: %q{Image height in pixels between 1 and 2048. This argument is deprecated: Use `maxHeight` on `Image.transformedSrc` instead.}
-    argument :crop, ::Spree::GraphQL::Schema::Types::CropRegion, required: false, description: %q{Crops the image according to the specified region. This argument is deprecated: Use `crop` on `Image.transformedSrc` instead.}
+    argument :max_width, ::GraphQL::Types::Int, required: false, default_value: nil, description: %q{Image width in pixels between 1 and 2048. This argument is deprecated: Use `maxWidth` on `Image.transformedSrc` instead.}
+    argument :max_height, ::GraphQL::Types::Int, required: false, default_value: nil, description: %q{Image height in pixels between 1 and 2048. This argument is deprecated: Use `maxHeight` on `Image.transformedSrc` instead.}
+    argument :crop, ::Spree::GraphQL::Schema::Types::CropRegion, required: false, default_value: nil, description: %q{Crops the image according to the specified region. This argument is deprecated: Use `crop` on `Image.transformedSrc` instead.}
     argument :scale, ::GraphQL::Types::Int, required: false, default_value: 1, description: %q{Image size multiplier for high-resolution retina displays. Must be between 1 and 3. This argument is deprecated: Use `scale` on `Image.transformedSrc` instead.}
   end
   field :price, ::Spree::GraphQL::Schema::Types::Money, null: false do

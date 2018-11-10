@@ -30,9 +30,6 @@ the shipping address is valid.
   field :email, ::GraphQL::Types::String, null: true do
     description %q{The email attached to this checkout.}
   end
-  field :id, ::GraphQL::Types::ID, null: false do
-    description %q{Globally unique identifier.}
-  end
   field :line_items, ::Spree::GraphQL::Schema::Types::CheckoutLineItem.connection_type, null: false do
     description %q{A list of line item objects, each one containing information about an item in the checkout.}
     argument :reverse, ::GraphQL::Types::Boolean, required: false, default_value: false, description: %q{Reverse the order of the underlying list.}

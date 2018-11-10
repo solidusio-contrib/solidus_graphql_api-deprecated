@@ -13,9 +13,9 @@ module Spree::GraphQL::Types::Shop
   # collections: List of the shop’s collections.
   # @param reverse [Types::Boolean] (false) Reverse the order of the underlying list.
   # @param sort_key [Types::CollectionSortKeys] ('ID') Sort the underlying list by the given key.
-  # @param query [Types::String] Supported filter parameters:  - `title`  - `collection_type`  - `updated_at` See the detailed [search syntax](https://help.solidus.io/api/getting-started/search-syntax).
+  # @param query [Types::String] (nil) Supported filter parameters:  - `title`  - `collection_type`  - `updated_at` See the detailed [search syntax](https://help.solidus.io/api/getting-started/search-syntax).
   # @return [Types::Collection.connection_type!]
-  def collections(reverse:, sort_key:, query: nil)
+  def collections(reverse:, sort_key:, query:)
     if query
       raise ::Spree::GraphQL::NotImplementedError.new
     end
@@ -80,9 +80,9 @@ module Spree::GraphQL::Types::Shop
   # products: List of the shop’s products.
   # @param reverse [Types::Boolean] (false) Reverse the order of the underlying list.
   # @param sort_key [Types::ProductSortKeys] ('ID') Sort the underlying list by the given key.
-  # @param query [Types::String] Supported filter parameters:  - `title`  - `product_type`  - `vendor`  - `created_at`  - `updated_at`  - `variants.price`  - `tag` See the detailed [search syntax](https://help.solidus.io/api/getting-started/search-syntax).
+  # @param query [Types::String] (nil) Supported filter parameters:  - `title`  - `product_type`  - `vendor`  - `created_at`  - `updated_at`  - `variants.price`  - `tag` See the detailed [search syntax](https://help.solidus.io/api/getting-started/search-syntax).
   # @return [Types::Product.connection_type!]
-  def products(reverse:, sort_key:, query: nil)
+  def products(reverse:, sort_key:, query:)
     if query
       raise ::Spree::GraphQL::NotImplementedError.new
     end

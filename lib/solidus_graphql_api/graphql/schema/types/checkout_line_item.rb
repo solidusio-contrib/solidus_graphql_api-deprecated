@@ -8,9 +8,6 @@ class Spree::GraphQL::Schema::Types::CheckoutLineItem < Spree::GraphQL::Schema::
   field :discount_allocations, [::Spree::GraphQL::Schema::Types::DiscountAllocation], null: false do
     description %q{The discounts that have been allocated onto the checkout line item by discount applications.}
   end
-  field :id, ::GraphQL::Types::ID, null: false do
-    description %q{Globally unique identifier.}
-  end
   field :quantity, ::GraphQL::Types::Int, null: false do
     description %q{The quantity of the line item.}
   end

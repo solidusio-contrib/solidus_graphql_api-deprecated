@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::Blog
+
   # articleByHandle: Find an article by its handle.
   # @param handle [Types::String!] The handle of the article.
   # @return [Types::Article]
@@ -23,12 +24,6 @@ module Spree::GraphQL::Types::Blog
   # handle: A human-friendly unique string for the Blog automatically generated from its title.
   # @return [Types::String!]
   def handle()
-    raise ::Spree::GraphQL::NotImplementedError.new
-  end
-
-  # id: Globally unique identifier.
-  # @return [Types::ID!]
-  def id()
     raise ::Spree::GraphQL::NotImplementedError.new
   end
 

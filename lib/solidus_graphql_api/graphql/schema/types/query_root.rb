@@ -1,4 +1,4 @@
-class Spree::GraphQL::Schema::Types::QueryRoot < Spree::GraphQL::Schema::Types::BaseObjectNode
+class Spree::GraphQL::Schema::Types::QueryRoot < Spree::GraphQL::Schema::Types::BaseObject
   graphql_name 'QueryRoot'
   description %q{The schema’s entry-point for queries. This acts as the public, top-level API from which all queries must start.}
   include ::Spree::GraphQL::Types::QueryRoot
@@ -10,7 +10,7 @@ class Spree::GraphQL::Schema::Types::QueryRoot < Spree::GraphQL::Schema::Types::
     description %q{List of the shop's articles.}
     argument :reverse, ::GraphQL::Types::Boolean, required: false, default_value: false, description: %q{Reverse the order of the underlying list.}
     argument :sort_key, ::Spree::GraphQL::Schema::Types::ArticleSortKeys, required: false, default_value: 'ID', description: %q{Sort the underlying list by the given key.}
-    argument :query, ::GraphQL::Types::String, required: false, description: %q{Supported filter parameters:
+    argument :query, ::GraphQL::Types::String, required: false, default_value: nil, description: %q{Supported filter parameters:
  - `author`
  - `updated_at`
  - `created_at`
@@ -28,7 +28,7 @@ See the detailed [search syntax](https://help.solidus.io/api/getting-started/sea
     description %q{List of the shop's blogs.}
     argument :reverse, ::GraphQL::Types::Boolean, required: false, default_value: false, description: %q{Reverse the order of the underlying list.}
     argument :sort_key, ::Spree::GraphQL::Schema::Types::BlogSortKeys, required: false, default_value: 'ID', description: %q{Sort the underlying list by the given key.}
-    argument :query, ::GraphQL::Types::String, required: false, description: %q{Supported filter parameters:
+    argument :query, ::GraphQL::Types::String, required: false, default_value: nil, description: %q{Supported filter parameters:
  - `handle`
  - `title`
  - `updated_at`

@@ -1,14 +1,9 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::ShopPolicy
+
   # body: Policy text, maximum size of 64kb.
   # @return [Types::String!]
   def body()
-    raise ::Spree::GraphQL::NotImplementedError.new
-  end
-
-  # id: Globally unique identifier.
-  # @return [Types::ID!]
-  def id()
     raise ::Spree::GraphQL::NotImplementedError.new
   end
 
