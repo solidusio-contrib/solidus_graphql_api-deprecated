@@ -24,14 +24,14 @@ module Spree::GraphQL::Types::Product
   # @param truncate_at [Types::Int] (nil) Truncates string after the given length.
   # @return [Types::String!]
   def description(truncate_at:)
-    content = ActionView::Base.full_sanitizer.sanitize(object.description).gsub!(/\s+/, ' ').strip!
+    content = ActionView::Base.full_sanitizer.sanitize(object.description).gsub!(/\s+/, ' ').strip! || ''
     truncate_at ? content.truncate(truncate_at) : content
   end
 
   # descriptionHtml: The description of the product, complete with HTML formatting.
   # @return [Types::HTML!]
   def description_html()
-    object.description
+    object.description || ''
   end
 
   # handle: A human-friendly unique string for the Product automatically generated from its title. They are used by the Liquid templating language to refer to objects.

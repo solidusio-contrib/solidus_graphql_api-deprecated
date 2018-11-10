@@ -5,14 +5,14 @@ module Spree::GraphQL::Types::Collection
   # @param truncate_at [Types::Int] (nil) Truncates string after the given length.
   # @return [Types::String!]
   def description(truncate_at:)
-    content = ActionView::Base.full_sanitizer.sanitize(object.description).gsub!(/\s+/, ' ').strip!
+    content = ActionView::Base.full_sanitizer.sanitize(object.description).gsub!(/\s+/, ' ').strip! || ''
     truncate_at ? content.truncate(truncate_at) : content
   end
 
   # descriptionHtml: The description of the collection, complete with HTML formatting.
   # @return [Types::HTML!]
   def description_html()
-    object.description
+    object.description || ''
   end
 
   # handle: A human-friendly unique string for the collection automatically generated from its title. Limit of 255 characters.

@@ -29,7 +29,7 @@ module Spree::GraphQL::Types::Shop
   # description: A description of the shop.
   # @return [Types::String]
   def description()
-    object.meta_description
+    object.meta_description || ''
   end
 
   # moneyFormat: A string representing the way currency is formatted when the currency isn’t specified.
