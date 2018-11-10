@@ -16,7 +16,7 @@ module Spree::GraphQL
     let!(:product) {
       p = create(:product)
       p.name = 'B Product'
-      p.description = %Q{String\n<a href="http://localhost:3000/">description</a> <br/>and newline\n<br>}
+      p.description = %Q{Product description with no special characters}
       p.slug = 'product1'
       p.taxons= [collection]
       p.save

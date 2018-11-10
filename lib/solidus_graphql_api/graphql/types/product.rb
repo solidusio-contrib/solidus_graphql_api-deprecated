@@ -24,7 +24,8 @@ module Spree::GraphQL::Types::Product
   # @param truncate_at [Types::Int] (nil) Truncates string after the given length.
   # @return [Types::String!]
   def description(truncate_at:)
-    content = ActionView::Base.full_sanitizer.sanitize(object.description).gsub!(/\s+/, ' ').strip! || ''
+    content = ActionView::Base.full_sanitizer.sanitize(object.description).gsub!(/\s+/, ' ') || ''
+    content.strip!
     truncate_at ? content.truncate(truncate_at) : content
   end
 
