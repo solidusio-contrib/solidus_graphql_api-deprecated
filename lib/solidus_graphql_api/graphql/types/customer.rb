@@ -65,7 +65,7 @@ module Spree::GraphQL::Types::Customer
   # orders: The orders associated with the customer.
   # @param reverse [Types::Boolean] (false) Reverse the order of the underlying list.
   # @param sort_key [Types::OrderSortKeys] ('ID') Sort the underlying list by the given key.
-  # @param query [Types::String] Supported filter parameters:  - `processed_at` See the detailed [search syntax](https://help.solidus.io/api/getting-started/search-syntax).
+  # @param query [Types::String] (nil) Supported filter parameters:  - `processed_at` See the detailed [search syntax](https://help.solidus.io/api/getting-started/search-syntax).
   # @return [Types::Order.connection_type!]
   def orders(reverse:, sort_key:, query:)
     raise ::Spree::GraphQL::NotImplementedError.new

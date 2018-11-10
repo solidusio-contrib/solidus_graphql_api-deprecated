@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::MailingAddress
+
   # address1: The first line of the address. Typically the street address or PO Box number.
   # @return [Types::String]
   def address1()
@@ -53,12 +54,6 @@ module Spree::GraphQL::Types::MailingAddress
   # formattedArea: A comma-separated list of the values for city, province, and country.
   # @return [Types::String]
   def formatted_area()
-    raise ::Spree::GraphQL::NotImplementedError.new
-  end
-
-  # id: Globally unique identifier.
-  # @return [Types::ID!]
-  def id()
     raise ::Spree::GraphQL::NotImplementedError.new
   end
 

@@ -9,5 +9,5 @@ a tokenized payment.
   argument :type, ::GraphQL::Types::String, required: true, description: %q{The type of payment token.}
   argument :payment_data, ::GraphQL::Types::String, required: true, description: %q{A simple string or JSON containing the required payment data for the tokenized payment.}
   argument :test, ::GraphQL::Types::Boolean, required: false, default_value: false, description: %q{Executes the payment in test mode if possible. Defaults to `false`.}
-  argument :identifier, ::GraphQL::Types::String, required: false, description: %q{Public Hash Key used for AndroidPay payments only.}
+  argument :identifier, ::GraphQL::Types::String, required: false, default_value: nil, description: %q{Public Hash Key used for AndroidPay payments only.}
 end

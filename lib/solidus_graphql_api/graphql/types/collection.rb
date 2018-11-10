@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::Collection
+
   # description: Stripped description of the collection, single line with HTML tags removed.
-  # @param truncate_at [Types::Int] Truncates string after the given length.
+  # @param truncate_at [Types::Int] (nil) Truncates string after the given length.
   # @return [Types::String!]
-  def description(truncate_at: nil)
-    content = ActionView::Base.full_sanitizer.sanitize(object.description).gsub!(/\s+/, ' ').strip!
+  def description(truncate_at:)
+    content = ActionView::Base.full_sanitizer.sanitize(object.description).gsub!(/\s+/, ' ').strip! || ''
     truncate_at ? content.truncate(truncate_at) : content
   end
 
   # descriptionHtml: The description of the collection, complete with HTML formatting.
   # @return [Types::HTML!]
   def description_html()
-    object.description
+    object.description || ''
   end
 
   # handle: A human-friendly unique string for the collection automatically generated from its title. Limit of 255 characters.
@@ -21,9 +22,9 @@ module Spree::GraphQL::Types::Collection
   end
 
   # image: Image associated with the collection.
-  # @param max_width [Types::Int] Image width in pixels between 1 and 2048. This argument is deprecated: Use `maxWidth` on `Image.transformedSrc` instead.
-  # @param max_height [Types::Int] Image height in pixels between 1 and 2048. This argument is deprecated: Use `maxHeight` on `Image.transformedSrc` instead.
-  # @param crop [Types::CropRegion] Crops the image according to the specified region. This argument is deprecated: Use `crop` on `Image.transformedSrc` instead.
+  # @param max_width [Types::Int] (nil) Image width in pixels between 1 and 2048. This argument is deprecated: Use `maxWidth` on `Image.transformedSrc` instead.
+  # @param max_height [Types::Int] (nil) Image height in pixels between 1 and 2048. This argument is deprecated: Use `maxHeight` on `Image.transformedSrc` instead.
+  # @param crop [Types::CropRegion] (nil) Crops the image according to the specified region. This argument is deprecated: Use `crop` on `Image.transformedSrc` instead.
   # @param scale [Types::Int] (1) Image size multiplier for high-resolution retina displays. Must be between 1 and 3. This argument is deprecated: Use `scale` on `Image.transformedSrc` instead.
   # @return [Types::Image]
   def image(max_width:, max_height:, crop:, scale:)

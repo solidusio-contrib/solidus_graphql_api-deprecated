@@ -37,7 +37,7 @@ class Spree::GraphQL::Schema::Types::Customer < Spree::GraphQL::Schema::Types::B
     description %q{The orders associated with the customer.}
     argument :reverse, ::GraphQL::Types::Boolean, required: false, default_value: false, description: %q{Reverse the order of the underlying list.}
     argument :sort_key, ::Spree::GraphQL::Schema::Types::OrderSortKeys, required: false, default_value: 'ID', description: %q{Sort the underlying list by the given key.}
-    argument :query, ::GraphQL::Types::String, required: false, description: %q{Supported filter parameters:
+    argument :query, ::GraphQL::Types::String, required: false, default_value: nil, description: %q{Supported filter parameters:
  - `processed_at`
 
 See the detailed [search syntax](https://help.solidus.io/api/getting-started/search-syntax).

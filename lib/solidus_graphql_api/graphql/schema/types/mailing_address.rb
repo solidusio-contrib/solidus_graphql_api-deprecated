@@ -39,9 +39,6 @@ For example, US.
   field :formatted_area, ::GraphQL::Types::String, null: true do
     description %q{A comma-separated list of the values for city, province, and country.}
   end
-  field :id, ::GraphQL::Types::ID, null: false do
-    description %q{Globally unique identifier.}
-  end
   field :last_name, ::GraphQL::Types::String, null: true do
     description %q{The last name of the customer.}
   end

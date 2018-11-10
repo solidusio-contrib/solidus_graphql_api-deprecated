@@ -5,9 +5,6 @@ class Spree::GraphQL::Schema::Types::ShopPolicy < Spree::GraphQL::Schema::Types:
   field :body, ::GraphQL::Types::String, null: false do
     description %q{Policy text, maximum size of 64kb.}
   end
-  field :id, ::GraphQL::Types::ID, null: false do
-    description %q{Globally unique identifier.}
-  end
   field :title, ::GraphQL::Types::String, null: false do
     description %q{Policy’s title.}
   end

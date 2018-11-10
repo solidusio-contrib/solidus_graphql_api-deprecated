@@ -5,7 +5,7 @@ class Spree::GraphQL::Schema::Types::Collection < Spree::GraphQL::Schema::Types:
   include ::Spree::GraphQL::Types::Collection
   field :description, ::GraphQL::Types::String, null: false do
     description %q{Stripped description of the collection, single line with HTML tags removed.}
-    argument :truncate_at, ::GraphQL::Types::Int, required: false, description: %q{Truncates string after the given length.}
+    argument :truncate_at, ::GraphQL::Types::Int, required: false, default_value: nil, description: %q{Truncates string after the given length.}
   end
   field :description_html, ::Spree::GraphQL::Schema::Types::HTML, null: false do
     description %q{The description of the collection, complete with HTML formatting.}
@@ -17,9 +17,9 @@ Limit of 255 characters.
   end
   field :image, ::Spree::GraphQL::Schema::Types::Image, null: true do
     description %q{Image associated with the collection.}
-    argument :max_width, ::GraphQL::Types::Int, required: false, description: %q{Image width in pixels between 1 and 2048. This argument is deprecated: Use `maxWidth` on `Image.transformedSrc` instead.}
-    argument :max_height, ::GraphQL::Types::Int, required: false, description: %q{Image height in pixels between 1 and 2048. This argument is deprecated: Use `maxHeight` on `Image.transformedSrc` instead.}
-    argument :crop, ::Spree::GraphQL::Schema::Types::CropRegion, required: false, description: %q{Crops the image according to the specified region. This argument is deprecated: Use `crop` on `Image.transformedSrc` instead.}
+    argument :max_width, ::GraphQL::Types::Int, required: false, default_value: nil, description: %q{Image width in pixels between 1 and 2048. This argument is deprecated: Use `maxWidth` on `Image.transformedSrc` instead.}
+    argument :max_height, ::GraphQL::Types::Int, required: false, default_value: nil, description: %q{Image height in pixels between 1 and 2048. This argument is deprecated: Use `maxHeight` on `Image.transformedSrc` instead.}
+    argument :crop, ::Spree::GraphQL::Schema::Types::CropRegion, required: false, default_value: nil, description: %q{Crops the image according to the specified region. This argument is deprecated: Use `crop` on `Image.transformedSrc` instead.}
     argument :scale, ::GraphQL::Types::Int, required: false, default_value: 1, description: %q{Image size multiplier for high-resolution retina displays. Must be between 1 and 3. This argument is deprecated: Use `scale` on `Image.transformedSrc` instead.}
   end
   field :products, ::Spree::GraphQL::Schema::Types::Product.connection_type, null: false do

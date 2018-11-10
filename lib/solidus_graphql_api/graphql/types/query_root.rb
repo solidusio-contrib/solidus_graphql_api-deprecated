@@ -4,7 +4,7 @@ module Spree::GraphQL::Types::QueryRoot
   # articles: List of the shop's articles.
   # @param reverse [Types::Boolean] (false) Reverse the order of the underlying list.
   # @param sort_key [Types::ArticleSortKeys] ('ID') Sort the underlying list by the given key.
-  # @param query [Types::String] Supported filter parameters:  - `author`  - `updated_at`  - `created_at`  - `blog_title`  - `tag` See the detailed [search syntax](https://help.solidus.io/api/getting-started/search-syntax).
+  # @param query [Types::String] (nil) Supported filter parameters:  - `author`  - `updated_at`  - `created_at`  - `blog_title`  - `tag` See the detailed [search syntax](https://help.solidus.io/api/getting-started/search-syntax).
   # @return [Types::Article.connection_type!]
   def articles(reverse:, sort_key:, query:)
     raise ::Spree::GraphQL::NotImplementedError.new
@@ -20,7 +20,7 @@ module Spree::GraphQL::Types::QueryRoot
   # blogs: List of the shop's blogs.
   # @param reverse [Types::Boolean] (false) Reverse the order of the underlying list.
   # @param sort_key [Types::BlogSortKeys] ('ID') Sort the underlying list by the given key.
-  # @param query [Types::String] Supported filter parameters:  - `handle`  - `title`  - `updated_at`  - `created_at` See the detailed [search syntax](https://help.solidus.io/api/getting-started/search-syntax).
+  # @param query [Types::String] (nil) Supported filter parameters:  - `handle`  - `title`  - `updated_at`  - `created_at` See the detailed [search syntax](https://help.solidus.io/api/getting-started/search-syntax).
   # @return [Types::Blog.connection_type!]
   def blogs(reverse:, sort_key:, query:)
     raise ::Spree::GraphQL::NotImplementedError.new

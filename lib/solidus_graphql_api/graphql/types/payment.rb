@@ -31,12 +31,6 @@ module Spree::GraphQL::Types::Payment
     raise ::Spree::GraphQL::NotImplementedError.new
   end
 
-  # id: Globally unique identifier.
-  # @return [Types::ID!]
-  def id()
-    raise ::Spree::GraphQL::NotImplementedError.new
-  end
-
   # idempotencyKey: A client-side generated token to identify a payment and perform idempotent operations.
   # @return [Types::String]
   def idempotency_key()

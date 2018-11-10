@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::Checkout
+
   # appliedGiftCards
   # @return [[Types::AppliedGiftCard!]!]
   def applied_gift_cards()
@@ -46,12 +47,6 @@ module Spree::GraphQL::Types::Checkout
   # email: The email attached to this checkout.
   # @return [Types::String]
   def email()
-    raise ::Spree::GraphQL::NotImplementedError.new
-  end
-
-  # id: Globally unique identifier.
-  # @return [Types::ID!]
-  def id()
     raise ::Spree::GraphQL::NotImplementedError.new
   end
 

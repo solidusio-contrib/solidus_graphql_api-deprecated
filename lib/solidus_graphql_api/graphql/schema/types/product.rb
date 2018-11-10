@@ -30,9 +30,9 @@ They are used by the Liquid templating language to refer to objects.
     description %q{List of images associated with the product.}
     argument :reverse, ::GraphQL::Types::Boolean, required: false, default_value: false, description: %q{Reverse the order of the underlying list.}
     argument :sort_key, ::Spree::GraphQL::Schema::Types::ProductImageSortKeys, required: false, default_value: 'POSITION', description: %q{Sort the underlying list by the given key.}
-    argument :max_width, ::GraphQL::Types::Int, required: false, description: %q{Image width in pixels between 1 and 2048. This argument is deprecated: Use `maxWidth` on `Image.transformedSrc` instead.}
-    argument :max_height, ::GraphQL::Types::Int, required: false, description: %q{Image height in pixels between 1 and 2048. This argument is deprecated: Use `maxHeight` on `Image.transformedSrc` instead.}
-    argument :crop, ::Spree::GraphQL::Schema::Types::CropRegion, required: false, description: %q{Crops the image according to the specified region. This argument is deprecated: Use `crop` on `Image.transformedSrc` instead.}
+    argument :max_width, ::GraphQL::Types::Int, required: false, default_value: nil, description: %q{Image width in pixels between 1 and 2048. This argument is deprecated: Use `maxWidth` on `Image.transformedSrc` instead.}
+    argument :max_height, ::GraphQL::Types::Int, required: false, default_value: nil, description: %q{Image height in pixels between 1 and 2048. This argument is deprecated: Use `maxHeight` on `Image.transformedSrc` instead.}
+    argument :crop, ::Spree::GraphQL::Schema::Types::CropRegion, required: false, default_value: nil, description: %q{Crops the image according to the specified region. This argument is deprecated: Use `crop` on `Image.transformedSrc` instead.}
     argument :scale, ::GraphQL::Types::Int, required: false, default_value: 1, description: %q{Image size multiplier for high-resolution retina displays. Must be between 1 and 3. This argument is deprecated: Use `scale` on `Image.transformedSrc` instead.}
   end
   field :online_store_url, ::Spree::GraphQL::Schema::Types::URL, null: true do
@@ -42,7 +42,7 @@ A value of `null` indicates that the product is not published to the Online Stor
   end
   field :options, [::Spree::GraphQL::Schema::Types::ProductOption], null: false do
     description %q{List of custom product options (maximum of 3 per product).}
-    argument :first, ::GraphQL::Types::Int, required: false, description: %q{Truncate the array result to this size.}
+    argument :first, ::GraphQL::Types::Int, required: false, default_value: nil, description: %q{Truncate the array result to this size.}
   end
   field :price_range, ::Spree::GraphQL::Schema::Types::ProductPriceRange, null: false do
     description %q{The price range.}

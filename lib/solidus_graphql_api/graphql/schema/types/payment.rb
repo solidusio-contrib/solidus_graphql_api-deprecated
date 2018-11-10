@@ -17,9 +17,6 @@ class Spree::GraphQL::Schema::Types::Payment < Spree::GraphQL::Schema::Types::Ba
   field :error_message, ::GraphQL::Types::String, null: true do
     description %q{An message describing a processing error during asynchronous processing.}
   end
-  field :id, ::GraphQL::Types::ID, null: false do
-    description %q{Globally unique identifier.}
-  end
   field :idempotency_key, ::GraphQL::Types::String, null: true do
     description %q{A client-side generated token to identify a payment and perform idempotent operations.}
   end

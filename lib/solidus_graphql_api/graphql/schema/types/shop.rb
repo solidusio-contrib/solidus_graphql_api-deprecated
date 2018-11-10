@@ -10,7 +10,7 @@ class Spree::GraphQL::Schema::Types::Shop < Spree::GraphQL::Schema::Types::BaseO
     description %q{List of the shop’s collections.}
     argument :reverse, ::GraphQL::Types::Boolean, required: false, default_value: false, description: %q{Reverse the order of the underlying list.}
     argument :sort_key, ::Spree::GraphQL::Schema::Types::CollectionSortKeys, required: false, default_value: 'ID', description: %q{Sort the underlying list by the given key.}
-    argument :query, ::GraphQL::Types::String, required: false, description: %q{Supported filter parameters:
+    argument :query, ::GraphQL::Types::String, required: false, default_value: nil, description: %q{Supported filter parameters:
  - `title`
  - `collection_type`
  - `updated_at`
@@ -47,7 +47,7 @@ See the detailed [search syntax](https://help.solidus.io/api/getting-started/sea
     description %q{List of the shop’s products.}
     argument :reverse, ::GraphQL::Types::Boolean, required: false, default_value: false, description: %q{Reverse the order of the underlying list.}
     argument :sort_key, ::Spree::GraphQL::Schema::Types::ProductSortKeys, required: false, default_value: 'ID', description: %q{Sort the underlying list by the given key.}
-    argument :query, ::GraphQL::Types::String, required: false, description: %q{Supported filter parameters:
+    argument :query, ::GraphQL::Types::String, required: false, default_value: nil, description: %q{Supported filter parameters:
  - `title`
  - `product_type`
  - `vendor`

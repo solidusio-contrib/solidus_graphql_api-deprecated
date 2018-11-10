@@ -17,9 +17,6 @@ class Spree::GraphQL::Schema::Types::Blog < Spree::GraphQL::Schema::Types::BaseO
     description %q{A human-friendly unique string for the Blog automatically generated from its title.
 }
   end
-  field :id, ::GraphQL::Types::ID, null: false do
-    description %q{Globally unique identifier.}
-  end
   field :title, ::GraphQL::Types::String, null: false do
     description %q{The blogs’s title.}
   end

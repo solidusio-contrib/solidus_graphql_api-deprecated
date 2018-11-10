@@ -13,6 +13,6 @@ class Spree::GraphQL::Schema::Types::Fulfillment < Spree::GraphQL::Schema::Types
     description %q{Tracking information associated with the fulfillment,
 such as the tracking number and tracking URL.
 }
-    argument :first, ::GraphQL::Types::Int, required: false, description: %q{Truncate the array result to this size.}
+    argument :first, ::GraphQL::Types::Int, required: false, default_value: nil, description: %q{Truncate the array result to this size.}
   end
 end
