@@ -33,20 +33,6 @@ module Spree::GraphQL::Types::QueryRoot
     raise ::Spree::GraphQL::NotImplementedError.new
   end
 
-  # node
-  # @param id [Types::ID!] The ID of the Node to return.
-  # @return [Interfaces::Node]
-  def node(id:)
-    raise ::Spree::GraphQL::NotImplementedError.new
-  end
-
-  # nodes
-  # @param ids [[Types::ID!]!] The IDs of the Nodes to return.
-  # @return [[Interfaces::Node]!]
-  def nodes(ids:)
-    raise ::Spree::GraphQL::NotImplementedError.new
-  end
-
   # shop
   # @return [Types::Shop!]
   def shop()

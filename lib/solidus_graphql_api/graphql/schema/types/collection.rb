@@ -1,8 +1,7 @@
-class Spree::GraphQL::Schema::Types::Product < Spree::GraphQL::Schema::Types::BaseObject; end
-class Spree::GraphQL::Schema::Types::Collection < Spree::GraphQL::Schema::Types::BaseObject
+class Spree::GraphQL::Schema::Types::Product < Spree::GraphQL::Schema::Types::BaseObjectNode; end
+class Spree::GraphQL::Schema::Types::Collection < Spree::GraphQL::Schema::Types::BaseObjectNode
   graphql_name 'Collection'
   description %q{A collection represents a grouping of products that a shop owner can create to organize them or make their shops easier to browse.}
-  implements ::Spree::GraphQL::Schema::Interfaces::Node
   include ::Spree::GraphQL::Types::Collection
   field :description, ::GraphQL::Types::String, null: false do
     description %q{Stripped description of the collection, single line with HTML tags removed.}
@@ -15,9 +14,6 @@ class Spree::GraphQL::Schema::Types::Collection < Spree::GraphQL::Schema::Types:
     description %q{A human-friendly unique string for the collection automatically generated from its title.
 Limit of 255 characters.
 }
-  end
-  field :id, ::GraphQL::Types::ID, null: false do
-    description %q{Globally unique identifier.}
   end
   field :image, ::Spree::GraphQL::Schema::Types::Image, null: true do
     description %q{Image associated with the collection.}

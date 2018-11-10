@@ -1,5 +1,7 @@
 # frozen_string_literal: true
+require_relative '../../../spree/helpers/base_helper'
 module Spree::GraphQL::Types::Shop
+  include ::Spree::GraphQL::Helpers::BaseHelper
 
   # collectionByHandle: Find a collection by its handle.
   # @param handle [Types::String!] The handle of the collection.
@@ -13,8 +15,15 @@ module Spree::GraphQL::Types::Shop
   # @param sort_key [Types::CollectionSortKeys] ('ID') Sort the underlying list by the given key.
   # @param query [Types::String] Supported filter parameters:  - `title`  - `collection_type`  - `updated_at` See the detailed [search syntax](https://help.solidus.io/api/getting-started/search-syntax).
   # @return [Types::Collection.connection_type!]
-  def collections(reverse:, sort_key:, query:)
-    raise ::Spree::GraphQL::NotImplementedError.new
+  def collections(reverse:, sort_key:, query: nil)
+    if query
+      raise ::Spree::GraphQL::NotImplementedError.new
+    end
+    ::Spree::GraphQL::Types::CollectionSortKeys.apply!(
+      ::Spree::Taxon.where(parent_id: nil),
+      reverse: reverse,
+      sort_key: sort_key,
+    )
   end
 
   # description: A description of the shop.
@@ -73,8 +82,15 @@ module Spree::GraphQL::Types::Shop
   # @param sort_key [Types::ProductSortKeys] ('ID') Sort the underlying list by the given key.
   # @param query [Types::String] Supported filter parameters:  - `title`  - `product_type`  - `vendor`  - `created_at`  - `updated_at`  - `variants.price`  - `tag` See the detailed [search syntax](https://help.solidus.io/api/getting-started/search-syntax).
   # @return [Types::Product.connection_type!]
-  def products(reverse:, sort_key:, query:)
-    raise ::Spree::GraphQL::NotImplementedError.new
+  def products(reverse:, sort_key:, query: nil)
+    if query
+      raise ::Spree::GraphQL::NotImplementedError.new
+    end
+    ::Spree::GraphQL::Types::ProductSortKeys.apply!(
+      ::Spree::Product.all,
+      reverse: reverse,
+      sort_key: sort_key,
+    )
   end
 
   # refundPolicy: The shop’s refund policy.
@@ -83,10 +99,10 @@ module Spree::GraphQL::Types::Shop
     raise ::Spree::GraphQL::NotImplementedError.new
   end
 
-  # shipsToCountries: Countries that the shop ships to.
+  # shipsToCountries: Countries that the shop ships to. 2-letter ISO codes.
   # @return [[Types::CountryCode!]!]
   def ships_to_countries()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    available_countries.map(&:iso)
   end
 
   # termsOfService: The shop’s terms of service.

@@ -1,8 +1,7 @@
-class Spree::GraphQL::Schema::Types::Blog < Spree::GraphQL::Schema::Types::BaseObject; end
-class Spree::GraphQL::Schema::Types::Article < Spree::GraphQL::Schema::Types::BaseObject
+class Spree::GraphQL::Schema::Types::Blog < Spree::GraphQL::Schema::Types::BaseObjectNode; end
+class Spree::GraphQL::Schema::Types::Article < Spree::GraphQL::Schema::Types::BaseObjectNode
   graphql_name 'Article'
   description nil
-  implements ::Spree::GraphQL::Schema::Interfaces::Node
   include ::Spree::GraphQL::Types::Article
   field :author_v2, ::Spree::GraphQL::Schema::Types::ArticleAuthor, null: true do
     description %q{The article's author.}

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::ProductOption
-  include ::Spree::GraphQL::Interfaces::Node
-
   # id: Globally unique identifier.
   # @return [Types::ID!]
   def id()

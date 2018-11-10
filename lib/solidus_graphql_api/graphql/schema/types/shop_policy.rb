@@ -1,7 +1,6 @@
-class Spree::GraphQL::Schema::Types::ShopPolicy < Spree::GraphQL::Schema::Types::BaseObject
+class Spree::GraphQL::Schema::Types::ShopPolicy < Spree::GraphQL::Schema::Types::BaseObjectNode
   graphql_name 'ShopPolicy'
   description %q{Policy that a merchant has configured for their store, such as their refund or privacy policy.}
-  implements ::Spree::GraphQL::Schema::Interfaces::Node
   include ::Spree::GraphQL::Types::ShopPolicy
   field :body, ::GraphQL::Types::String, null: false do
     description %q{Policy text, maximum size of 64kb.}

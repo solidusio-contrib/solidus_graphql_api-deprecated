@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::Order
-  include ::Spree::GraphQL::Interfaces::Node
-
   # currencyCode: The code of the currency used for the payment.
   # @return [Types::CurrencyCode!]
   def currency_code()

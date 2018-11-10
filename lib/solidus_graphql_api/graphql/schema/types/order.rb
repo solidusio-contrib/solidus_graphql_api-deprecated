@@ -1,7 +1,6 @@
-class Spree::GraphQL::Schema::Types::Order < Spree::GraphQL::Schema::Types::BaseObject
+class Spree::GraphQL::Schema::Types::Order < Spree::GraphQL::Schema::Types::BaseObjectNode
   graphql_name 'Order'
   description %q{An order is a customer’s completed request to purchase one or more products from a shop. An order is created when a customer completes the checkout process, during which time they provides an email address, billing address and payment information.}
-  implements ::Spree::GraphQL::Schema::Interfaces::Node
   include ::Spree::GraphQL::Types::Order
   field :currency_code, ::Spree::GraphQL::Schema::Types::CurrencyCode, null: false do
     description %q{The code of the currency used for the payment.}

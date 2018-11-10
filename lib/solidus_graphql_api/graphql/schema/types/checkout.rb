@@ -1,7 +1,6 @@
-class Spree::GraphQL::Schema::Types::Checkout < Spree::GraphQL::Schema::Types::BaseObject
+class Spree::GraphQL::Schema::Types::Checkout < Spree::GraphQL::Schema::Types::BaseObjectNode
   graphql_name 'Checkout'
   description %q{A container for all the information required to checkout items and pay.}
-  implements ::Spree::GraphQL::Schema::Interfaces::Node
   include ::Spree::GraphQL::Types::Checkout
   field :applied_gift_cards, [::Spree::GraphQL::Schema::Types::AppliedGiftCard], null: false do
     description nil

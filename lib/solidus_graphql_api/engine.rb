@@ -3,7 +3,7 @@ module Spree
     class Engine < Rails::Engine
       require 'spree/core'
       isolate_namespace Spree
-      engine_name 'solidus_graphql'
+      engine_name 'solidus_graphql_api'
 
       # use rspec for tests
       config.generators do |g|

@@ -1,5 +1,6 @@
 require 'graphql'
 require 'ostruct'
+require 'action_view'
 
 module Spree
   module GraphQL
@@ -41,7 +42,6 @@ require_relative "./types/base_object"
 require_relative "./types/base_enum"
 require_relative "./types/base_scalar"
 require_relative "./types/base_union"
-require_relative "./interfaces/node"
 require_relative "./types/page_info"
 require_relative "./types/date_time"
 
@@ -127,14 +127,13 @@ require_relative "./types/mutation"
 # Schema parts:
 
 require_relative "./schema/types/base_object"
-require_relative "./schema/types/base_object_no_id"
+require_relative "./schema/types/base_object_node"
 require_relative "./schema/types/base_enum"
 require_relative "./schema/types/base_scalar"
 require_relative "./schema/inputs/base_input"
 require_relative "./schema/interfaces/base_interface"
 require_relative "./schema/payloads/base_payload"
 require_relative "./schema/types/base_union"
-require_relative "./schema/interfaces/node"
 require_relative "./schema/types/page_info"
 require_relative "./schema/types/date_time"
 

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::Blog
-  include ::Spree::GraphQL::Interfaces::Node
-
   # articleByHandle: Find an article by its handle.
   # @param handle [Types::String!] The handle of the article.
   # @return [Types::Article]

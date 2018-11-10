@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::Product
-  include ::Spree::GraphQL::Interfaces::Node
-
+  include ::ActionView::Helpers::TextHelper
   # availableForSale: Indicates if at least one product variant is available for sale.
   # @return [Types::Boolean!]
   def available_for_sale()
@@ -18,32 +17,27 @@ module Spree::GraphQL::Types::Product
   # createdAt: The date and time when the product was created.
   # @return [Types::DateTime!]
   def created_at()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.created_at.iso8601
   end
 
   # description: Stripped description of the product, single line with HTML tags removed.
   # @param truncate_at [Types::Int] Truncates string after the given length.
   # @return [Types::String!]
   def description(truncate_at:)
-    raise ::Spree::GraphQL::NotImplementedError.new
+    content = ActionView::Base.full_sanitizer.sanitize(object.description).gsub!(/\s+/, ' ').strip!
+    truncate_at ? content.truncate(truncate_at) : content
   end
 
   # descriptionHtml: The description of the product, complete with HTML formatting.
   # @return [Types::HTML!]
   def description_html()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.description
   end
 
   # handle: A human-friendly unique string for the Product automatically generated from its title. They are used by the Liquid templating language to refer to objects.
   # @return [Types::String!]
   def handle()
-    raise ::Spree::GraphQL::NotImplementedError.new
-  end
-
-  # id: Globally unique identifier.
-  # @return [Types::ID!]
-  def id()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.slug
   end
 
   # images: List of images associated with the product.
@@ -86,7 +80,7 @@ module Spree::GraphQL::Types::Product
   # publishedAt: The date and time when the product was published to the channel.
   # @return [Types::DateTime!]
   def published_at()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.available_on.iso8601
   end
 
   # tags: A categorization that a product can be tagged with, commonly used for filtering and searching. Each comma-separated tag has a character limit of 255.
@@ -98,13 +92,13 @@ module Spree::GraphQL::Types::Product
   # title: The product’s title.
   # @return [Types::String!]
   def title()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.name
   end
 
   # updatedAt: The date and time when the product was last modified.
   # @return [Types::DateTime!]
   def updated_at()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.updated_at.iso8601
   end
 
   # variantBySelectedOptions: Find a product’s variant based on its selected options. This is useful for converting a user’s selection of product options into a single matching variant. If there is not a variant for the selected options, `null` will be returned.

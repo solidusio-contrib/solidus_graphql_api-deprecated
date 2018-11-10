@@ -1,8 +1,9 @@
 # Solidus GraphQL API
 
-NOTE: This is a work in progress.
+NOTE: This is a work in progress. Please join the Solidus Slack #graphql channel at [https://solidusio.slack.com/](https://solidusio.slack.com/) if you are interested.
 
-Please join the Solidus Slack #graphql channel at [https://solidusio.slack.com/](https://solidusio.slack.com/) if you are interested.
+The complete list of Solidus GraphQL calls and their implementation status can be found below, towards the end of the document.
+
 
 ## Installation
 
@@ -35,7 +36,7 @@ NOTE: If this is your new Rails + Solidus application, please don't forget to ru
   end
 ```
 
-## First Test
+## Testing and Usage
 
 To run the whole app, run your usual `bundle exec rails s`.
 
@@ -69,22 +70,7 @@ To open GraphiQL browser, visit [http://localhost:3000/graphiql](http://localhos
 
 To see what queries can currently be specified, see GraphiQL's web interface or files `lib/solidus_graphql_api/graphql/schema/types/query_root.rb` and `lib/solidus_graphql_api/graphql/schema/types/mutation.rb`.
 
-## Tests
-
-To run tests, invoke `rake`. `rake` will default to building a dummy app in `spec/dummy`, and finally running the specs.
-
-```shell
-bundle
-bundle exec rake
-
-# Or individually:
-bundle exec rake test_app
-bundle exec rake spec
-
-# Or using rspec for tests directly:
-bundle exec rspec
-bundle exec rspec spec/graphql/types/product_spec.rb
-```
+Please note that all GraphQL API fields which do not yet contain an actual implementation will return a `NotImplementedError`. For all such fields that you attempt to use but they aren't available, please submit an issue or report them in Solidus Slack channel #graphql. That will help prioritize work and ensure we begin with the implementation on the next working day.
 
 ## How to Contribute
 
@@ -110,7 +96,7 @@ Notes / additional help on adding code and tests follow:
 
 As you might know, every GraphQL field returns either an object for more querying on it, or a leaf value.
 
-For example, a query such as `{ shop { primaryDomain { url }}}` expects `QueryRoot.shop` to return an instance of `Shop`, `shop.primaryDomain` to return an instance of `Domain`, and finally `primaryDomain.url` to return the leaf value containing the URL.
+For example, a query such as `{ shop { primaryDomain { url }}}` expects `QueryRoot.shop` to return an instance of `Shop`, `shop.primaryDomain` to return an instance of `Domain`, and finally `primaryDomain.url` to return the leaf value containing the URL. If it happens that non-leaf fields return a leaf value (or leaf fields return a non-leaf value), an error is raised.
 
 In the simplest cases, especially those in which the created GraphQL types have direct equivalents in Solidus core, the implementations can be trivial. For example, for `{ shop { name }}`, `shop` may just return an instance of `Spree::Store` and `name` may just call `name` on that instance.
 
@@ -131,7 +117,7 @@ def primaryDomain()
 end
 ```
 
-Option 2: for more important types which may be created and have additional methods defined on them, we can create a model (`./app/models/domain.rb`) and instantiate it from `primaryDomain`:
+Option 2: for more important types which may be created and have additional methods defined on them, we can create a Ruby class (`./lib/spree/domain.rb`) and instantiate it from `primaryDomain`:
 
 ```
 class Spree::GraphQL::Domain
@@ -146,11 +132,15 @@ end
 
 ```
 
+(If a type is backed by a database and represents a model, `app/models/` would be used instead of `lib/spree/`.)
+
 ### Adding Corresponding tests
 
 As mentioned, tests come with pre-defined template code as well.
 
 The header of each test defines the GraphQL query and expected result, followed by an `it` block which actually runs the query and comparison.
+
+The pre-generated code and placeholders are verbose and detailed. It is easier to delete parts of content that won't be needed in a test than to write large parts of queries and code manually.
 
 The command to execute queries is just `execute`. It runs `Schema.execute()` with defaulting to `query()`, `context()` and `variables()` unless these params are manually provided.
 
@@ -160,7 +150,7 @@ For it, there are helpers defined &mdash; `response_json()` to get JSON string o
 
 For the expected result, there are analogously-named helpers defined on it: `result_json()` and `result_hash()`.
 
-So to match the response to the expected result, one can use either of the following methods, regardless of the format in which the response and result were originally given:
+So, to match the response to the expected result, one can use either of the following methods, regardless of the format in which the response and result were originally given:
 
 ```
 expect(response_json).to eq(result_json)
@@ -168,7 +158,24 @@ expect(response_json).to eq(result_json)
 expect(response_hash).to eq(result_hash)
 ```
 
-For helper types and classes which are not directly accessible from the outside (such as type `Domain`), it is not necessary to make GraphQL calls but the model itself can be tested. Please see its spec file for an example.
+For helper types and classes which are not directly accessible from the outside (such as type `Domain`), it is not necessary to make GraphQL calls but classes themselves can be tested. Please see the spec files for examples.
+
+### Test Suite
+
+To run solidus_graphql_api tests, invoke `rake`. `rake` will default to building a dummy app in `spec/dummy`, and finally running the specs.
+
+```shell
+bundle
+bundle exec rake
+
+# Or individually:
+bundle exec rake test_app
+bundle exec rake spec
+
+# Or using rspec for tests directly:
+bundle exec rspec
+bundle exec rspec spec/graphql/types/product_spec.rb
+```
 
 ## State of Implementation
 
@@ -291,14 +298,14 @@ For helper types and classes which are not directly accessible from the outside 
 - [ ] CheckoutUserError.field
 - [ ] CheckoutUserError.message
 - [ ] Checkout.webUrl
-- [ ] Collection.descriptionHtml
-- [ ] Collection.description(truncateAt)
-- [ ] Collection.handle
-- [ ] Collection.id
+- [x] Collection.descriptionHtml
+- [x] Collection.description(truncateAt)
+- [x] Collection.handle
+- [x] Collection.id
 - [ ] Collection.image(maxWidth, maxHeight, crop, scale)
-- [ ] Collection.products(first, after, last, before, reverse, sortKey)
-- [ ] Collection.title
-- [ ] Collection.updatedAt
+- [x] Collection.products(first, after, last, before, reverse, sortKey)
+- [x] Collection.title
+- [x] Collection.updatedAt
 - [ ] Comment.author
 - [ ] CommentAuthor.email
 - [ ] CommentAuthor.name
@@ -492,11 +499,11 @@ For helper types and classes which are not directly accessible from the outside 
 - [ ] PricingPercentageValue.percentage
 - [ ] Product.availableForSale
 - [ ] Product.collections(first, after, last, before, reverse)
-- [ ] Product.createdAt
-- [ ] Product.descriptionHtml
-- [ ] Product.description(truncateAt)
-- [ ] Product.handle
-- [ ] Product.id
+- [x] Product.createdAt
+- [x] Product.descriptionHtml
+- [x] Product.description(truncateAt)
+- [x] Product.handle
+- [x] Product.id
 - [ ] Product.images(first, after, last, before, reverse, sortKey, maxWidth, maxHeight, crop, scale)
 - [ ] Product.onlineStoreUrl
 - [ ] ProductOption.id
@@ -507,10 +514,10 @@ For helper types and classes which are not directly accessible from the outside 
 - [ ] ProductPriceRange.maxVariantPrice
 - [ ] ProductPriceRange.minVariantPrice
 - [ ] Product.productType
-- [ ] Product.publishedAt
+- [x] Product.publishedAt
 - [ ] Product.tags
-- [ ] Product.title
-- [ ] Product.updatedAt
+- [x] Product.title
+- [x] Product.updatedAt
 - [ ] ProductVariant.availableForSale
 - [ ] Product.variantBySelectedOptions(selectedOptions)
 - [ ] ProductVariant.compareAtPrice
@@ -529,8 +536,8 @@ For helper types and classes which are not directly accessible from the outside 
 - [ ] QueryRoot.blogByHandle(handle)
 - [ ] QueryRoot.blogs(first, after, last, before, reverse, sortKey, query)
 - [ ] QueryRoot.customer(customerAccessToken)
-- [ ] QueryRoot.node(id)
-- [ ] QueryRoot.nodes(ids)
+- [x] QueryRoot.node(id)
+- [x] QueryRoot.nodes(ids)
 - [x] QueryRoot.shop
 - [ ] ScriptDiscountApplication.allocationMethod
 - [ ] ScriptDiscountApplication.description
@@ -543,7 +550,7 @@ For helper types and classes which are not directly accessible from the outside 
 - [ ] ShippingRate.price
 - [ ] ShippingRate.title
 - [ ] Shop.collectionByHandle(handle)
-- [ ] Shop.collections(first, after, last, before, reverse, sortKey, query)
+- [x] Shop.collections(first, after, last, before, reverse, sortKey, query) - (`query` not supported yet)
 - [x] Shop.moneyFormat
 - [ ] Shop.paymentSettings
 - [ ] ShopPolicy.body
@@ -555,10 +562,10 @@ For helper types and classes which are not directly accessible from the outside 
 - [x] Shop.primaryDomain
 - [ ] Shop.privacyPolicy
 - [ ] Shop.productByHandle(handle)
-- [ ] Shop.products(first, after, last, before, reverse, sortKey, query)
+- [x] Shop.products(first, after, last, before, reverse, sortKey, query) - (`query` not supported yet)
 - [ ] Shop.productTypes(first)
 - [ ] Shop.refundPolicy
-- [ ] Shop.shipsToCountries
+- [x] Shop.shipsToCountries
 - [ ] Shop.termsOfService
 - [ ] Transaction.amount
 - [ ] Transaction.kind
@@ -569,8 +576,10 @@ For helper types and classes which are not directly accessible from the outside 
 
 ## TODO
 
-The primary three TODOs related to this extension are:
+The primary TODOs related to this extension are:
 
-1. Add authentication (https://github.com/boomerdigital/solidus_graphql_api/issues/14)
-1. Add authorization (https://github.com/boomerdigital/solidus_graphql_api/issues/15)
+1. Add authentication (#14)
+1. Add authorization (#15)
 1. Add remaining missing implementations from the above list
+1. "Collections" can be nested, and so they are currently based on Taxons, ignoring Taxonomies. `Collections` returns all top-level taxons regardless of taxonomy they belong to. List of desired taxonomies to search in should be configurable. More detailed discussion is in #25.
+1. Any other open issues

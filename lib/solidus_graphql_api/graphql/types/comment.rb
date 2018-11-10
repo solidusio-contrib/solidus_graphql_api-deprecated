@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::Comment
-  include ::Spree::GraphQL::Interfaces::Node
-
   # author: The comment’s author.
   # @return [Types::CommentAuthor!]
   def author()

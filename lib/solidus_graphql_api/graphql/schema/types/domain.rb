@@ -1,4 +1,4 @@
-class Spree::GraphQL::Schema::Types::Domain < Spree::GraphQL::Schema::Types::BaseObjectNoId
+class Spree::GraphQL::Schema::Types::Domain < Spree::GraphQL::Schema::Types::BaseObject
   graphql_name 'Domain'
   description %q{Represents a web address.}
   include ::Spree::GraphQL::Types::Domain

@@ -7,4 +7,6 @@ module Spree::GraphQL
     let!(:ctx) { { current_store: current_store } }
     let!(:variables) { }
   end
+
+  # Sort keys are tested as part of Collection
 end

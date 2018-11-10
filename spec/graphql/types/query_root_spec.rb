@@ -3,9 +3,10 @@ require 'spec_helper'
 
 module Spree::GraphQL
   describe 'Types::QueryRoot' do
-    let!(:query_root) { create(:query_root) }
     let!(:ctx) { { current_store: current_store } }
     let!(:variables) { }
+
+    let!(:products) { create_list(:product, 2) }
 
     # articles: List of the shop's articles.
     # @param reverse [Types::Boolean] (false)
@@ -1235,13 +1236,13 @@ module Spree::GraphQL
     # @param id [Types::ID!]
     # @return [Interfaces::Node]
     describe 'node' do
+      let(:product_id) { ::Spree::GraphQL::Schema::Schema.id_from_object(products.first) }
+      let(:variables) { { product_id: product_id } }
       let!(:query) {
         %q{
-          query {
-            queryRoot {
-              node(id: "ID") {
-                id
-              }
+          query node($product_id: ID!) {
+            node(id: $product_id) {
+              id
             }
           }
         }
@@ -1249,32 +1250,32 @@ module Spree::GraphQL
       let!(:result) {
         {
           data: {
-            queryRoot: {
-              node: {
-                id: 'ID',
-              },
-            }
+            node: {
+              id: 'To be filled in'
+            },
           },
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        result[:data][:node][:id] = product_id
+        expect(response_hash).to eq(result_hash)
+      end
     end
 
     # nodes
     # @param ids [[Types::ID!]!]
     # @return [[Interfaces::Node]!]
     describe 'nodes' do
+      let(:product_id_1) { ::Spree::GraphQL::Schema::Schema.id_from_object(products.first) }
+      let(:product_id_2) { ::Spree::GraphQL::Schema::Schema.id_from_object(products.second) }
+      let(:variables) { { product_id_1: product_id_1, product_id_2: product_id_2 } }
       let!(:query) {
         %q{
-          query {
-            queryRoot {
-              nodes(ids: ["ID"]) {
-                id
-              }
+          query nodes($product_id_1: ID!, $product_id_2: ID!) {
+            nodes(ids: [$product_id_1, $product_id_2]) {
+              id
             }
           }
         }
@@ -1282,19 +1283,22 @@ module Spree::GraphQL
       let!(:result) {
         {
           data: {
-            queryRoot: {
-              nodes: [{
-                id: 'ID',
-              }],
-            }
+            nodes: [{
+              id: 'To be filled in'
+            },
+            {
+              id: 'To be filled in'
+            }],
           },
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        result[:data][:nodes][0][:id] = product_id_1
+        result[:data][:nodes][1][:id] = product_id_2
+        expect(response_hash).to eq(result_hash)
+      end
     end
 
     # shop

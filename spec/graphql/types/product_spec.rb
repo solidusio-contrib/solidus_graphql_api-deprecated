@@ -3,9 +3,67 @@ require 'spec_helper'
 
 module Spree::GraphQL
   describe 'Types::Product' do
-    let!(:product) { create(:product) }
+    let!(:shop) { create(:store) }
+    let!(:product) {
+      p = create(:product)
+      p.description = %Q{String\n<a href="http://localhost:3000/">description</a> <br/>and newline\n<br>}
+      p.save
+      p
+    }
     let!(:ctx) { { current_store: current_store } }
     let!(:variables) { }
+
+    describe 'fields' do
+      let!(:query) {
+        %q{
+          query {
+            shop {
+              products(first: 1) {
+                edges {
+                  node {
+                    createdAt
+                    updatedAt
+                    publishedAt
+                    description
+                    truncated: description(truncateAt: 15)
+                    descriptionHtml
+                    handle
+                    title
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      let!(:result) {
+        {
+          data: {
+            shop: {
+              products: {
+                edges: [{
+                  node: {
+                    createdAt: product.created_at.iso8601,
+                    publishedAt: product.available_on.iso8601,
+                    updatedAt: product.updated_at.iso8601,
+                    description: 'String description and newline',
+                    truncated: 'String descr...',
+                    descriptionHtml: product.description,
+                    handle: product.slug,
+                    title: product.name,
+                  }
+                }]
+              }
+            }
+          },
+          #errors: {},
+        }
+      }
+      it 'succeeds' do
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
+    end
 
     # availableForSale: Indicates if at least one product variant is available for sale.
     # @return [Types::Boolean!]
@@ -137,147 +195,6 @@ module Spree::GraphQL
                   hasPreviousPage: false,
                 },
               },
-            }
-          },
-          #errors: {},
-        }
-      }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
-    end
-
-    # createdAt: The date and time when the product was created.
-    # @return [Types::DateTime!]
-    describe 'createdAt' do
-      let!(:query) {
-        %q{
-          query {
-            product {
-              createdAt
-            }
-          }
-        }
-      }
-      let!(:result) {
-        {
-          data: {
-            product: {
-              createdAt: 'DateTime',
-            }
-          },
-          #errors: {},
-        }
-      }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
-    end
-
-    # description: Stripped description of the product, single line with HTML tags removed.
-    # @param truncate_at [Types::Int]
-    # @return [Types::String!]
-    describe 'description' do
-      let!(:query) {
-        %q{
-          query {
-            product {
-              description(truncateAt: Int)
-            }
-          }
-        }
-      }
-      let!(:result) {
-        {
-          data: {
-            product: {
-              description: 'String',
-            }
-          },
-          #errors: {},
-        }
-      }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
-    end
-
-    # descriptionHtml: The description of the product, complete with HTML formatting.
-    # @return [Types::HTML!]
-    describe 'descriptionHtml' do
-      let!(:query) {
-        %q{
-          query {
-            product {
-              descriptionHtml
-            }
-          }
-        }
-      }
-      let!(:result) {
-        {
-          data: {
-            product: {
-              descriptionHtml: 'HTML',
-            }
-          },
-          #errors: {},
-        }
-      }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
-    end
-
-    # handle: A human-friendly unique string for the Product automatically generated from its title. They are used by the Liquid templating language to refer to objects.
-    # @return [Types::String!]
-    describe 'handle' do
-      let!(:query) {
-        %q{
-          query {
-            product {
-              handle
-            }
-          }
-        }
-      }
-      let!(:result) {
-        {
-          data: {
-            product: {
-              handle: 'String',
-            }
-          },
-          #errors: {},
-        }
-      }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
-    end
-
-    # id: Globally unique identifier.
-    # @return [Types::ID!]
-    describe 'id' do
-      let!(:query) {
-        %q{
-          query {
-            product {
-              id
-            }
-          }
-        }
-      }
-      let!(:result) {
-        {
-          data: {
-            product: {
-              id: 'ID',
             }
           },
           #errors: {},
@@ -507,34 +424,6 @@ module Spree::GraphQL
       #end
     end
 
-    # publishedAt: The date and time when the product was published to the channel.
-    # @return [Types::DateTime!]
-    describe 'publishedAt' do
-      let!(:query) {
-        %q{
-          query {
-            product {
-              publishedAt
-            }
-          }
-        }
-      }
-      let!(:result) {
-        {
-          data: {
-            product: {
-              publishedAt: 'DateTime',
-            }
-          },
-          #errors: {},
-        }
-      }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
-    end
-
     # tags: A categorization that a product can be tagged with, commonly used for filtering and searching. Each comma-separated tag has a character limit of 255.
     # @return [[Types::String!]!]
     describe 'tags' do
@@ -552,62 +441,6 @@ module Spree::GraphQL
           data: {
             product: {
               tags: ['String'],
-            }
-          },
-          #errors: {},
-        }
-      }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
-    end
-
-    # title: The product’s title.
-    # @return [Types::String!]
-    describe 'title' do
-      let!(:query) {
-        %q{
-          query {
-            product {
-              title
-            }
-          }
-        }
-      }
-      let!(:result) {
-        {
-          data: {
-            product: {
-              title: 'String',
-            }
-          },
-          #errors: {},
-        }
-      }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
-    end
-
-    # updatedAt: The date and time when the product was last modified.
-    # @return [Types::DateTime!]
-    describe 'updatedAt' do
-      let!(:query) {
-        %q{
-          query {
-            product {
-              updatedAt
-            }
-          }
-        }
-      }
-      let!(:result) {
-        {
-          data: {
-            product: {
-              updatedAt: 'DateTime',
             }
           },
           #errors: {},

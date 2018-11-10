@@ -1,9 +1,8 @@
-class Spree::GraphQL::Schema::Types::ProductVariant < Spree::GraphQL::Schema::Types::BaseObject; end
-class Spree::GraphQL::Schema::Types::Product < Spree::GraphQL::Schema::Types::BaseObject
+class Spree::GraphQL::Schema::Types::ProductVariant < Spree::GraphQL::Schema::Types::BaseObjectNode; end
+class Spree::GraphQL::Schema::Types::Product < Spree::GraphQL::Schema::Types::BaseObjectNode
   graphql_name 'Product'
   description %q{A product represents an individual item for sale in a Solidus store. Products are often physical, but they don't have to be.
 For example, a digital download (such as a movie, music or ebook file) also qualifies as a product, as do services (such as equipment rental, work for hire, customization of another product or an extended warranty).}
-  implements ::Spree::GraphQL::Schema::Interfaces::Node
   include ::Spree::GraphQL::Types::Product
   field :available_for_sale, ::GraphQL::Types::Boolean, null: false do
     description %q{Indicates if at least one product variant is available for sale.}
@@ -17,7 +16,7 @@ For example, a digital download (such as a movie, music or ebook file) also qual
   end
   field :description, ::GraphQL::Types::String, null: false do
     description %q{Stripped description of the product, single line with HTML tags removed.}
-    argument :truncate_at, ::GraphQL::Types::Int, required: false, description: %q{Truncates string after the given length.}
+    argument :truncate_at, ::GraphQL::Types::Int, required: false, default_value: nil, description: %q{Truncates string after the given length.}
   end
   field :description_html, ::Spree::GraphQL::Schema::Types::HTML, null: false do
     description %q{The description of the product, complete with HTML formatting.}
@@ -26,9 +25,6 @@ For example, a digital download (such as a movie, music or ebook file) also qual
     description %q{A human-friendly unique string for the Product automatically generated from its title.
 They are used by the Liquid templating language to refer to objects.
 }
-  end
-  field :id, ::GraphQL::Types::ID, null: false do
-    description %q{Globally unique identifier.}
   end
   field :images, ::Spree::GraphQL::Schema::Types::Image.connection_type, null: false do
     description %q{List of images associated with the product.}

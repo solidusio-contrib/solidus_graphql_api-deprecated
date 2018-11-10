@@ -1,11 +1,10 @@
-class Spree::GraphQL::Schema::Types::ProductOption < Spree::GraphQL::Schema::Types::BaseObject
+class Spree::GraphQL::Schema::Types::ProductOption < Spree::GraphQL::Schema::Types::BaseObjectNode
   graphql_name 'ProductOption'
   description %q{Custom product property names like "Size", "Color", and "Material".
 Products are based on permutations of these options.
 A product may have a maximum of 3 options.
 255 characters limit each.
 }
-  implements ::Spree::GraphQL::Schema::Interfaces::Node
   include ::Spree::GraphQL::Types::ProductOption
   field :id, ::GraphQL::Types::ID, null: false do
     description %q{Globally unique identifier.}
