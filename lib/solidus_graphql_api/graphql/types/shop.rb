@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require_relative '../../../spree/helpers/base_helper'
 module Spree::GraphQL::Types::Shop
   include ::Spree::GraphQL::Helpers::BaseHelper
 

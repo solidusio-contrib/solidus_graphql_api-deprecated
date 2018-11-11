@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::Collection
+  include ::Spree::GraphQL::Helpers::BaseHelper
 
   # description: Stripped description of the collection, single line with HTML tags removed.
   # @param truncate_at [Types::Int] (nil) Truncates string after the given length.
   # @return [Types::String!]
   def description(truncate_at:)
-    content = ActionView::Base.full_sanitizer.sanitize(object.description).gsub!(/\s+/, ' ') || ''
-    content.strip!
-    truncate_at ? content.truncate(truncate_at) : content
+    sanitize_strip(object.description, length: truncate_at)
   end
 
   # descriptionHtml: The description of the collection, complete with HTML formatting.

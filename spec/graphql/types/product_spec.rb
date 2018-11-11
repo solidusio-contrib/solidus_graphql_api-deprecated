@@ -10,6 +10,12 @@ module Spree::GraphQL
       p.save
       p
     }
+    let!(:product2) {
+      p = create(:product)
+      p.description = nil
+      p.save
+      p
+    }
     let!(:ctx) { { current_store: current_store } }
     let!(:variables) { }
 
@@ -18,7 +24,7 @@ module Spree::GraphQL
         %q{
           query {
             shop {
-              products(first: 1) {
+              products(first: 2) {
                 edges {
                   node {
                     createdAt
@@ -52,7 +58,19 @@ module Spree::GraphQL
                     handle: product.slug,
                     title: product.name,
                   }
-                }]
+                },
+                {
+                  node: {
+                    createdAt: product2.created_at.iso8601,
+                    publishedAt: product2.available_on.iso8601,
+                    updatedAt: product2.updated_at.iso8601,
+                    description: '',
+                    truncated: '',
+                    descriptionHtml: '',
+                    handle: product2.slug,
+                    title: product2.name,
+                  }
+                }],
               }
             }
           },
