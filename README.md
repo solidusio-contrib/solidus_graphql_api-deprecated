@@ -549,7 +549,7 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] ShippingRate.handle
 - [ ] ShippingRate.price
 - [ ] ShippingRate.title
-- [ ] Shop.collectionByHandle(handle)
+- [x] Shop.collectionByHandle(handle) - (works only for Spree taxons, not top-level taxonomies)
 - [x] Shop.collections(first, after, last, before, reverse, sortKey, query) - (`query` not supported yet)
 - [x] Shop.moneyFormat
 - [ ] Shop.paymentSettings

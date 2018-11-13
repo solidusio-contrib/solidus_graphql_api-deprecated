@@ -7,120 +7,32 @@ module Spree::GraphQL
     let!(:products) { create_list(:product, 10) }
     # Taxonomy factory implicitly creates a taxon.
     let!(:taxonomies) { create_list(:taxonomy, 10) }
-    let!(:collections) { taxonomies.map(&:taxons).flatten }
+    let!(:taxon) {
+      t = taxonomies.first.taxons.first
+      t.permalink = 'taxon-one'
+      t.save
+      t
+    }
+    let!(:product) {
+      p = products.first
+      p.taxons = [taxon]
+      p.save
+      p
+    }
     let!(:ctx) { { current_store: current_store } }
-    let!(:variables) { { product_handle: products.first.slug } }
+    let!(:variables) { }
 
     # collectionByHandle: Find a collection by its handle.
     # @param handle [Types::String!]
     # @return [Types::Collection]
     describe 'collectionByHandle' do
+      let!(:variables) { { collection_handle: taxon.permalink } }
       let!(:query) {
         %q{
-          query {
+          query($collection_handle: String!) {
             shop {
-              collectionByHandle(handle: "") {
-                description(truncateAt: Int)
-                descriptionHtml
-                handle
+              collectionByHandle(handle: $collection_handle) {
                 id
-                image(
-                  maxWidth: Int,
-                  maxHeight: Int,
-                  crop: "CENTER | TOP | BOTTOM | LEFT | RIGHT",
-                  scale: Int
-                ) {
-                  altText
-                  id
-                  originalSrc
-                  src
-                  transformedSrc(
-                    maxWidth: Int,
-                    maxHeight: Int,
-                    crop: "CENTER | TOP | BOTTOM | LEFT | RIGHT",
-                    scale: Int,
-                    preferredContentType: "PNG | JPG | WEBP"
-                  )
-                }
-                products(
-                  first: Int,
-                  after: "",
-                  last: Int,
-                  before: "",
-                  reverse: false,
-                  sortKey: "TITLE | PRICE | BEST_SELLING | CREATED | ID | MANUAL | COLLECTION_DEFAULT | RELEVANCE"
-                ) {
-                  edges {
-                    node {
-                      availableForSale
-                      collections(
-                        first: Int,
-                        after: "",
-                        last: Int,
-                        before: "",
-                        reverse: false
-                      ) {
-                        # ...
-                      }
-                      createdAt
-                      description(truncateAt: Int)
-                      descriptionHtml
-                      handle
-                      id
-                      images(
-                        first: Int,
-                        after: "",
-                        last: Int,
-                        before: "",
-                        reverse: false,
-                        sortKey: "CREATED_AT | POSITION | ID | RELEVANCE",
-                        maxWidth: Int,
-                        maxHeight: Int,
-                        crop: "CENTER | TOP | BOTTOM | LEFT | RIGHT",
-                        scale: Int
-                      ) {
-                        # ...
-                      }
-                      onlineStoreUrl
-                      options(first: Int) {
-                        # ...
-                      }
-                      priceRange {
-                        # ...
-                      }
-                      productType
-                      publishedAt
-                      tags
-                      title
-                      updatedAt
-                      variantBySelectedOptions(
-                        selectedOptions: [{
-                          name: "String",
-                          value: "String"
-                        }]
-                      ) {
-                        # ...
-                      }
-                      variants(
-                        first: Int,
-                        after: "",
-                        last: Int,
-                        before: "",
-                        reverse: false,
-                        sortKey: "TITLE | SKU | POSITION | ID | RELEVANCE"
-                      ) {
-                        # ...
-                      }
-                      vendor
-                    }
-                  }
-                  pageInfo {
-                    hasNextPage
-                    hasPreviousPage
-                  }
-                }
-                title
-                updatedAt
               }
             }
           }
@@ -131,70 +43,17 @@ module Spree::GraphQL
           data: {
             shop: {
               collectionByHandle: {
-                description: 'String',
-                descriptionHtml: 'HTML',
-                handle: 'String',
-                id: 'ID',
-                image: {
-                  altText: 'String',
-                  id: 'ID',
-                  originalSrc: 'URL',
-                  src: 'URL',
-                  transformedSrc: 'URL',
-                },
-                products: {
-                  edges: {
-                    node: [{
-                      availableForSale: 'Boolean',
-                      collections: {
-                        # ...
-                      },
-                      createdAt: 'DateTime',
-                      description: 'String',
-                      descriptionHtml: 'HTML',
-                      handle: 'String',
-                      id: 'ID',
-                      images: {
-                        # ...
-                      },
-                      onlineStoreUrl: 'URL',
-                      options: {
-                        # ...
-                      },
-                      priceRange: {
-                        # ...
-                      },
-                      productType: 'String',
-                      publishedAt: 'DateTime',
-                      tags: 'String',
-                      title: 'String',
-                      updatedAt: 'DateTime',
-                      variantBySelectedOptions: {
-                        # ...
-                      },
-                      variants: {
-                        # ...
-                      },
-                      vendor: 'String',
-                    }],
-                  },
-                  pageInfo: {
-                    hasNextPage: true,
-                    hasPreviousPage: false,
-                  },
-                },
-                title: 'String',
-                updatedAt: 'DateTime',
+                id: ::Spree::GraphQL::Schema::Schema.id_from_object(taxon),
               },
             }
           },
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
     end
 
     # collections: List of the shop’s collections.
@@ -224,8 +83,8 @@ module Spree::GraphQL
               collections: {
                 edges: [{
                   node: {
-                    id: ::Spree::GraphQL::Schema::Schema.id_from_object(collections.first),
-                    title: collections.first.name,
+                    id: ::Spree::GraphQL::Schema::Schema.id_from_object(taxonomies.first),
+                    title: taxonomies.first.name,
                   },
                 }],
                 pageInfo: {
@@ -266,8 +125,8 @@ module Spree::GraphQL
                 collections: {
                   edges: [{
                     node: {
-                      id: ::Spree::GraphQL::Schema::Schema.id_from_object(collections.last),
-                      title: collections.last.name,
+                      id: ::Spree::GraphQL::Schema::Schema.id_from_object(taxonomies.last),
+                      title: taxonomies.last.name,
                     },
                   }],
                   pageInfo: {
@@ -306,7 +165,7 @@ module Spree::GraphQL
                   collections: {
                     edges: [{
                       node: {
-                        updatedAt: collections.sort{|a,b| a.updated_at <=> b.updated_at }.last.updated_at.iso8601,
+                        updatedAt: taxonomies.sort{|a,b| a.updated_at <=> b.updated_at }.last.updated_at.iso8601,
                       },
                     }],
                     pageInfo: {
@@ -344,7 +203,7 @@ module Spree::GraphQL
                   collections: {
                     edges: [{
                       node: {
-                        title: collections.sort{|a,b| a.name <=> b.name }.first.name,
+                        title: taxonomies.sort{|a,b| a.name <=> b.name }.first.name,
                       },
                     }],
                     pageInfo: {
@@ -382,7 +241,7 @@ module Spree::GraphQL
                   collections: {
                     edges: [{
                       node: {
-                        id: ::Spree::GraphQL::Schema::Schema.id_from_object(collections.sort{|a,b| a.id <=> b.id }.last),
+                        id: ::Spree::GraphQL::Schema::Schema.id_from_object(taxonomies.sort{|a,b| a.id <=> b.id }.last),
                       },
                     }],
                     pageInfo: {
@@ -609,6 +468,7 @@ module Spree::GraphQL
     # @param handle [Types::String!]
     # @return [Types::Product]
     describe 'productByHandle' do
+      let!(:variables) { { product_handle: products.first.slug } }
       let!(:query) {
         %q{
           query($product_handle: String!) {

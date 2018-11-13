@@ -15,6 +15,8 @@ class Spree::GraphQL::Schema::Schema < GraphQL::Schema
     case obj
     when ::Spree::Product
       ::Spree::GraphQL::Schema::Types::Product
+    when ::Spree::Taxonomy
+      ::Spree::GraphQL::Schema::Types::Collection
     when ::Spree::Taxon
       ::Spree::GraphQL::Schema::Types::Collection
 

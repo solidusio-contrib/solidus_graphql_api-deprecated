@@ -6,7 +6,7 @@ module Spree::GraphQL::Types::Shop
   # @param handle [Types::String!] The handle of the collection.
   # @return [Types::Collection]
   def collection_by_handle(handle:)
-    raise ::Spree::GraphQL::NotImplementedError.new
+    ::Spree::Taxon.find_by(permalink: handle)
   end
 
   # collections: List of the shop’s collections.
@@ -19,7 +19,7 @@ module Spree::GraphQL::Types::Shop
       raise ::Spree::GraphQL::NotImplementedError.new
     end
     ::Spree::GraphQL::Types::CollectionSortKeys.apply!(
-      ::Spree::Taxon.where(parent_id: nil),
+      ::Spree::Taxonomy.all,
       reverse: reverse,
       sort_key: sort_key,
     )
