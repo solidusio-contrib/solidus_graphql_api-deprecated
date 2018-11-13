@@ -561,7 +561,7 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [x] Shop.name
 - [x] Shop.primaryDomain
 - [ ] Shop.privacyPolicy
-- [ ] Shop.productByHandle(handle)
+- [x] Shop.productByHandle(handle)
 - [x] Shop.products(first, after, last, before, reverse, sortKey, query) - (`query` not supported yet)
 - [ ] Shop.productTypes(first)
 - [ ] Shop.refundPolicy

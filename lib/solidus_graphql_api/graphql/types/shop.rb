@@ -67,7 +67,7 @@ module Spree::GraphQL::Types::Shop
   # @param handle [Types::String!] The handle of the product.
   # @return [Types::Product]
   def product_by_handle(handle:)
-    raise ::Spree::GraphQL::NotImplementedError.new
+    ::Spree::Product.find_by(slug: handle)
   end
 
   # productTypes: List of the shop’s product types.
