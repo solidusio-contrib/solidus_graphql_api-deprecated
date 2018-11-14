@@ -433,7 +433,7 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] Product.priceRange
 - [ ] ProductPriceRange.maxVariantPrice
 - [ ] ProductPriceRange.minVariantPrice
-- [ ] Product.productType
+- [ ] Product.productType - not applicable for now (no such field on Product model)
 - [x] Product.publishedAt
 - [ ] Product.tags
 - [x] Product.title
@@ -441,15 +441,15 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] ProductVariant.availableForSale
 - [ ] Product.variantBySelectedOptions(selectedOptions)
 - [ ] ProductVariant.compareAtPrice
-- [ ] ProductVariant.id
+- [x] ProductVariant.id
 - [ ] ProductVariant.image(maxWidth, maxHeight, crop, scale)
 - [ ] ProductVariant.price
-- [ ] ProductVariant.product
+- [x] ProductVariant.product
 - [ ] ProductVariant.selectedOptions
-- [ ] Product.variants(first, after, last, before, reverse, sortKey)
-- [ ] ProductVariant.sku
-- [ ] ProductVariant.title
-- [ ] ProductVariant.weight
+- [x] Product.variants(first, after, last, before, reverse, sortKey)
+- [x] ProductVariant.sku
+- [x] ProductVariant.title
+- [x] ProductVariant.weight
 - [ ] ProductVariant.weightUnit
 - [ ] Product.vendor
 - [ ] QueryRoot.articles(first, after, last, before, reverse, sortKey, query)
@@ -470,7 +470,7 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] ShippingRate.price
 - [ ] ShippingRate.title
 - [x] Shop.collectionByHandle(handle) - (works only for Spree taxons, not top-level taxonomies)
-- [x] Shop.collections(first, after, last, before, reverse, sortKey, query) - (`query` not supported yet)
+- [x] Shop.collections(first, after, last, before, reverse, sortKey, query) - (`query` not supported yet; returns top-level Spree taxonomies)
 - [x] Shop.moneyFormat
 - [ ] Shop.paymentSettings
 - [ ] ShopPolicy.body
@@ -483,7 +483,7 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] Shop.privacyPolicy
 - [x] Shop.productByHandle(handle)
 - [x] Shop.products(first, after, last, before, reverse, sortKey, query) - (`query` not supported yet)
-- [ ] Shop.productTypes(first)
+- [ ] Shop.productTypes(first) - not applicable for now (no such field on Product model)
 - [ ] Shop.refundPolicy
 - [x] Shop.shipsToCountries
 - [ ] Shop.termsOfService

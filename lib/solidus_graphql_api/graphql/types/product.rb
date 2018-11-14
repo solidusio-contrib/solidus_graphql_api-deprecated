@@ -112,7 +112,11 @@ module Spree::GraphQL::Types::Product
   # @param sort_key [Types::ProductVariantSortKeys] ('POSITION') Sort the underlying list by the given key.
   # @return [Types::ProductVariant.connection_type!]
   def variants(reverse:, sort_key:)
-    raise ::Spree::GraphQL::NotImplementedError.new
+    ::Spree::GraphQL::Types::ProductVariantSortKeys.apply!(
+      object.variants,
+      reverse: reverse,
+      sort_key: sort_key,
+    )
   end
 
   # vendor: The product’s vendor name.
