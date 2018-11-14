@@ -316,24 +316,24 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] Image.id
 - [ ] Image.originalSrc
 - [ ] Image.transformedSrc(maxWidth, maxHeight, crop, scale, preferredContentType)
-- [ ] MailingAddress.address1
-- [ ] MailingAddress.address2
-- [ ] MailingAddress.city
-- [ ] MailingAddress.company
-- [ ] MailingAddress.country
-- [ ] MailingAddress.countryCodeV2
-- [ ] MailingAddress.firstName
-- [ ] MailingAddress.formattedArea
+- [x] MailingAddress.address1
+- [x] MailingAddress.address2
+- [x] MailingAddress.city
+- [x] MailingAddress.company
+- [x] MailingAddress.country
+- [x] MailingAddress.countryCodeV2
+- [x] MailingAddress.firstName
+- [x] MailingAddress.formattedArea
 - [ ] MailingAddress.formatted(withName, withCompany)
-- [ ] MailingAddress.id
-- [ ] MailingAddress.lastName
-- [ ] MailingAddress.latitude
-- [ ] MailingAddress.longitude
-- [ ] MailingAddress.name
-- [ ] MailingAddress.phone
-- [ ] MailingAddress.province
-- [ ] MailingAddress.provinceCode
-- [ ] MailingAddress.zip
+- [x] MailingAddress.id
+- [x] MailingAddress.lastName
+- [ ] MailingAddress.latitude - not applicable for now (no such field on Address model)
+- [ ] MailingAddress.longitude - not applicable for now (no such field on Address model)
+- [x] MailingAddress.name
+- [x] MailingAddress.phone
+- [x] MailingAddress.province
+- [x] MailingAddress.provinceCode
+- [x] MailingAddress.zip
 - [ ] ManualDiscountApplication.allocationMethod
 - [ ] ManualDiscountApplication.description
 - [ ] ManualDiscountApplication.targetSelection

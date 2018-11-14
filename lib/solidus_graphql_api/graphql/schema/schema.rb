@@ -21,6 +21,8 @@ class Spree::GraphQL::Schema::Schema < GraphQL::Schema
       ::Spree::GraphQL::Schema::Types::Collection
     when ::Spree::Taxon
       ::Spree::GraphQL::Schema::Types::Collection
+    when ::Spree::Address
+      ::Spree::GraphQL::Schema::Types::MailingAddress
 
       #::Spree::GraphQL::Schema::Types::AppliedGiftCard
       #::Spree::GraphQL::Schema::Types::Article
