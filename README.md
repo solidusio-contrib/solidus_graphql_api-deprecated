@@ -158,7 +158,9 @@ expect(response_json).to eq(result_json)
 expect(response_hash).to eq(result_hash)
 ```
 
-For helper types and classes which are not directly accessible from the outside (such as type `Domain`), it is not necessary to make GraphQL calls but classes themselves can be tested. Please see the spec files for examples.
+For helper types and classes which are not directly accessible from the outside (such as type `Domain`), it is not necessary to make GraphQL calls but classes themselves can be tested.
+
+Please see the spec files for more examples. Good places to check first are the specs for `Product`, `primaryDomain`, `MailingAddress` and `CreditCard` as they each use a different method to carry out the tests.
 
 ### Test Suite
 
@@ -262,14 +264,14 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] Comment.contentHtml
 - [ ] Comment.content(truncateAt)
 - [ ] Comment.id
-- [ ] CreditCard.brand
-- [ ] CreditCard.expiryMonth
-- [ ] CreditCard.expiryYear
-- [ ] CreditCard.firstDigits
-- [ ] CreditCard.firstName
-- [ ] CreditCard.lastDigits
-- [ ] CreditCard.lastName
-- [ ] CreditCard.maskedNumber
+- [x] CreditCard.brand
+- [x] CreditCard.expiryMonth
+- [x] CreditCard.expiryYear
+- [ ] CreditCard.firstDigits - not applicable for now (no such field on CreditCard model)
+- [x] CreditCard.firstName
+- [x] CreditCard.lastDigits
+- [x] CreditCard.lastName
+- [x] CreditCard.maskedNumber
 - [ ] Customer.acceptsMarketing
 - [ ] CustomerAccessToken.accessToken
 - [ ] CustomerAccessToken.expiresAt
@@ -501,5 +503,4 @@ The primary TODOs related to this extension are:
 1. Add authentication (#14)
 1. Add authorization (#15)
 1. Add remaining missing implementations from the above list
-1. "Collections" can be nested, and so they are currently based on Taxons, ignoring Taxonomies. `Collections` returns all top-level taxons regardless of taxonomy they belong to. List of desired taxonomies to search in should be configurable. More detailed discussion is in #25.
-1. Any other open issues
+1. All other open issues (https://github.com/boomerdigital/solidus_graphql_api/issues)

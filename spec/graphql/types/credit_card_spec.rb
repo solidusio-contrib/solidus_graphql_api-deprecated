@@ -1,76 +1,32 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
+class Spree::GraphQL::Schema::Types::QueryRoot < Spree::GraphQL::Schema::Types::BaseObject
+  field :test_credit_card, ::Spree::GraphQL::Schema::Types::CreditCard, null: false
+
+  def test_credit_card
+    context[:credit_card]
+  end
+end
+
 module Spree::GraphQL
   describe 'Types::CreditCard' do
-    let!(:credit_card) { create(:credit_card) }
-    let!(:ctx) { { current_store: current_store } }
+    let!(:credit_card) { create(:credit_card) { |c| c.cc_type = 'VISA' } }
     let!(:variables) { }
+    let!(:ctx) { { credit_card: credit_card } }
 
-    # brand
-    # @return [Types::String]
     describe 'brand' do
       let!(:query) {
         %q{
           query {
-            creditCard {
+            testCreditCard {
               brand
-            }
-          }
-        }
-      }
-      let!(:result) {
-        {
-          data: {
-            creditCard: {
-              brand: 'String',
-            }
-          },
-          #errors: {},
-        }
-      }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
-    end
-
-    # expiryMonth
-    # @return [Types::Int]
-    describe 'expiryMonth' do
-      let!(:query) {
-        %q{
-          query {
-            creditCard {
               expiryMonth
-            }
-          }
-        }
-      }
-      let!(:result) {
-        {
-          data: {
-            creditCard: {
-              expiryMonth: 'Int',
-            }
-          },
-          #errors: {},
-        }
-      }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
-    end
-
-    # expiryYear
-    # @return [Types::Int]
-    describe 'expiryYear' do
-      let!(:query) {
-        %q{
-          query {
-            creditCard {
               expiryYear
+              firstName
+              lastDigits
+              lastName
+              maskedNumber
             }
           }
         }
@@ -78,17 +34,23 @@ module Spree::GraphQL
       let!(:result) {
         {
           data: {
-            creditCard: {
-              expiryYear: 'Int',
+            testCreditCard: {
+              brand: 'VISA',
+              expiryMonth: credit_card.month.to_i,
+              expiryYear: credit_card.year.to_i,
+              lastDigits: credit_card.last_digits,
+              firstName: 'Spree',
+              lastName: 'Commerce',
+              maskedNumber: 'XXXX-XXXX-XXXX-1111',
             }
           },
           #errors: {},
         }
       }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
+      it 'succeeds' do
+        execute
+        expect(response_hash).to eq(result_hash)
+      end
     end
 
     # firstDigits
@@ -119,116 +81,5 @@ module Spree::GraphQL
       #end
     end
 
-    # firstName
-    # @return [Types::String]
-    describe 'firstName' do
-      let!(:query) {
-        %q{
-          query {
-            creditCard {
-              firstName
-            }
-          }
-        }
-      }
-      let!(:result) {
-        {
-          data: {
-            creditCard: {
-              firstName: 'String',
-            }
-          },
-          #errors: {},
-        }
-      }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
-    end
-
-    # lastDigits
-    # @return [Types::String]
-    describe 'lastDigits' do
-      let!(:query) {
-        %q{
-          query {
-            creditCard {
-              lastDigits
-            }
-          }
-        }
-      }
-      let!(:result) {
-        {
-          data: {
-            creditCard: {
-              lastDigits: 'String',
-            }
-          },
-          #errors: {},
-        }
-      }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
-    end
-
-    # lastName
-    # @return [Types::String]
-    describe 'lastName' do
-      let!(:query) {
-        %q{
-          query {
-            creditCard {
-              lastName
-            }
-          }
-        }
-      }
-      let!(:result) {
-        {
-          data: {
-            creditCard: {
-              lastName: 'String',
-            }
-          },
-          #errors: {},
-        }
-      }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
-    end
-
-    # maskedNumber: Masked credit card number with only the last 4 digits displayed
-    # @return [Types::String]
-    describe 'maskedNumber' do
-      let!(:query) {
-        %q{
-          query {
-            creditCard {
-              maskedNumber
-            }
-          }
-        }
-      }
-      let!(:result) {
-        {
-          data: {
-            creditCard: {
-              maskedNumber: 'String',
-            }
-          },
-          #errors: {},
-        }
-      }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
-    end
   end
 end
