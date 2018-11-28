@@ -8,7 +8,7 @@ module Spree::GraphQL
     let!(:collection) {
       t = ::Spree::Taxon.first
       t.description = %Q{String\n<a href="http://localhost:3000/">description</a> <br/>and newline\n<br>}
-      t.permalink = 'permalink/handle'
+      t.permalink = 'handle'
       t.name = 'Taxon Title'
       t.save
       t
@@ -38,18 +38,14 @@ module Spree::GraphQL
         %q{
           query {
             shop {
-              collections(first: 1) {
-                edges {
-                  node {
-                    description
-                    truncated: description(truncateAt: 15)
-                    descriptionHtml
-                    handle
-                    id
-                    title
-                    updatedAt
-                  }
-                }
+              collectionByHandle(handle: "handle") {
+                description
+                truncated: description(truncateAt: 15)
+                descriptionHtml
+                handle
+                id
+                title
+                updatedAt
               }
             }
           }
@@ -59,18 +55,14 @@ module Spree::GraphQL
         {
           data: {
             shop: {
-              collections: {
-                edges: [{
-                  node: {
-                    description: 'String description and newline',
-                    truncated: 'String descr...',
-                    descriptionHtml: collection.description,
-                    handle: collection.permalink,
-                    id: ::Spree::GraphQL::Schema::Schema::id_from_object(collection),
-                    title: collection.name,
-                    updatedAt: collection.updated_at.iso8601,
-                  }
-                }]
+              collectionByHandle: {
+                description: 'String description and newline',
+                truncated: 'String descr...',
+                descriptionHtml: collection.description,
+                handle: collection.permalink,
+                id: ::Spree::GraphQL::Schema::Schema::id_from_object(collection),
+                title: collection.name,
+                updatedAt: collection.updated_at.iso8601,
               }
             }
           },
@@ -147,14 +139,12 @@ module Spree::GraphQL
         %q{
           query {
             shop {
-              collections(first: 1) {
-                nodes {
-                  products(first: 2) {
-                    nodes { handle id title } #descriptionHtml
-                  }
-                  reverse: products(first: 1, reverse: true) {
-                    nodes { handle id title }
-                  }
+              collectionByHandle(handle: "handle") {
+                products(first: 2) {
+                  nodes { handle id title } #descriptionHtml
+                }
+                reverse: products(first: 1, reverse: true) {
+                  nodes { handle id title }
                 }
               }
             }
@@ -165,30 +155,28 @@ module Spree::GraphQL
         {
           data: {
             shop: {
-              collections: {
-                nodes: [{
-                  products: {
-                    nodes: [{
-                      id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.first),
-                      handle: products.first.slug,
-                      title: products.first.name,
-                      #descriptionHtml: products.first.description,
-                    },
-                    {
-                      id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.second),
-                      handle: products.second.slug,
-                      title: products.second.name,
-                      #descriptionHtml: '',
-                    }],
+              collectionByHandle: {
+                products: {
+                  nodes: [{
+                    id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.first),
+                    handle: products.first.slug,
+                    title: products.first.name,
+                    #descriptionHtml: products.first.description,
                   },
-                  reverse: {
-                    nodes: [{
-                      id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.last),
-                      handle: products.last.slug,
-                      title: products.last.name,
-                    }],
-                  }
-                }],
+                  {
+                    id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.second),
+                    handle: products.second.slug,
+                    title: products.second.name,
+                    #descriptionHtml: '',
+                  }],
+                },
+                reverse: {
+                  nodes: [{
+                    id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.last),
+                    handle: products.last.slug,
+                    title: products.last.name,
+                  }],
+                }
               },
             }
           },
@@ -205,11 +193,9 @@ module Spree::GraphQL
           %q{
             query {
               shop {
-                collections(first: 1) {
-                  nodes {
-                    products(first: 1, sortKey: TITLE, reverse: false) {
-                      nodes { handle id title }
-                    }
+                collectionByHandle(handle: "handle") {
+                  products(first: 1, sortKey: TITLE, reverse: false) {
+                    nodes { handle id title }
                   }
                 }
               }
@@ -220,16 +206,14 @@ module Spree::GraphQL
           {
             data: {
               shop: {
-                collections: {
-                  nodes: [{
-                    products: {
-                      nodes: [{
-                        id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.last),
-                        handle: products.last.slug,
-                        title: products.last.name,
-                      }],
-                    },
-                  }],
+                collectionByHandle: {
+                  products: {
+                    nodes: [{
+                      id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.last),
+                      handle: products.last.slug,
+                      title: products.last.name,
+                    }],
+                  },
                 },
               }
             },

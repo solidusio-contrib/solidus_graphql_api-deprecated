@@ -4,19 +4,19 @@ module Spree::GraphQL::Types::CreditCard
   # brand
   # @return [Types::String]
   def brand()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.brand.upcase
   end
 
   # expiryMonth
   # @return [Types::Int]
   def expiry_month()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.month
   end
 
   # expiryYear
   # @return [Types::Int]
   def expiry_year()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.year
   end
 
   # firstDigits
@@ -28,24 +28,24 @@ module Spree::GraphQL::Types::CreditCard
   # firstName
   # @return [Types::String]
   def first_name()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.first_name
   end
 
   # lastDigits
   # @return [Types::String]
   def last_digits()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.last_digits
   end
 
   # lastName
   # @return [Types::String]
   def last_name()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.last_name
   end
 
   # maskedNumber: Masked credit card number with only the last 4 digits displayed
   # @return [Types::String]
   def masked_number()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.display_number
   end
 end

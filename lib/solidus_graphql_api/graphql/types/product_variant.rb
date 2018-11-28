@@ -32,7 +32,7 @@ module Spree::GraphQL::Types::ProductVariant
   # product: The product object that the product variant belongs to.
   # @return [Types::Product!]
   def product()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.product
   end
 
   # selectedOptions: List of product options applied to the variant.
@@ -44,19 +44,19 @@ module Spree::GraphQL::Types::ProductVariant
   # sku: The SKU (stock keeping unit) associated with the variant.
   # @return [Types::String]
   def sku()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.sku
   end
 
   # title: The product variant’s title.
   # @return [Types::String!]
   def title()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.name
   end
 
   # weight: The weight of the product variant in the unit system specified with `weight_unit`.
   # @return [Types::Float]
   def weight()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.weight
   end
 
   # weightUnit: Unit of measurement for weight.

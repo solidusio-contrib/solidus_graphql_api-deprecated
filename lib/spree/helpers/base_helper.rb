@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
-# TODO this is an excerpt from Solidus' helper BaseHelper.
-# It should be required and used directly, instead of this file.
-
 require 'carmen'
 module Spree::GraphQL::Helpers
   module BaseHelper
+    include ::ActionView::Helpers::TextHelper
+
+    # TODO this is an excerpt from Solidus' helper BaseHelper.
+    # It should be required and used directly, instead of this file.
     def available_countries(restrict_to_zone: ::Spree::Config[:checkout_zone])
       checkout_zone = ::Spree::Zone.find_by(name: restrict_to_zone)
 
@@ -25,6 +26,16 @@ module Spree::GraphQL::Helpers
         country.name = country_names.fetch(country.iso, country.name)
         country
       end.sort_by { |c| c.name.parameterize }
+    end
+
+    def sanitize_strip(string, length:)
+      if string
+        content = ActionView::Base.full_sanitizer.sanitize(string).gsub!(/\s+/, ' ')
+        content.strip!
+        length ? content.truncate(length) : content
+      else
+        ''
+      end
     end
   end
 end

@@ -158,7 +158,9 @@ expect(response_json).to eq(result_json)
 expect(response_hash).to eq(result_hash)
 ```
 
-For helper types and classes which are not directly accessible from the outside (such as type `Domain`), it is not necessary to make GraphQL calls but classes themselves can be tested. Please see the spec files for examples.
+For helper types and classes which are not directly accessible from the outside (such as type `Domain`), it is not necessary to make GraphQL calls but classes themselves can be tested.
+
+Please see the spec files for more examples. Good places to check first are the specs for `Product`, `primaryDomain`, `MailingAddress` and `CreditCard` as they each use a different method to carry out the tests.
 
 ### Test Suite
 
@@ -214,65 +216,19 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] Blog.title
 - [ ] Blog.url
 - [ ] Checkout.appliedGiftCards
-- [ ] CheckoutAttributesUpdatePayload.checkout
-- [ ] CheckoutAttributesUpdatePayload.userErrors
-- [ ] CheckoutAttributesUpdateV2Payload.checkout
-- [ ] CheckoutAttributesUpdateV2Payload.userErrors
 - [ ] Checkout.availableShippingRates
 - [ ] Checkout.completedAt
-- [ ] CheckoutCompleteFreePayload.checkout
-- [ ] CheckoutCompleteFreePayload.userErrors
-- [ ] CheckoutCompleteWithCreditCardPayload.checkout
-- [ ] CheckoutCompleteWithCreditCardPayload.payment
-- [ ] CheckoutCompleteWithCreditCardPayload.userErrors
-- [ ] CheckoutCompleteWithCreditCardV2Payload.checkout
-- [ ] CheckoutCompleteWithCreditCardV2Payload.payment
-- [ ] CheckoutCompleteWithCreditCardV2Payload.userErrors
-- [ ] CheckoutCompleteWithTokenizedPaymentPayload.checkout
-- [ ] CheckoutCompleteWithTokenizedPaymentPayload.payment
-- [ ] CheckoutCompleteWithTokenizedPaymentPayload.userErrors
-- [ ] CheckoutCompleteWithTokenizedPaymentV2Payload.checkout
-- [ ] CheckoutCompleteWithTokenizedPaymentV2Payload.payment
-- [ ] CheckoutCompleteWithTokenizedPaymentV2Payload.userErrors
 - [ ] Checkout.createdAt
-- [ ] CheckoutCreatePayload.checkout
-- [ ] CheckoutCreatePayload.checkoutUserErrors
 - [ ] Checkout.currencyCode
 - [ ] Checkout.customAttributes
-- [ ] CheckoutCustomerAssociatePayload.checkout
-- [ ] CheckoutCustomerAssociatePayload.customer
-- [ ] CheckoutCustomerAssociatePayload.userErrors
-- [ ] CheckoutCustomerAssociateV2Payload.checkout
-- [ ] CheckoutCustomerAssociateV2Payload.customer
-- [ ] CheckoutCustomerAssociateV2Payload.userErrors
-- [ ] CheckoutCustomerDisassociatePayload.checkout
-- [ ] CheckoutCustomerDisassociatePayload.userErrors
 - [ ] Checkout.discountApplications(first, after, last, before, reverse)
-- [ ] CheckoutDiscountCodeApplyPayload.checkout
-- [ ] CheckoutDiscountCodeApplyPayload.userErrors
-- [ ] CheckoutDiscountCodeRemovePayload.checkout
-- [ ] CheckoutDiscountCodeRemovePayload.userErrors
 - [ ] Checkout.email
-- [ ] CheckoutEmailUpdatePayload.checkout
-- [ ] CheckoutEmailUpdatePayload.userErrors
-- [ ] CheckoutGiftCardApplyPayload.checkout
-- [ ] CheckoutGiftCardApplyPayload.userErrors
-- [ ] CheckoutGiftCardRemovePayload.checkout
-- [ ] CheckoutGiftCardRemovePayload.userErrors
-- [ ] CheckoutGiftCardsAppendPayload.checkout
-- [ ] CheckoutGiftCardsAppendPayload.userErrors
 - [ ] Checkout.id
 - [ ] CheckoutLineItem.customAttributes
 - [ ] CheckoutLineItem.discountAllocations
 - [ ] CheckoutLineItem.id
 - [ ] CheckoutLineItem.quantity
-- [ ] CheckoutLineItemsAddPayload.checkout
-- [ ] CheckoutLineItemsAddPayload.userErrors
 - [ ] Checkout.lineItems(first, after, last, before, reverse)
-- [ ] CheckoutLineItemsRemovePayload.checkout
-- [ ] CheckoutLineItemsRemovePayload.userErrors
-- [ ] CheckoutLineItemsUpdatePayload.checkout
-- [ ] CheckoutLineItemsUpdatePayload.userErrors
 - [ ] CheckoutLineItem.title
 - [ ] CheckoutLineItem.variant
 - [ ] Checkout.note
@@ -282,12 +238,8 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] Checkout.ready
 - [ ] Checkout.requiresShipping
 - [ ] Checkout.shippingAddress
-- [ ] CheckoutShippingAddressUpdatePayload.checkout
-- [ ] CheckoutShippingAddressUpdatePayload.userErrors
 - [ ] Checkout.shippingDiscountAllocations
 - [ ] Checkout.shippingLine
-- [ ] CheckoutShippingLineUpdatePayload.checkout
-- [ ] CheckoutShippingLineUpdatePayload.userErrors
 - [ ] Checkout.subtotalPrice
 - [ ] Checkout.taxesIncluded
 - [ ] Checkout.taxExempt
@@ -312,40 +264,20 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] Comment.contentHtml
 - [ ] Comment.content(truncateAt)
 - [ ] Comment.id
-- [ ] CreditCard.brand
-- [ ] CreditCard.expiryMonth
-- [ ] CreditCard.expiryYear
-- [ ] CreditCard.firstDigits
-- [ ] CreditCard.firstName
-- [ ] CreditCard.lastDigits
-- [ ] CreditCard.lastName
-- [ ] CreditCard.maskedNumber
+- [x] CreditCard.brand
+- [x] CreditCard.expiryMonth
+- [x] CreditCard.expiryYear
+- [ ] CreditCard.firstDigits - not applicable for now (no such field on CreditCard model)
+- [x] CreditCard.firstName
+- [x] CreditCard.lastDigits
+- [x] CreditCard.lastName
+- [x] CreditCard.maskedNumber
 - [ ] Customer.acceptsMarketing
 - [ ] CustomerAccessToken.accessToken
-- [ ] CustomerAccessTokenCreatePayload.customerAccessToken
-- [ ] CustomerAccessTokenCreatePayload.customerUserErrors
-- [ ] CustomerAccessTokenDeletePayload.deletedAccessToken
-- [ ] CustomerAccessTokenDeletePayload.deletedCustomerAccessTokenId
-- [ ] CustomerAccessTokenDeletePayload.userErrors
 - [ ] CustomerAccessToken.expiresAt
-- [ ] CustomerAccessTokenRenewPayload.customerAccessToken
-- [ ] CustomerAccessTokenRenewPayload.userErrors
-- [ ] CustomerActivatePayload.customer
-- [ ] CustomerActivatePayload.customerAccessToken
-- [ ] CustomerActivatePayload.userErrors
-- [ ] CustomerAddressCreatePayload.customerAddress
-- [ ] CustomerAddressCreatePayload.userErrors
-- [ ] CustomerAddressDeletePayload.deletedCustomerAddressId
-- [ ] CustomerAddressDeletePayload.userErrors
 - [ ] Customer.addresses(first, after, last, before, reverse)
-- [ ] CustomerAddressUpdatePayload.customerAddress
-- [ ] CustomerAddressUpdatePayload.userErrors
 - [ ] Customer.createdAt
-- [ ] CustomerCreatePayload.customer
-- [ ] CustomerCreatePayload.customerUserErrors
 - [ ] Customer.defaultAddress
-- [ ] CustomerDefaultAddressUpdatePayload.customer
-- [ ] CustomerDefaultAddressUpdatePayload.userErrors
 - [ ] Customer.displayName
 - [ ] Customer.email
 - [ ] Customer.firstName
@@ -354,17 +286,7 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] Customer.lastName
 - [ ] Customer.orders(first, after, last, before, reverse, sortKey, query)
 - [ ] Customer.phone
-- [ ] CustomerRecoverPayload.userErrors
-- [ ] CustomerResetByUrlPayload.customer
-- [ ] CustomerResetByUrlPayload.customerAccessToken
-- [ ] CustomerResetByUrlPayload.userErrors
-- [ ] CustomerResetPayload.customer
-- [ ] CustomerResetPayload.customerAccessToken
-- [ ] CustomerResetPayload.userErrors
 - [ ] Customer.updatedAt
-- [ ] CustomerUpdatePayload.customer
-- [ ] CustomerUpdatePayload.customerAccessToken
-- [ ] CustomerUpdatePayload.customerUserErrors
 - [ ] CustomerUserError.code
 - [ ] CustomerUserError.field
 - [ ] CustomerUserError.message
@@ -396,24 +318,24 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] Image.id
 - [ ] Image.originalSrc
 - [ ] Image.transformedSrc(maxWidth, maxHeight, crop, scale, preferredContentType)
-- [ ] MailingAddress.address1
-- [ ] MailingAddress.address2
-- [ ] MailingAddress.city
-- [ ] MailingAddress.company
-- [ ] MailingAddress.country
-- [ ] MailingAddress.countryCodeV2
-- [ ] MailingAddress.firstName
-- [ ] MailingAddress.formattedArea
+- [x] MailingAddress.address1
+- [x] MailingAddress.address2
+- [x] MailingAddress.city
+- [x] MailingAddress.company
+- [x] MailingAddress.country
+- [x] MailingAddress.countryCodeV2
+- [x] MailingAddress.firstName
+- [x] MailingAddress.formattedArea
 - [ ] MailingAddress.formatted(withName, withCompany)
-- [ ] MailingAddress.id
-- [ ] MailingAddress.lastName
-- [ ] MailingAddress.latitude
-- [ ] MailingAddress.longitude
-- [ ] MailingAddress.name
-- [ ] MailingAddress.phone
-- [ ] MailingAddress.province
-- [ ] MailingAddress.provinceCode
-- [ ] MailingAddress.zip
+- [x] MailingAddress.id
+- [x] MailingAddress.lastName
+- [ ] MailingAddress.latitude - not applicable for now (no such field on Address model)
+- [ ] MailingAddress.longitude - not applicable for now (no such field on Address model)
+- [x] MailingAddress.name
+- [x] MailingAddress.phone
+- [x] MailingAddress.province
+- [x] MailingAddress.provinceCode
+- [x] MailingAddress.zip
 - [ ] ManualDiscountApplication.allocationMethod
 - [ ] ManualDiscountApplication.description
 - [ ] ManualDiscountApplication.targetSelection
@@ -513,7 +435,7 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] Product.priceRange
 - [ ] ProductPriceRange.maxVariantPrice
 - [ ] ProductPriceRange.minVariantPrice
-- [ ] Product.productType
+- [ ] Product.productType - not applicable for now (no such field on Product model)
 - [x] Product.publishedAt
 - [ ] Product.tags
 - [x] Product.title
@@ -521,15 +443,15 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] ProductVariant.availableForSale
 - [ ] Product.variantBySelectedOptions(selectedOptions)
 - [ ] ProductVariant.compareAtPrice
-- [ ] ProductVariant.id
+- [x] ProductVariant.id
 - [ ] ProductVariant.image(maxWidth, maxHeight, crop, scale)
 - [ ] ProductVariant.price
-- [ ] ProductVariant.product
+- [x] ProductVariant.product
 - [ ] ProductVariant.selectedOptions
-- [ ] Product.variants(first, after, last, before, reverse, sortKey)
-- [ ] ProductVariant.sku
-- [ ] ProductVariant.title
-- [ ] ProductVariant.weight
+- [x] Product.variants(first, after, last, before, reverse, sortKey)
+- [x] ProductVariant.sku
+- [x] ProductVariant.title
+- [x] ProductVariant.weight
 - [ ] ProductVariant.weightUnit
 - [ ] Product.vendor
 - [ ] QueryRoot.articles(first, after, last, before, reverse, sortKey, query)
@@ -549,8 +471,8 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] ShippingRate.handle
 - [ ] ShippingRate.price
 - [ ] ShippingRate.title
-- [ ] Shop.collectionByHandle(handle)
-- [x] Shop.collections(first, after, last, before, reverse, sortKey, query) - (`query` not supported yet)
+- [x] Shop.collectionByHandle(handle) - (works only for Spree taxons, not top-level taxonomies)
+- [x] Shop.collections(first, after, last, before, reverse, sortKey, query) - (`query` not supported yet; returns top-level Spree taxonomies)
 - [x] Shop.moneyFormat
 - [ ] Shop.paymentSettings
 - [ ] ShopPolicy.body
@@ -561,9 +483,9 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [x] Shop.name
 - [x] Shop.primaryDomain
 - [ ] Shop.privacyPolicy
-- [ ] Shop.productByHandle(handle)
+- [x] Shop.productByHandle(handle)
 - [x] Shop.products(first, after, last, before, reverse, sortKey, query) - (`query` not supported yet)
-- [ ] Shop.productTypes(first)
+- [ ] Shop.productTypes(first) - not applicable for now (no such field on Product model)
 - [ ] Shop.refundPolicy
 - [x] Shop.shipsToCountries
 - [ ] Shop.termsOfService
@@ -581,5 +503,4 @@ The primary TODOs related to this extension are:
 1. Add authentication (#14)
 1. Add authorization (#15)
 1. Add remaining missing implementations from the above list
-1. "Collections" can be nested, and so they are currently based on Taxons, ignoring Taxonomies. `Collections` returns all top-level taxons regardless of taxonomy they belong to. List of desired taxonomies to search in should be configurable. More detailed discussion is in #25.
-1. Any other open issues
+1. All other open issues (https://github.com/boomerdigital/solidus_graphql_api/issues)
