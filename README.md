@@ -181,40 +181,18 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 
 ## State of Implementation
 
+### GraphQL Fields of Primary Interest
+
+Current percentage of implementation: 22%
+
 - [ ] AppliedGiftCard.amountUsed
 - [ ] AppliedGiftCard.balance
 - [ ] AppliedGiftCard.id
 - [ ] AppliedGiftCard.lastCharacters
-- [ ] ArticleAuthor.bio
-- [ ] ArticleAuthor.email
-- [ ] ArticleAuthor.firstName
-- [ ] ArticleAuthor.lastName
-- [ ] ArticleAuthor.name
-- [ ] Article.authorV2
-- [ ] Article.blog
-- [ ] Article.comments(first, after, last, before, reverse)
-- [ ] Article.contentHtml
-- [ ] Article.content(truncateAt)
-- [ ] Article.excerptHtml
-- [ ] Article.excerpt(truncateAt)
-- [ ] Article.handle
-- [ ] Article.id
-- [ ] Article.image(maxWidth, maxHeight, crop, scale)
-- [ ] Article.publishedAt
-- [ ] Article.tags
-- [ ] Article.title
-- [ ] Article.url
 - [ ] Attribute.key
 - [ ] Attribute.value
 - [ ] AvailableShippingRates.ready
 - [ ] AvailableShippingRates.shippingRates
-- [ ] Blog.articleByHandle(handle)
-- [ ] Blog.articles(first, after, last, before, reverse)
-- [ ] Blog.authors
-- [ ] Blog.handle
-- [ ] Blog.id
-- [ ] Blog.title
-- [ ] Blog.url
 - [ ] Checkout.appliedGiftCards
 - [ ] Checkout.availableShippingRates
 - [ ] Checkout.completedAt
@@ -258,12 +236,6 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [x] Collection.products(first, after, last, before, reverse, sortKey)
 - [x] Collection.title
 - [x] Collection.updatedAt
-- [ ] Comment.author
-- [ ] CommentAuthor.email
-- [ ] CommentAuthor.name
-- [ ] Comment.contentHtml
-- [ ] Comment.content(truncateAt)
-- [ ] Comment.id
 - [x] CreditCard.brand
 - [x] CreditCard.expiryMonth
 - [x] CreditCard.expiryYear
@@ -475,18 +447,12 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [x] Shop.collections(first, after, last, before, reverse, sortKey, query) - (`query` not supported yet; returns top-level Spree taxonomies)
 - [x] Shop.moneyFormat
 - [ ] Shop.paymentSettings
-- [ ] ShopPolicy.body
-- [ ] ShopPolicy.id
-- [ ] ShopPolicy.title
-- [ ] ShopPolicy.url
 - [x] Shop.description
 - [x] Shop.name
 - [x] Shop.primaryDomain
-- [ ] Shop.privacyPolicy
 - [x] Shop.productByHandle(handle)
 - [x] Shop.products(first, after, last, before, reverse, sortKey, query) - (`query` not supported yet)
 - [ ] Shop.productTypes(first) - not applicable for now (no such field on Product model)
-- [ ] Shop.refundPolicy
 - [x] Shop.shipsToCountries
 - [ ] Shop.termsOfService
 - [ ] Transaction.amount
@@ -495,6 +461,47 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] Transaction.test
 - [ ] UserError.field
 - [ ] UserError.message
+
+### GraphQL Fields of Secondary Interest
+
+- [ ] ArticleAuthor.bio
+- [ ] ArticleAuthor.email
+- [ ] ArticleAuthor.firstName
+- [ ] ArticleAuthor.lastName
+- [ ] ArticleAuthor.name
+- [ ] Article.authorV2
+- [ ] Article.blog
+- [ ] Article.comments(first, after, last, before, reverse)
+- [ ] Article.contentHtml
+- [ ] Article.content(truncateAt)
+- [ ] Article.excerptHtml
+- [ ] Article.excerpt(truncateAt)
+- [ ] Article.handle
+- [ ] Article.id
+- [ ] Article.image(maxWidth, maxHeight, crop, scale)
+- [ ] Article.publishedAt
+- [ ] Article.tags
+- [ ] Article.title
+- [ ] Article.url
+- [ ] Blog.articleByHandle(handle)
+- [ ] Blog.articles(first, after, last, before, reverse)
+- [ ] Blog.authors
+- [ ] Blog.handle
+- [ ] Blog.id
+- [ ] Blog.title
+- [ ] Blog.url
+- [ ] Comment.author
+- [ ] CommentAuthor.email
+- [ ] CommentAuthor.name
+- [ ] Comment.contentHtml
+- [ ] Comment.content(truncateAt)
+- [ ] Comment.id
+- [ ] Shop.privacyPolicy
+- [ ] Shop.refundPolicy
+- [ ] ShopPolicy.body
+- [ ] ShopPolicy.id
+- [ ] ShopPolicy.title
+- [ ] ShopPolicy.url
 
 ## TODO
 
