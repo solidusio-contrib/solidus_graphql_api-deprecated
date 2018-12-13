@@ -384,8 +384,8 @@ Current percentage of implementation: 22%
 - [ ] Payment.ready
 - [ ] PaymentSettings.acceptedCardBrands
 - [ ] PaymentSettings.cardVaultUrl
-- [ ] PaymentSettings.countryCode
-- [ ] PaymentSettings.currencyCode
+- [x] PaymentSettings.countryCode
+- [x] PaymentSettings.currencyCode
 - [ ] PaymentSettings.solidusPaymentsAccountId
 - [ ] PaymentSettings.supportedDigitalWallets
 - [ ] Payment.test
@@ -502,6 +502,17 @@ Current percentage of implementation: 22%
 - [ ] ShopPolicy.id
 - [ ] ShopPolicy.title
 - [ ] ShopPolicy.url
+
+### Implementation Notes
+
+This section contains notes related to implementation or behavior of some GraphQL fields:
+
+1. Collections and Products. The upstream API has a concept of "collections" which are nested product categories. In Solidus, these are implemented through top-level Taxonomies and contained Taxons. Taxonomies have a small number of fields, and cannot be nested. Taxons have a longer list of existing fields, and can be nested. Solidus' GraphQL implementation for Collections emulates Collections by transparently returning Taxonomies at the top level and Taxons at lower levels. However, more work is needed to make it fully transparent, and `collectionByHandle()` should be improved too. For more discussion about the approach itself, see https://github.com/boomerdigital/solidus_graphql_api/issues/25.
+1. Domain.sslEnabled. This field returns value of `Rails.configuration.force_ssl` and so it does not accurately report whether SSL is "enabled", but whether it is "forced".
+1. PaymentSettings.countryCode. Since the default `Spree::Store` model does not have a field for the store's address and country, the value of this field is coming from `Spree::Store#cart_tax_country_iso`, which in turn is the default country whose tax should be applied.
+1. PaymentSettings.currencyCode. The value of this field is coming from `Spree::Store#default_currency`.
+1. Shop.moneyFormat. There is no equivalent of this field in `Solidus` or `Spree::Money`, so the value is produced by running the formatting method on an example amount, and then guessing the money format template from that. The straightforward implementation seems it should cover a good number of use cases. However, check this value yourself to ensure it is correct.
+1. Shop.shipsToCountries. In Solidus, this field does not exist anywhere out-of-the-box, but support for this is provided. To make this field return a meaningful result, one should create a Zone in Solidus Admin and add chosen countries in it. Then, in Solidus configuration, the setting `checkout_zone` should be set to name of that zone.
 
 ## TODO
 

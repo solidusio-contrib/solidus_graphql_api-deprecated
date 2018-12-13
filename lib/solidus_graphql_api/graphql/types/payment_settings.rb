@@ -16,13 +16,13 @@ module Spree::GraphQL::Types::PaymentSettings
   # countryCode: The country where the shop is located.
   # @return [Types::CountryCode!]
   def country_code()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.country_code
   end
 
   # currencyCode: The three-letter code for the currency that the shop accepts.
   # @return [Types::CurrencyCode!]
   def currency_code()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    object.currency_code
   end
 
   # solidusPaymentsAccountId: The shop’s Solidus Payments account id.
