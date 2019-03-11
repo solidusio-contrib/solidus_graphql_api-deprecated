@@ -48,7 +48,13 @@ module Spree::GraphQL::Types::Shop
   # paymentSettings: Settings related to payments.
   # @return [Types::PaymentSettings!]
   def payment_settings()
-    raise ::Spree::GraphQL::NotImplementedError.new
+    OpenStruct.new \
+      country_code: object.cart_tax_country_iso,
+      currency_code: object.default_currency
+      #acceptedCardBrands: [],
+      #cardVaultUrl: '',
+      #solidusPaymentsAccountId: '',
+      #supportedDigitalWallets: '',
   end
 
   # primaryDomain: The shop’s primary domain.

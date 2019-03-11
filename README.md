@@ -181,40 +181,18 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 
 ## State of Implementation
 
+### GraphQL Fields of Primary Interest
+
+Current percentage of implementation: 23.5%
+
 - [ ] AppliedGiftCard.amountUsed
 - [ ] AppliedGiftCard.balance
 - [ ] AppliedGiftCard.id
 - [ ] AppliedGiftCard.lastCharacters
-- [ ] ArticleAuthor.bio
-- [ ] ArticleAuthor.email
-- [ ] ArticleAuthor.firstName
-- [ ] ArticleAuthor.lastName
-- [ ] ArticleAuthor.name
-- [ ] Article.authorV2
-- [ ] Article.blog
-- [ ] Article.comments(first, after, last, before, reverse)
-- [ ] Article.contentHtml
-- [ ] Article.content(truncateAt)
-- [ ] Article.excerptHtml
-- [ ] Article.excerpt(truncateAt)
-- [ ] Article.handle
-- [ ] Article.id
-- [ ] Article.image(maxWidth, maxHeight, crop, scale)
-- [ ] Article.publishedAt
-- [ ] Article.tags
-- [ ] Article.title
-- [ ] Article.url
 - [ ] Attribute.key
 - [ ] Attribute.value
 - [ ] AvailableShippingRates.ready
 - [ ] AvailableShippingRates.shippingRates
-- [ ] Blog.articleByHandle(handle)
-- [ ] Blog.articles(first, after, last, before, reverse)
-- [ ] Blog.authors
-- [ ] Blog.handle
-- [ ] Blog.id
-- [ ] Blog.title
-- [ ] Blog.url
 - [ ] Checkout.appliedGiftCards
 - [ ] Checkout.availableShippingRates
 - [ ] Checkout.completedAt
@@ -258,12 +236,6 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [x] Collection.products(first, after, last, before, reverse, sortKey)
 - [x] Collection.title
 - [x] Collection.updatedAt
-- [ ] Comment.author
-- [ ] CommentAuthor.email
-- [ ] CommentAuthor.name
-- [ ] Comment.contentHtml
-- [ ] Comment.content(truncateAt)
-- [ ] Comment.id
 - [x] CreditCard.brand
 - [x] CreditCard.expiryMonth
 - [x] CreditCard.expiryYear
@@ -381,12 +353,7 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] Order.discountApplications(first, after, last, before, reverse)
 - [ ] Order.email
 - [ ] Order.id
-- [ ] OrderLineItem.customAttributes
-- [ ] OrderLineItem.discountAllocations
-- [ ] OrderLineItem.quantity
 - [ ] Order.lineItems(first, after, last, before, reverse)
-- [ ] OrderLineItem.title
-- [ ] OrderLineItem.variant
 - [ ] Order.name
 - [ ] Order.orderNumber
 - [ ] Order.phone
@@ -400,6 +367,11 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] Order.totalRefunded
 - [ ] Order.totalShippingPrice
 - [ ] Order.totalTax
+- [ ] OrderLineItem.customAttributes
+- [ ] OrderLineItem.discountAllocations
+- [ ] OrderLineItem.quantity
+- [ ] OrderLineItem.title
+- [ ] OrderLineItem.variant
 - [x] PageInfo.hasNextPage
 - [x] PageInfo.hasPreviousPage
 - [ ] Payment.amount
@@ -412,8 +384,8 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] Payment.ready
 - [ ] PaymentSettings.acceptedCardBrands
 - [ ] PaymentSettings.cardVaultUrl
-- [ ] PaymentSettings.countryCode
-- [ ] PaymentSettings.currencyCode
+- [x] PaymentSettings.countryCode
+- [x] PaymentSettings.currencyCode
 - [ ] PaymentSettings.solidusPaymentsAccountId
 - [ ] PaymentSettings.supportedDigitalWallets
 - [ ] Payment.test
@@ -437,7 +409,7 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [ ] ProductPriceRange.minVariantPrice
 - [ ] Product.productType - not applicable for now (no such field on Product model)
 - [x] Product.publishedAt
-- [ ] Product.tags
+- [ ] Product.tags - not applicable for now (no concept of Tags in Solidus?)
 - [x] Product.title
 - [x] Product.updatedAt
 - [ ] ProductVariant.availableForSale
@@ -452,11 +424,8 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [x] ProductVariant.sku
 - [x] ProductVariant.title
 - [x] ProductVariant.weight
-- [ ] ProductVariant.weightUnit
+- [ ] ProductVariant.weightUnit - not applicable (no such field on model. Potentially with solidus_active_shipping gem there would be)
 - [ ] Product.vendor
-- [ ] QueryRoot.articles(first, after, last, before, reverse, sortKey, query)
-- [ ] QueryRoot.blogByHandle(handle)
-- [ ] QueryRoot.blogs(first, after, last, before, reverse, sortKey, query)
 - [ ] QueryRoot.customer(customerAccessToken)
 - [x] QueryRoot.node(id)
 - [x] QueryRoot.nodes(ids)
@@ -474,27 +443,76 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [x] Shop.collectionByHandle(handle) - (works only for Spree taxons, not top-level taxonomies)
 - [x] Shop.collections(first, after, last, before, reverse, sortKey, query) - (`query` not supported yet; returns top-level Spree taxonomies)
 - [x] Shop.moneyFormat
-- [ ] Shop.paymentSettings
-- [ ] ShopPolicy.body
-- [ ] ShopPolicy.id
-- [ ] ShopPolicy.title
-- [ ] ShopPolicy.url
+- [x] Shop.paymentSettings
 - [x] Shop.description
 - [x] Shop.name
 - [x] Shop.primaryDomain
-- [ ] Shop.privacyPolicy
 - [x] Shop.productByHandle(handle)
 - [x] Shop.products(first, after, last, before, reverse, sortKey, query) - (`query` not supported yet)
 - [ ] Shop.productTypes(first) - not applicable for now (no such field on Product model)
-- [ ] Shop.refundPolicy
 - [x] Shop.shipsToCountries
-- [ ] Shop.termsOfService
 - [ ] Transaction.amount
 - [ ] Transaction.kind
 - [ ] Transaction.status
 - [ ] Transaction.test
 - [ ] UserError.field
 - [ ] UserError.message
+
+### GraphQL Fields of Secondary Interest
+
+- [ ] ArticleAuthor.bio
+- [ ] ArticleAuthor.email
+- [ ] ArticleAuthor.firstName
+- [ ] ArticleAuthor.lastName
+- [ ] ArticleAuthor.name
+- [ ] Article.authorV2
+- [ ] Article.blog
+- [ ] Article.comments(first, after, last, before, reverse)
+- [ ] Article.contentHtml
+- [ ] Article.content(truncateAt)
+- [ ] Article.excerptHtml
+- [ ] Article.excerpt(truncateAt)
+- [ ] Article.handle
+- [ ] Article.id
+- [ ] Article.image(maxWidth, maxHeight, crop, scale)
+- [ ] Article.publishedAt
+- [ ] Article.tags
+- [ ] Article.title
+- [ ] Article.url
+- [ ] Blog.articleByHandle(handle)
+- [ ] Blog.articles(first, after, last, before, reverse)
+- [ ] Blog.authors
+- [ ] Blog.handle
+- [ ] Blog.id
+- [ ] Blog.title
+- [ ] Blog.url
+- [ ] Comment.author
+- [ ] CommentAuthor.email
+- [ ] CommentAuthor.name
+- [ ] Comment.contentHtml
+- [ ] Comment.content(truncateAt)
+- [ ] Comment.id
+- [ ] QueryRoot.articles(first, after, last, before, reverse, sortKey, query)
+- [ ] QueryRoot.blogByHandle(handle)
+- [ ] QueryRoot.blogs(first, after, last, before, reverse, sortKey, query)
+- [ ] Shop.privacyPolicy
+- [ ] Shop.refundPolicy
+- [ ] Shop.termsOfService
+- [ ] ShopPolicy.body
+- [ ] ShopPolicy.id
+- [ ] ShopPolicy.title
+- [ ] ShopPolicy.url
+
+### Implementation Notes
+
+This section contains notes related to implementation or behavior of some GraphQL fields:
+
+1. Collections and Products. The upstream API has a concept of Collections which are nested product categories. In Solidus, these are implemented through top-level Taxonomies and contained Taxons. Taxonomies have a small number of fields, and cannot be nested. Taxons have a longer list of existing fields, can be nested, and more closely match the concept of Collections. Solidus' GraphQL implementation for Collections emulates them by transparently returning Taxonomies at the top level and Taxons at lower levels. However, more work is needed to make it fully transparent, and `collectionByHandle()` should be improved too. For more discussion about the approach itself, see https://github.com/boomerdigital/solidus_graphql_api/issues/25.
+1. Domain.sslEnabled. This field returns value of `Rails.configuration.force_ssl` and so it does not accurately report whether SSL is "enabled", but whether it is "forced".
+1. PaymentSettings.countryCode. Since the default `Spree::Store` model does not have a field for the store's address and country, the value of this field is coming from `Spree::Store#cart_tax_country_iso`, which in turn is the default country whose tax should be applied. Comments as to whether this is a good way to produce this value are welcome.
+1. PaymentSettings.currencyCode. The value of this field is coming from `Spree::Store#default_currency` and so it does not necessarily represent the _only_ currency accepted, but just the _default_ one.
+1. Shop.moneyFormat. There is no equivalent of this field in `Solidus` or `Spree::Money`, so the value is produced by running the formatting method on an example amount, and then guessing the money format template from that. The current implementation seems like it should cover a good number of use cases. However, check this value yourself to ensure it is correct in your setup.
+1. Shop.shipsToCountries. In Solidus, this field does not exist anywhere out-of-the-box, but support for this is provided. To make this field return a meaningful result, one should create a Zone in Solidus Admin and add chosen countries in it. Then, in Solidus configuration, the setting `checkout_zone` should be set to name of that zone.
 
 ## TODO
 
