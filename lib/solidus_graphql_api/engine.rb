@@ -5,6 +5,10 @@ module Spree
       isolate_namespace Spree
       engine_name 'solidus_graphql_api'
 
+      initializer 'spree.graphql.environment', before: :load_config_initializers do |app|
+        Spree::GraphQL::Config = Spree::GraphqlConfiguration.new
+      end
+
       # use rspec for tests
       config.generators do |g|
         g.test_framework :rspec

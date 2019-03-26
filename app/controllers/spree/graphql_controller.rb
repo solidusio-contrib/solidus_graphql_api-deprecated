@@ -1,13 +1,16 @@
 module Spree
-  class GraphqlController < Spree::Api::BaseController
+  class GraphqlController < ActionController::Base
+    include Spree::Core::ControllerHelpers::Store
+    include Spree::Graphql::JwtAuthentication
 
     skip_before_action :verify_authenticity_token
 
+    before_action :authenticate_user
 
-    #shut off authentication for now
+    attr_reader :current_graphql_user
+
     def requires_authentication?
-      #Spree::Api::Config[:requires_authentication]
-      false
+      Spree::GraphQL::Config[:requires_authentication]
     end
 
     def execute
@@ -16,7 +19,7 @@ module Spree
       operation_name = params[:operationName]
       context = {
          #Query context goes here, for example:
-         current_spree_user: current_spree_user,
+         current_user: current_graphql_user,
          current_store: current_store,
       }
       result = Spree::GraphQL::Schema::Schema.execute(query, variables: variables, context: context, operation_name: operation_name)
@@ -51,6 +54,12 @@ module Spree
       logger.error e.backtrace.join("\n")
 
       render json: { error: { message: e.message, backtrace: e.backtrace }, data: {} }, status: 500
+    end
+
+    def authenticate_user
+      if requires_authentication? && !current_graphql_user
+        head :unauthorized
+      end
     end
   end
 end

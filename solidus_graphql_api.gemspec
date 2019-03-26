@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'solidus_core', '>= 2.7.0'
   s.add_dependency 'graphql', '~> 1.9.3'
+  s.add_dependency 'solidus_jwt', '>= 0.0.1'
 
   s.add_development_dependency 'database_cleaner'
   #s.add_development_dependency 'byebug'

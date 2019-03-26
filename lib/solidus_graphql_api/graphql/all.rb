@@ -1,6 +1,7 @@
 require 'graphql'
 require 'ostruct'
 require 'action_view'
+require 'solidus_jwt'
 
 module Spree
   module GraphQL
