@@ -22,12 +22,13 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'database_cleaner'
   #s.add_development_dependency 'byebug'
-  #s.add_development_dependency 'ffaker'
+  s.add_development_dependency 'ffaker'
   s.add_development_dependency 'factory_bot'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'rubocop'
   #s.add_development_dependency 'rubocop-rails', '1.4.0'
   #s.add_development_dependency 'simplecov'
+  s.add_development_dependency 'solidus_support', '>= 0.1.3'
   s.add_development_dependency 'sqlite3', '~> 1.3.6'
 end
