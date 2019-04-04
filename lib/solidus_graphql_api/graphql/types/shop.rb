@@ -63,12 +63,6 @@ module Spree::GraphQL::Types::Shop
     ::Spree::Domain.new(context[:current_store].url, Rails.configuration.force_ssl)
   end
 
-  # privacyPolicy: The shop’s privacy policy.
-  # @return [Types::ShopPolicy]
-  def privacy_policy()
-    raise ::Spree::GraphQL::NotImplementedError.new
-  end
-
   # productByHandle: Find a product by its handle.
   # @param handle [Types::String!] The handle of the product.
   # @return [Types::Product]
@@ -98,21 +92,9 @@ module Spree::GraphQL::Types::Shop
     )
   end
 
-  # refundPolicy: The shop’s refund policy.
-  # @return [Types::ShopPolicy]
-  def refund_policy()
-    raise ::Spree::GraphQL::NotImplementedError.new
-  end
-
   # shipsToCountries: Countries that the shop ships to. 2-letter ISO codes.
   # @return [[Types::CountryCode!]!]
   def ships_to_countries()
     available_countries.map(&:iso)
-  end
-
-  # termsOfService: The shop’s terms of service.
-  # @return [Types::ShopPolicy]
-  def terms_of_service()
-    raise ::Spree::GraphQL::NotImplementedError.new
   end
 end
