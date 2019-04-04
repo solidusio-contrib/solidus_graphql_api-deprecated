@@ -81,10 +81,9 @@ In solidus_graphql_api, GraphQL files are located in directory `lib/solidus_grap
 
 And additionally, there is also top-level directory `spec/` with all the tests.
 
-For maximum convenience, all those files come with pre-generated, template content. The `schema/` files are not intended to be modified by users, so for implementation you will need to use only two locations &mdash; the implementation files and tests.
-
 To e.g. implement `Order.totalTax`, you would do as follows:
 
+1. Add the schema definition code to pre-defined location in file `./lib/solidus_graphql_api/graphql/schema/types/order.rb`
 1. Add code to pre-defined location in file `./lib/solidus_graphql_api/graphql/types/order.rb`
 1. Modify test in pre-defined location in file `./spec/graphql/types/order_spec.rb`
 1. After enabling at least one `it` block in the test file, run rspec on it &mdash; `rspec ./spec/graphql/types/order_spec.rb`
