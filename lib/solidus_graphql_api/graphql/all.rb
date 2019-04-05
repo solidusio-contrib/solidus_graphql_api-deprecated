@@ -37,8 +37,6 @@ end
 
 # Implementation parts:
 
-require_relative "./types/shop"
-
 # Schema parts:
 
 require_relative "./schema/types/base_object"
