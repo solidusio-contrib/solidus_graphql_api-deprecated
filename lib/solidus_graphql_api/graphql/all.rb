@@ -37,8 +37,6 @@ end
 
 # Implementation parts:
 
-require_relative "./types/product"
-
 require_relative "./types/shop"
 
 require_relative "./types/query_root"
