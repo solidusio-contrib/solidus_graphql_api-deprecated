@@ -1,7 +1,8 @@
 class Spree::GraphQL::Schema::Types::ProductCollectionSortKeys < Spree::GraphQL::Schema::Types::BaseEnum
   graphql_name 'ProductCollectionSortKeys'
+
   description %q{The set of valid sort keys for the products query.}
-  include ::Spree::GraphQL::Types::ProductCollectionSortKeys
+
   value 'TITLE', %q{Sort by the `title` value.}
   value 'PRICE', %q{Sort by the `price` value.}
   value 'BEST_SELLING', %q{Sort by the `best-selling` value.}
@@ -13,4 +14,35 @@ class Spree::GraphQL::Schema::Types::ProductCollectionSortKeys < Spree::GraphQL:
 results by relevance to the search term(s). When no search query is specified, this sort key is not
 deterministic and should not be used.
 }
+
+  def self.apply!(r, **args)
+    if args[:sort_key]
+      r.reorder! \
+      case args[:sort_key]
+      when 'TITLE'
+        :name
+      when 'PRICE'
+        raise ::Spree::GraphQL::NotImplementedError.new
+      when 'BEST_SELLING'
+        raise ::Spree::GraphQL::NotImplementedError.new
+      when 'CREATED'
+        :created_at
+      when 'ID'
+        :id
+      when 'MANUAL'
+        raise ::Spree::GraphQL::NotImplementedError.new
+      when 'COLLECTION_DEFAULT'
+        # TODO Should be set to collection's chosen value
+        # if/when this field gets added to the model.
+      when 'RELEVANCE'
+        raise ::Spree::GraphQL::NotImplementedError.new
+      else
+        raise ::Spree::GraphQL::NotImplementedError.new
+      end
+    end
+    if args[:reverse]
+      r.reverse_order!
+    end
+    r
+  end
 end

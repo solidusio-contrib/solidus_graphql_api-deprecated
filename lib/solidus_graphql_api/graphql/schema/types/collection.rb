@@ -28,7 +28,7 @@ Limit of 255 characters.
   end
   def products(reverse:, sort_key:)
     if ::Spree::Taxon === object
-      ::Spree::GraphQL::Types::ProductCollectionSortKeys.apply!(
+      ::Spree::GraphQL::Schema::Types::ProductCollectionSortKeys.apply!(
         object.products,
         reverse: reverse,
         sort_key: sort_key,
