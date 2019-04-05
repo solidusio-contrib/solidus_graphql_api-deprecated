@@ -3,11 +3,13 @@ require 'spec_helper'
 
 module Spree::GraphQL
   describe 'Types::Collection' do
+    let(:collection_verbose_description) { 'Collection verbose description, it doesn‘t describe anything' }
+    let(:collection_truncated_description) { 'Collection v...' }
     let!(:shop) { create(:store) }
     let!(:taxonomy) { create(:taxonomy) }
     let!(:collection) {
       t = ::Spree::Taxon.first
-      t.description = %Q{String\n<a href="http://localhost:3000/">description</a> <br/>and newline\n<br>}
+      t.description = collection_verbose_description
       t.permalink = 'handle'
       t.name = 'Taxon Title'
       t.save
@@ -16,7 +18,7 @@ module Spree::GraphQL
     let!(:product) {
       p = create(:product)
       p.name = 'B Product'
-      p.description = %Q{Product description with no special characters}
+      p.description = 'Product verbose description, it doesn‘t describe anything'
       p.slug = 'product1'
       p.taxons= [collection]
       p.save
@@ -55,8 +57,8 @@ module Spree::GraphQL
           data: {
             shop: {
               collectionByHandle: {
-                description: 'String description and newline',
-                truncated: 'String descr...',
+                description: collection_verbose_description,
+                truncated: collection_truncated_description,
                 handle: collection.permalink,
                 id: ::Spree::GraphQL::Schema::Schema::id_from_object(collection),
                 title: collection.name,

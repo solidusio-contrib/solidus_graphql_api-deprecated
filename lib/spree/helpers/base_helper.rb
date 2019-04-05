@@ -27,15 +27,5 @@ module Spree::GraphQL::Helpers
         country
       end.sort_by { |c| c.name.parameterize }
     end
-
-    def sanitize_strip(string, length:)
-      if string
-        content = ActionView::Base.full_sanitizer.sanitize(string).gsub!(/\s+/, ' ')
-        content.strip!
-        length ? content.truncate(length) : content
-      else
-        ''
-      end
-    end
   end
 end

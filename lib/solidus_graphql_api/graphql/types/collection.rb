@@ -7,7 +7,7 @@ module Spree::GraphQL::Types::Collection
   # @return [Types::String!]
   def description(truncate_at:)
     text = (::Spree::Taxon === object) ? object.description : object.name
-    sanitize_strip(text, length: truncate_at)
+    (truncate_at ? truncate(text, length: truncate_at) : text).to_s
   end
 
   # handle: A human-friendly unique string for the collection automatically generated from its title. Limit of 255 characters.

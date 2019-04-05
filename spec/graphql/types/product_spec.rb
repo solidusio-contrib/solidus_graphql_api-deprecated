@@ -3,10 +3,12 @@ require 'spec_helper'
 
 module Spree::GraphQL
   describe 'Types::Product' do
+    let(:verbose_description) { 'Verbose description, it doesn‘t describe anything' }
+    let(:truncated_description) { 'Verbose desc...' }
     let!(:shop) { create(:store) }
     let!(:product) {
       p = create(:product)
-      p.description = %Q{String\n<a href="http://localhost:3000/">description</a> <br/>and newline\n<br>}
+      p.description = verbose_description
       p.save
       p
     }
@@ -51,8 +53,8 @@ module Spree::GraphQL
                     createdAt: product.created_at.iso8601,
                     publishedAt: product.available_on.iso8601,
                     updatedAt: product.updated_at.iso8601,
-                    description: 'String description and newline',
-                    truncated: 'String descr...',
+                    description: verbose_description,
+                    truncated: truncated_description,
                     handle: product.slug,
                     title: product.name,
                   }
