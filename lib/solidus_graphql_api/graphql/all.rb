@@ -43,7 +43,6 @@ require_relative "./types/product_sort_keys"
 require_relative "./types/product_variant"
 require_relative "./types/product"
 
-require_relative "./types/payment_settings"
 require_relative "./types/shop"
 
 require_relative "./types/query_root"
