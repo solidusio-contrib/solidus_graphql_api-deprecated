@@ -1,6 +1,5 @@
 require 'graphql'
 require 'ostruct'
-require 'action_view'
 
 module Spree
   module GraphQL
@@ -38,19 +37,8 @@ end
 
 # Implementation parts:
 
-require_relative "./types/base_object"
-require_relative "./types/base_enum"
-require_relative "./types/base_scalar"
-require_relative "./types/base_union"
-require_relative "./types/date_time"
-
-require_relative "./types/country_code"
 require_relative "./types/mailing_address"
 
-require_relative "./types/decimal"
-require_relative "./types/currency_code"
-require_relative "./types/url"
-require_relative "./types/html"
 require_relative "./types/product_collection_sort_keys"
 require_relative "./types/collection"
 require_relative "./types/product_variant_sort_keys"
@@ -65,7 +53,6 @@ require_relative "./types/payment_settings"
 require_relative "./types/shop"
 
 require_relative "./types/query_root"
-require_relative "./types/mutation"
 
 # Schema parts:
 
