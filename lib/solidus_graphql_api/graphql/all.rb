@@ -39,8 +39,6 @@ end
 
 require_relative "./types/shop"
 
-require_relative "./types/query_root"
-
 # Schema parts:
 
 require_relative "./schema/types/base_object"
