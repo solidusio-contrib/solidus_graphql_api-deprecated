@@ -17,7 +17,7 @@ module Spree::GraphQL::Types::Shop
     if query
       raise ::Spree::GraphQL::NotImplementedError.new
     end
-    ::Spree::GraphQL::Types::CollectionSortKeys.apply!(
+    ::Spree::GraphQL::Schema::Types::CollectionSortKeys.apply!(
       ::Spree::Taxonomy.all,
       reverse: reverse,
       sort_key: sort_key,
