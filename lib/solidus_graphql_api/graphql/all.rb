@@ -45,7 +45,6 @@ require_relative "./types/product_sort_keys"
 require_relative "./types/product_variant"
 require_relative "./types/product"
 
-require_relative "./types/domain"
 require_relative "./types/payment_settings"
 require_relative "./types/shop"
 
