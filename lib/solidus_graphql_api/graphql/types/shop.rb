@@ -84,7 +84,7 @@ module Spree::GraphQL::Types::Shop
     if query
       raise ::Spree::GraphQL::NotImplementedError.new
     end
-    ::Spree::GraphQL::Types::ProductSortKeys.apply!(
+    ::Spree::GraphQL::Schema::Types::ProductSortKeys.apply!(
       ::Spree::Product.all,
       reverse: reverse,
       sort_key: sort_key,
