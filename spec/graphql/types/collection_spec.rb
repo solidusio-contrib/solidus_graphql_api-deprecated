@@ -41,7 +41,6 @@ module Spree::GraphQL
               collectionByHandle(handle: "handle") {
                 description
                 truncated: description(truncateAt: 15)
-                descriptionHtml
                 handle
                 id
                 title
@@ -58,7 +57,6 @@ module Spree::GraphQL
               collectionByHandle: {
                 description: 'String description and newline',
                 truncated: 'String descr...',
-                descriptionHtml: collection.description,
                 handle: collection.permalink,
                 id: ::Spree::GraphQL::Schema::Schema::id_from_object(collection),
                 title: collection.name,
@@ -141,7 +139,7 @@ module Spree::GraphQL
             shop {
               collectionByHandle(handle: "handle") {
                 products(first: 2) {
-                  nodes { handle id title } #descriptionHtml
+                  nodes { handle id title }
                 }
                 reverse: products(first: 1, reverse: true) {
                   nodes { handle id title }

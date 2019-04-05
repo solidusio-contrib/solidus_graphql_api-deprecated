@@ -180,7 +180,6 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 
 ## State of Implementation
 
-- [x] Collection.descriptionHtml
 - [x] Collection.description(truncateAt)
 - [x] Collection.handle
 - [x] Collection.id
@@ -218,7 +217,6 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 - [x] PaymentSettings.countryCode
 - [x] PaymentSettings.currencyCode
 - [x] Product.createdAt
-- [x] Product.descriptionHtml
 - [x] Product.description(truncateAt)
 - [x] Product.handle
 - [x] Product.id

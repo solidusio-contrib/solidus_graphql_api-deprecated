@@ -10,13 +10,6 @@ module Spree::GraphQL::Types::Collection
     sanitize_strip(text, length: truncate_at)
   end
 
-  # descriptionHtml: The description of the collection, complete with HTML formatting.
-  # @return [Types::HTML!]
-  def description_html()
-    text = (::Spree::Taxon === object) ? object.description : object.name
-    text || ''
-  end
-
   # handle: A human-friendly unique string for the collection automatically generated from its title. Limit of 255 characters.
   # @return [Types::String!]
   def handle()

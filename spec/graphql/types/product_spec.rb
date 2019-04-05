@@ -32,7 +32,6 @@ module Spree::GraphQL
                     publishedAt
                     description
                     truncated: description(truncateAt: 15)
-                    descriptionHtml
                     handle
                     title
                   }
@@ -54,7 +53,6 @@ module Spree::GraphQL
                     updatedAt: product.updated_at.iso8601,
                     description: 'String description and newline',
                     truncated: 'String descr...',
-                    descriptionHtml: product.description,
                     handle: product.slug,
                     title: product.name,
                   }
@@ -66,7 +64,6 @@ module Spree::GraphQL
                     updatedAt: product2.updated_at.iso8601,
                     description: '',
                     truncated: '',
-                    descriptionHtml: '',
                     handle: product2.slug,
                     title: product2.name,
                   }
@@ -129,7 +126,6 @@ module Spree::GraphQL
                 edges {
                   node {
                     description(truncateAt: Int)
-                    descriptionHtml
                     handle
                     id
                     image(
@@ -186,7 +182,6 @@ module Spree::GraphQL
                 edges: {
                   node: [{
                     description: 'String',
-                    descriptionHtml: 'HTML',
                     handle: 'String',
                     id: 'ID',
                     image: {
@@ -528,7 +523,6 @@ module Spree::GraphQL
                   }
                   createdAt
                   description(truncateAt: Int)
-                  descriptionHtml
                   handle
                   id
                   images(
@@ -643,7 +637,6 @@ module Spree::GraphQL
                   },
                   createdAt: 'DateTime',
                   description: 'String',
-                  descriptionHtml: 'HTML',
                   handle: 'String',
                   id: 'ID',
                   images: {
@@ -765,7 +758,6 @@ module Spree::GraphQL
                       }
                       createdAt
                       description(truncateAt: Int)
-                      descriptionHtml
                       handle
                       id
                       images(
@@ -857,7 +849,6 @@ module Spree::GraphQL
                       },
                       createdAt: 'DateTime',
                       description: 'String',
-                      descriptionHtml: 'HTML',
                       handle: 'String',
                       id: 'ID',
                       images: {
