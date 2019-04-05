@@ -37,7 +37,6 @@ end
 
 # Implementation parts:
 
-require_relative "./types/product_variant_sort_keys"
 require_relative "./types/product_variant"
 require_relative "./types/product"
 
