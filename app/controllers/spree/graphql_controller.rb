@@ -1,5 +1,5 @@
 module Spree
-  class GraphqlController < Spree::Api::BaseController
+  class GraphQLController < Spree::Api::BaseController
 
     skip_before_action :verify_authenticity_token
 
