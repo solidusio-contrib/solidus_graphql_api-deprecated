@@ -3,10 +3,9 @@ module Spree
 
     skip_before_action :verify_authenticity_token
 
-
-    #shut off authentication for now
+    # Shut off authentication for now
     def requires_authentication?
-      #Spree::Api::Config[:requires_authentication]
+      # Spree::Api::Config[:requires_authentication]
       false
     end
 
@@ -15,7 +14,7 @@ module Spree
       query = params[:query]
       operation_name = params[:operationName]
       context = {
-         #Query context goes here, for example:
+         # Query context goes here, for example:
          current_spree_user: current_spree_user,
          current_store: current_store,
       }
