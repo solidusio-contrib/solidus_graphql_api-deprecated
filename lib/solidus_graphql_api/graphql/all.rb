@@ -40,7 +40,6 @@ end
 require_relative "./types/mailing_address"
 
 require_relative "./types/product_collection_sort_keys"
-require_relative "./types/collection"
 require_relative "./types/product_variant_sort_keys"
 require_relative "./types/product_sort_keys"
 require_relative "./types/product_variant"
