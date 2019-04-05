@@ -33,9 +33,6 @@ See the detailed [search syntax](https://help.solidus.io/api/getting-started/sea
   field :primary_domain, ::Spree::GraphQL::Schema::Types::Domain, null: false do
     description %q{The shop’s primary domain.}
   end
-  field :privacy_policy, ::Spree::GraphQL::Schema::Types::ShopPolicy, null: true do
-    description %q{The shop’s privacy policy.}
-  end
   field :product_by_handle, ::Spree::GraphQL::Schema::Types::Product, null: true do
     description %q{Find a product by its handle.}
     argument :handle, ::GraphQL::Types::String, required: true, description: %q{The handle of the product.}
@@ -59,13 +56,7 @@ See the detailed [search syntax](https://help.solidus.io/api/getting-started/sea
 See the detailed [search syntax](https://help.solidus.io/api/getting-started/search-syntax).
 }
   end
-  field :refund_policy, ::Spree::GraphQL::Schema::Types::ShopPolicy, null: true do
-    description %q{The shop’s refund policy.}
-  end
   field :ships_to_countries, [::Spree::GraphQL::Schema::Types::CountryCode], null: false do
     description %q{Countries that the shop ships to.}
-  end
-  field :terms_of_service, ::Spree::GraphQL::Schema::Types::ShopPolicy, null: true do
-    description %q{The shop’s terms of service.}
   end
 end

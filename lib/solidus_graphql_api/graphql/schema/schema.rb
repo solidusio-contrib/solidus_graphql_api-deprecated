@@ -23,20 +23,6 @@ class Spree::GraphQL::Schema::Schema < GraphQL::Schema
       ::Spree::GraphQL::Schema::Types::Collection
     when ::Spree::Address
       ::Spree::GraphQL::Schema::Types::MailingAddress
-
-      #::Spree::GraphQL::Schema::Types::AppliedGiftCard
-      #::Spree::GraphQL::Schema::Types::Article
-      #::Spree::GraphQL::Schema::Types::Blog
-      #::Spree::GraphQL::Schema::Types::Checkout
-      #::Spree::GraphQL::Schema::Types::CheckoutLineItem
-      #::Spree::GraphQL::Schema::Types::Comment
-      #::Spree::GraphQL::Schema::Types::MailingAddress
-      #::Spree::GraphQL::Schema::Types::Order
-      #::Spree::GraphQL::Schema::Types::Payment
-      #::Spree::GraphQL::Schema::Types::Product
-      #::Spree::GraphQL::Schema::Types::ProductOption
-      #::Spree::GraphQL::Schema::Types::ProductVariant
-      #::Spree::GraphQL::Schema::Types::ShopPolicy
     else
       raise("Unexpected object: #{obj}")
     end
