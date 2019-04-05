@@ -74,22 +74,15 @@ Please note that all GraphQL API fields which do not yet contain an actual imple
 
 ## How to Contribute
 
-In solidus_graphql_api, GraphQL files are located in directory `lib/solidus_graphql_api/graphql/`. That directory is further divided into two parts:
-
-1. The schema part, i.e. the files kept in the subdirectory `schema/`
-1. The implementation part, i.e. all other files outside of the subdirectory `schema/`
-
-And additionally, there is also top-level directory `spec/` with all the tests.
+In solidus_graphql_api, GraphQL files are located in directory `lib/solidus_graphql_api/graphql/schema/`. And additionally, there is also top-level directory `spec/` with all the specs.
 
 To e.g. implement `Order.totalTax`, you would do as follows:
 
-1. Add the schema definition code to pre-defined location in file `./lib/solidus_graphql_api/graphql/schema/types/order.rb`
-1. Add code to pre-defined location in file `./lib/solidus_graphql_api/graphql/types/order.rb`
-1. Modify test in pre-defined location in file `./spec/graphql/types/order_spec.rb`
-1. After enabling at least one `it` block in the test file, run rspec on it &mdash; `rspec ./spec/graphql/types/order_spec.rb`
-1. After tests pass, update `README.md` to mark new GraphQL calls as implemented and submit a PR
+1. Add the schema definition and the implementation code in file `./lib/solidus_graphql_api/graphql/schema/types/order.rb`
+1. Add specs in file `./spec/graphql/schema/types/order_spec.rb`
+1. After specs pass, update `README.md` to mark new GraphQL calls as implemented and submit a PR
 
-Notes / additional help on adding code and tests follow:
+Notes / additional help on adding code and specs follow:
 
 ### Adding GraphQL Field Implementations
 
@@ -105,14 +98,15 @@ Option 1: for insignificant, disposable types, we can add implementation directl
 
 ```
 require 'ostruct'
-def primaryDomain()
+def primaryDomain
   ssl = Rails.configuration.force_ssl
   url_prefix = ssl ? 'https://' : 'http://'
 
-  OpenStruct.new \
+  OpenStruct.new(
     host: object.url,
     ssl_enabled: ssl,
     url: url_prefix + object.url
+  )
 end
 ```
 
@@ -133,13 +127,25 @@ end
 
 (If a type is backed by a database and represents a model, `app/models/` would be used instead of `lib/spree/`.)
 
-### Adding Corresponding tests
+### Adding Corresponding specs
 
-As mentioned, tests come with pre-defined template code as well.
+[Spec helpers](spec/support/graphql.rb) are provided to run a typical GraphQL spec: these helpers are automatically defined for specs located within `spec/graphql/`.
 
-The header of each test defines the GraphQL query and expected result, followed by an `it` block which actually runs the query and comparison.
+A typical spec is structured as the following:
 
-The pre-generated code and placeholders are verbose and detailed. It is easier to delete parts of content that won't be needed in a test than to write large parts of queries and code manually.
+```ruby
+let(:ctx) { { context_key: 'contextValue' } }
+let(:variables) { { var1: 'var1', var2: 'var2' } }
+let(:query) { '{ someQuery }' }
+let(:result) { { someResultKey: 'someResultValue' } }
+
+it 'succeeds' do
+  execute
+  expect(response_hash).to eq(result_hash)
+end
+```
+
+The header of each spec defines the GraphQL query and expected result, followed by an `it` block which actually runs the query and comparison.
 
 The command to execute queries is just `execute`. It runs `Schema.execute()` with defaulting to `query()`, `context()` and `variables()` unless these params are manually provided.
 
@@ -159,11 +165,11 @@ expect(response_hash).to eq(result_hash)
 
 For helper types and classes which are not directly accessible from the outside (such as type `Domain`), it is not necessary to make GraphQL calls but classes themselves can be tested.
 
-Please see the spec files for more examples. Good places to check first are the specs for `Product`, `primaryDomain`, `MailingAddress` and `CreditCard` as they each use a different method to carry out the tests.
+Please see the spec files for more examples. Good places to check first are the specs for `Product`, `primaryDomain`, `MailingAddress` and `CreditCard` as they each use a different method to carry out the specs.
 
 ### Test Suite
 
-To run solidus_graphql_api tests, invoke `rake`. `rake` will default to building a dummy app in `spec/dummy`, and finally running the specs.
+To run solidus_graphql_api specs, invoke `rake`. `rake` will default to building a dummy app in `spec/dummy`, and finally running the specs.
 
 ```shell
 bundle

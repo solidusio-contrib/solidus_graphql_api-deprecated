@@ -32,13 +32,6 @@ module Spree
   end
 end
 
-# When requiring new files, please remember that most files need to be added
-# to both "Implemntation part" and "Schema part" listed further below.
-
-# Implementation parts:
-
-# Schema parts:
-
 require_relative "./schema/types/base_object"
 require_relative "./schema/types/base_object_node"
 require_relative "./schema/types/base_enum"
