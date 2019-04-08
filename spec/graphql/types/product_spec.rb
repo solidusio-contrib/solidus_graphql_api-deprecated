@@ -3,20 +3,26 @@ require 'spec_helper'
 
 module Spree::GraphQL
   describe 'Types::Product' do
+    let(:description) { '  Not stripped product description  ' }
     let!(:shop) { create(:store) }
     let!(:product) {
       p = create(:product)
-      p.description = %Q{String\n<a href="http://localhost:3000/">description</a> <br/>and newline\n<br>}
-      p.save
+      p.description = description
+      p.save!
       p
     }
     let!(:product2) {
       p = create(:product)
       p.description = nil
-      p.save
+      p.save!
       p
     }
-    let!(:ctx) { { current_store: current_store } }
+    let!(:ctx) do
+      {
+        current_store: current_store,
+        helpers: double(:helpers)
+      }
+    end
     let!(:variables) { }
 
     describe 'fields' do
@@ -31,8 +37,6 @@ module Spree::GraphQL
                     updatedAt
                     publishedAt
                     description
-                    truncated: description(truncateAt: 15)
-                    descriptionHtml
                     handle
                     title
                   }
@@ -52,9 +56,7 @@ module Spree::GraphQL
                     createdAt: product.created_at.iso8601,
                     publishedAt: product.available_on.iso8601,
                     updatedAt: product.updated_at.iso8601,
-                    description: 'String description and newline',
-                    truncated: 'String descr...',
-                    descriptionHtml: product.description,
+                    description: description.strip,
                     handle: product.slug,
                     title: product.name,
                   }
@@ -65,8 +67,6 @@ module Spree::GraphQL
                     publishedAt: product2.available_on.iso8601,
                     updatedAt: product2.updated_at.iso8601,
                     description: '',
-                    truncated: '',
-                    descriptionHtml: '',
                     handle: product2.slug,
                     title: product2.name,
                   }
@@ -128,8 +128,7 @@ module Spree::GraphQL
               ) {
                 edges {
                   node {
-                    description(truncateAt: Int)
-                    descriptionHtml
+                    description
                     handle
                     id
                     image(
@@ -186,7 +185,6 @@ module Spree::GraphQL
                 edges: {
                   node: [{
                     description: 'String',
-                    descriptionHtml: 'HTML',
                     handle: 'String',
                     id: 'ID',
                     image: {
@@ -527,8 +525,7 @@ module Spree::GraphQL
                     }
                   }
                   createdAt
-                  description(truncateAt: Int)
-                  descriptionHtml
+                  description
                   handle
                   id
                   images(
@@ -643,7 +640,6 @@ module Spree::GraphQL
                   },
                   createdAt: 'DateTime',
                   description: 'String',
-                  descriptionHtml: 'HTML',
                   handle: 'String',
                   id: 'ID',
                   images: {
@@ -764,8 +760,7 @@ module Spree::GraphQL
                         # ...
                       }
                       createdAt
-                      description(truncateAt: Int)
-                      descriptionHtml
+                      description
                       handle
                       id
                       images(
@@ -857,7 +852,6 @@ module Spree::GraphQL
                       },
                       createdAt: 'DateTime',
                       description: 'String',
-                      descriptionHtml: 'HTML',
                       handle: 'String',
                       id: 'ID',
                       images: {

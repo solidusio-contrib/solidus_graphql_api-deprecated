@@ -33,8 +33,6 @@ module Spree
   end
 end
 
-require_relative '../../spree/helpers/base_helper'
-
 # When requiring new files, please remember that most files need to be added
 # to both "Implemntation part" and "Schema part" listed further below.
 

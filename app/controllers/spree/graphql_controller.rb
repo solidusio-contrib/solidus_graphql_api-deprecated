@@ -1,12 +1,11 @@
 module Spree
-  class GraphqlController < Spree::Api::BaseController
+  class GraphQLController < Spree::Api::BaseController
 
     skip_before_action :verify_authenticity_token
 
-
-    #shut off authentication for now
+    # Shut off authentication for now
     def requires_authentication?
-      #Spree::Api::Config[:requires_authentication]
+      # Spree::Api::Config[:requires_authentication]
       false
     end
 
@@ -15,9 +14,10 @@ module Spree
       query = params[:query]
       operation_name = params[:operationName]
       context = {
-         #Query context goes here, for example:
+         # Query context goes here, for example:
          current_spree_user: current_spree_user,
          current_store: current_store,
+         helpers: helpers
       }
       result = Spree::GraphQL::Schema::Schema.execute(query, variables: variables, context: context, operation_name: operation_name)
       render json: result

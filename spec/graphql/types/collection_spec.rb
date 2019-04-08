@@ -3,11 +3,12 @@ require 'spec_helper'
 
 module Spree::GraphQL
   describe 'Types::Collection' do
+    let(:collection_description) { '  Not stripped collection description  ' }
     let!(:shop) { create(:store) }
     let!(:taxonomy) { create(:taxonomy) }
     let!(:collection) {
       t = ::Spree::Taxon.first
-      t.description = %Q{String\n<a href="http://localhost:3000/">description</a> <br/>and newline\n<br>}
+      t.description = collection_description
       t.permalink = 'handle'
       t.name = 'Taxon Title'
       t.save
@@ -16,7 +17,7 @@ module Spree::GraphQL
     let!(:product) {
       p = create(:product)
       p.name = 'B Product'
-      p.description = %Q{Product description with no special characters}
+      p.description = 'Product description'
       p.slug = 'product1'
       p.taxons= [collection]
       p.save
@@ -30,7 +31,12 @@ module Spree::GraphQL
       p.save
     }
     let!(:products) { collection.products }
-    let!(:ctx) { { current_store: current_store } }
+    let!(:ctx) do
+      {
+        helpers: double(:helpers),
+        current_store: current_store
+      }
+    end
     let!(:variables) { }
 
     describe 'fields' do
@@ -40,8 +46,6 @@ module Spree::GraphQL
             shop {
               collectionByHandle(handle: "handle") {
                 description
-                truncated: description(truncateAt: 15)
-                descriptionHtml
                 handle
                 id
                 title
@@ -56,9 +60,7 @@ module Spree::GraphQL
           data: {
             shop: {
               collectionByHandle: {
-                description: 'String description and newline',
-                truncated: 'String descr...',
-                descriptionHtml: collection.description,
+                description: collection_description.strip,
                 handle: collection.permalink,
                 id: ::Spree::GraphQL::Schema::Schema::id_from_object(collection),
                 title: collection.name,
@@ -141,7 +143,7 @@ module Spree::GraphQL
             shop {
               collectionByHandle(handle: "handle") {
                 products(first: 2) {
-                  nodes { handle id title } #descriptionHtml
+                  nodes { handle id title }
                 }
                 reverse: products(first: 1, reverse: true) {
                   nodes { handle id title }
