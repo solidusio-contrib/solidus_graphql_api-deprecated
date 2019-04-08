@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::Product
-  include ::Spree::GraphQL::Helpers::BaseHelper
   # availableForSale: Indicates if at least one product variant is available for sale.
   # @return [Types::Boolean!]
   def available_for_sale()
@@ -20,12 +19,12 @@ module Spree::GraphQL::Types::Product
     object.created_at.iso8601
   end
 
-  # description: Stripped description of the product, single line with HTML tags removed.
+  # description: Description of the product.
   # @param truncate_at [Types::Int] (nil) Truncates string after the given length.
   # @return [Types::String!]
   def description(truncate_at:)
     text = object.description
-    (truncate_at ? truncate(text, length: truncate_at) : text).to_s
+    (truncate_at ? context[:helpers].truncate(text, length: truncate_at) : text).to_s
   end
 
   # handle: A human-friendly unique string for the Product automatically generated from its title. They are used by the Liquid templating language to refer to objects.

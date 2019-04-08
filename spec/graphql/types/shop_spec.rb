@@ -836,7 +836,14 @@ module Spree::GraphQL
     # shipsToCountries: Countries that the shop ships to.
     # @return [[Types::CountryCode!]!]
     describe 'shipsToCountries' do
-      include Spree::GraphQL::Helpers::BaseHelper
+      let(:available_countries_isos) { %w[IT US] }
+      let(:available_countries) { double(:available_countries, map: available_countries_isos) }
+      let!(:ctx) do
+        {
+          current_store: current_store,
+          helpers: double(:helpers)
+        }
+      end
       let!(:query) {
         %q{
           query {
@@ -850,13 +857,14 @@ module Spree::GraphQL
         {
           data: {
             shop: {
-              shipsToCountries: available_countries.map(&:iso),
+              shipsToCountries: available_countries_isos,
             }
           },
           #errors: {},
         }
       }
       it 'succeeds' do
+        expect(ctx[:helpers]).to receive(:available_countries).once.with(no_args).and_return(available_countries)
         execute
         expect(response_hash).to eq(result_hash)
       end

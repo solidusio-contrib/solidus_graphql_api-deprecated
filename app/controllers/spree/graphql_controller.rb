@@ -17,6 +17,7 @@ module Spree
          # Query context goes here, for example:
          current_spree_user: current_spree_user,
          current_store: current_store,
+         helpers: helpers
       }
       result = Spree::GraphQL::Schema::Schema.execute(query, variables: variables, context: context, operation_name: operation_name)
       render json: result

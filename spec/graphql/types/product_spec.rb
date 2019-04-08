@@ -9,16 +9,21 @@ module Spree::GraphQL
     let!(:product) {
       p = create(:product)
       p.description = verbose_description
-      p.save
+      p.save!
       p
     }
     let!(:product2) {
       p = create(:product)
       p.description = nil
-      p.save
+      p.save!
       p
     }
-    let!(:ctx) { { current_store: current_store } }
+    let!(:ctx) do
+      {
+        current_store: current_store,
+        helpers: double(:helpers)
+      }
+    end
     let!(:variables) { }
 
     describe 'fields' do
@@ -77,6 +82,14 @@ module Spree::GraphQL
         }
       }
       it 'succeeds' do
+        expect(ctx[:helpers]).to receive(:truncate).once.with(
+          verbose_description,
+          length: 15
+        ).and_return(truncated_description)
+        expect(ctx[:helpers]).to receive(:truncate).once.with(
+          nil,
+          length: 15
+        ).and_return('')
         execute
         expect(response_hash).to eq(result_hash)
       end

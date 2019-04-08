@@ -32,7 +32,12 @@ module Spree::GraphQL
       p.save
     }
     let!(:products) { collection.products }
-    let!(:ctx) { { current_store: current_store } }
+    let!(:ctx) do
+      {
+        helpers: double(:helpers),
+        current_store: current_store
+      }
+    end
     let!(:variables) { }
 
     describe 'fields' do
@@ -70,7 +75,13 @@ module Spree::GraphQL
         }
       }
       it 'succeeds' do
+        expect(ctx[:helpers]).to receive(:truncate).once.with(
+          collection_verbose_description,
+          length: 15
+        ).and_return(collection_truncated_description)
+
         execute
+
         expect(response_hash).to eq(result_hash)
       end
     end
