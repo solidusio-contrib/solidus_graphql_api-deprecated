@@ -16,7 +16,7 @@ module Spree::GraphQL::Types::Product
   # createdAt: The date and time when the product was created.
   # @return [Types::DateTime!]
   def created_at()
-    object.created_at.iso8601
+    object.created_at
   end
 
   # description: Stripped description of the product.
@@ -40,7 +40,7 @@ module Spree::GraphQL::Types::Product
   # publishedAt: The date and time when the product was published to the channel.
   # @return [Types::DateTime!]
   def published_at()
-    object.available_on.iso8601
+    object.available_on
   end
 
   # tags: A categorization that a product can be tagged with, commonly used for filtering and searching. Each comma-separated tag has a character limit of 255.
@@ -58,7 +58,7 @@ module Spree::GraphQL::Types::Product
   # updatedAt: The date and time when the product was last modified.
   # @return [Types::DateTime!]
   def updated_at()
-    object.updated_at.iso8601
+    object.updated_at
   end
 
   # variants: List of the product’s variants.

@@ -38,6 +38,6 @@ module Spree::GraphQL::Types::Collection
   # updatedAt: The date and time when the collection was last modified.
   # @return [Types::DateTime!]
   def updated_at()
-    object.updated_at.iso8601
+    object.updated_at
   end
 end
