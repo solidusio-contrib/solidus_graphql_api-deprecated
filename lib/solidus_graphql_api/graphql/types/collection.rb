@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 module Spree::GraphQL::Types::Collection
-  # description: Description of the collection.
-  # @param truncate_at [Types::Int] (nil) Truncates string after the given length.
+  # description: Stripped description of the collection.
   # @return [Types::String!]
-  def description(truncate_at:)
+  def description
     text = (::Spree::Taxon === object) ? object.description : object.name
-    (truncate_at ? context[:helpers].truncate(text, length: truncate_at) : text).to_s
+    text.to_s.strip
   end
 
   # handle: A human-friendly unique string for the collection automatically generated from its title. Limit of 255 characters.

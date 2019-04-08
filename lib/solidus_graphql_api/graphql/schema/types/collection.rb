@@ -7,8 +7,7 @@ class Spree::GraphQL::Schema::Types::Collection < Spree::GraphQL::Schema::Types:
   include ::Spree::GraphQL::Types::Collection
 
   field :description, ::GraphQL::Types::String, null: false do
-    description %q{Stripped description of the collection, single line with HTML tags removed.}
-    argument :truncate_at, ::GraphQL::Types::Int, required: false, default_value: nil, description: %q{Truncates string after the given length.}
+    description %q{Stripped description of the collection.}
   end
 
   field :handle, ::GraphQL::Types::String, null: false do

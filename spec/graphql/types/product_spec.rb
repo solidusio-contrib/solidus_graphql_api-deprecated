@@ -3,12 +3,11 @@ require 'spec_helper'
 
 module Spree::GraphQL
   describe 'Types::Product' do
-    let(:verbose_description) { 'Verbose description, it doesn‘t describe anything' }
-    let(:truncated_description) { 'Verbose desc...' }
+    let(:description) { '  Not stripped product description  ' }
     let!(:shop) { create(:store) }
     let!(:product) {
       p = create(:product)
-      p.description = verbose_description
+      p.description = description
       p.save!
       p
     }
@@ -38,7 +37,6 @@ module Spree::GraphQL
                     updatedAt
                     publishedAt
                     description
-                    truncated: description(truncateAt: 15)
                     handle
                     title
                   }
@@ -58,8 +56,7 @@ module Spree::GraphQL
                     createdAt: product.created_at.iso8601,
                     publishedAt: product.available_on.iso8601,
                     updatedAt: product.updated_at.iso8601,
-                    description: verbose_description,
-                    truncated: truncated_description,
+                    description: description.strip,
                     handle: product.slug,
                     title: product.name,
                   }
@@ -70,7 +67,6 @@ module Spree::GraphQL
                     publishedAt: product2.available_on.iso8601,
                     updatedAt: product2.updated_at.iso8601,
                     description: '',
-                    truncated: '',
                     handle: product2.slug,
                     title: product2.name,
                   }
@@ -82,14 +78,6 @@ module Spree::GraphQL
         }
       }
       it 'succeeds' do
-        expect(ctx[:helpers]).to receive(:truncate).once.with(
-          verbose_description,
-          length: 15
-        ).and_return(truncated_description)
-        expect(ctx[:helpers]).to receive(:truncate).once.with(
-          nil,
-          length: 15
-        ).and_return('')
         execute
         expect(response_hash).to eq(result_hash)
       end
@@ -140,7 +128,7 @@ module Spree::GraphQL
               ) {
                 edges {
                   node {
-                    description(truncateAt: Int)
+                    description
                     handle
                     id
                     image(
@@ -537,7 +525,7 @@ module Spree::GraphQL
                     }
                   }
                   createdAt
-                  description(truncateAt: Int)
+                  description
                   handle
                   id
                   images(
@@ -772,7 +760,7 @@ module Spree::GraphQL
                         # ...
                       }
                       createdAt
-                      description(truncateAt: Int)
+                      description
                       handle
                       id
                       images(

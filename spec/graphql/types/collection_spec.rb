@@ -3,13 +3,12 @@ require 'spec_helper'
 
 module Spree::GraphQL
   describe 'Types::Collection' do
-    let(:collection_verbose_description) { 'Collection verbose description, it doesn‘t describe anything' }
-    let(:collection_truncated_description) { 'Collection v...' }
+    let(:collection_description) { '  Not stripped collection description  ' }
     let!(:shop) { create(:store) }
     let!(:taxonomy) { create(:taxonomy) }
     let!(:collection) {
       t = ::Spree::Taxon.first
-      t.description = collection_verbose_description
+      t.description = collection_description
       t.permalink = 'handle'
       t.name = 'Taxon Title'
       t.save
@@ -18,7 +17,7 @@ module Spree::GraphQL
     let!(:product) {
       p = create(:product)
       p.name = 'B Product'
-      p.description = 'Product verbose description, it doesn‘t describe anything'
+      p.description = 'Product description'
       p.slug = 'product1'
       p.taxons= [collection]
       p.save
@@ -47,7 +46,6 @@ module Spree::GraphQL
             shop {
               collectionByHandle(handle: "handle") {
                 description
-                truncated: description(truncateAt: 15)
                 handle
                 id
                 title
@@ -62,8 +60,7 @@ module Spree::GraphQL
           data: {
             shop: {
               collectionByHandle: {
-                description: collection_verbose_description,
-                truncated: collection_truncated_description,
+                description: collection_description.strip,
                 handle: collection.permalink,
                 id: ::Spree::GraphQL::Schema::Schema::id_from_object(collection),
                 title: collection.name,
@@ -75,13 +72,7 @@ module Spree::GraphQL
         }
       }
       it 'succeeds' do
-        expect(ctx[:helpers]).to receive(:truncate).once.with(
-          collection_verbose_description,
-          length: 15
-        ).and_return(collection_truncated_description)
-
         execute
-
         expect(response_hash).to eq(result_hash)
       end
     end

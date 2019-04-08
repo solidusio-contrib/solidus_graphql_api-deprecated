@@ -19,12 +19,10 @@ module Spree::GraphQL::Types::Product
     object.created_at.iso8601
   end
 
-  # description: Description of the product.
-  # @param truncate_at [Types::Int] (nil) Truncates string after the given length.
+  # description: Stripped description of the product.
   # @return [Types::String!]
-  def description(truncate_at:)
-    text = object.description
-    (truncate_at ? context[:helpers].truncate(text, length: truncate_at) : text).to_s
+  def description
+    object.description.to_s.strip
   end
 
   # handle: A human-friendly unique string for the Product automatically generated from its title. They are used by the Liquid templating language to refer to objects.
