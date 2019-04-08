@@ -16,6 +16,11 @@ RSpec.configure do |config|
   config.backtrace_exclusion_patterns = [/gems\/activesupport/, /gems\/actionpack/, /gems\/rspec/]
   config.infer_spec_type_from_file_location!
 
+  # Allows RSpec to persist some state between runs in order to support
+  # the `--only-failures` and `--next-failure` CLI options. We recommend
+  # you configure your source control system to ignore this file.
+  config.example_status_persistence_file_path = 'spec/examples.txt'
+
   config.define_derived_metadata(file_path: Regexp.new('/spec/graphql/')) do |metadata|
     metadata[:type] = :graphql
   end

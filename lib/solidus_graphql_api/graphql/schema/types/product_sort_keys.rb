@@ -1,7 +1,8 @@
 class Spree::GraphQL::Schema::Types::ProductSortKeys < Spree::GraphQL::Schema::Types::BaseEnum
   graphql_name 'ProductSortKeys'
+
   description %q{The set of valid sort keys for the products query.}
-  include ::Spree::GraphQL::Types::ProductSortKeys
+
   value 'TITLE', %q{Sort by the `title` value.}
   value 'PRODUCT_TYPE', %q{Sort by the `product_type` value.}
   value 'VENDOR', %q{Sort by the `vendor` value.}
@@ -14,4 +15,36 @@ class Spree::GraphQL::Schema::Types::ProductSortKeys < Spree::GraphQL::Schema::T
 results by relevance to the search term(s). When no search query is specified, this sort key is not
 deterministic and should not be used.
 }
+
+  def self.apply!(r, **args)
+    if args[:sort_key]
+      r.reorder! \
+      case args[:sort_key]
+      when 'TITLE'
+        :name
+      when 'PRODUCT_TYPE'
+        raise ::Spree::GraphQL::NotImplementedError.new
+      when 'VENDOR'
+        raise ::Spree::GraphQL::NotImplementedError.new
+      when 'UPDATED_AT'
+        :updated_at
+      when 'CREATED_AT'
+        :created_at
+      when 'BEST_SELLING'
+        raise ::Spree::GraphQL::NotImplementedError.new
+      when 'PRICE'
+        raise ::Spree::GraphQL::NotImplementedError.new
+      when 'ID'
+        :id
+      when 'RELEVANCE'
+        raise ::Spree::GraphQL::NotImplementedError.new
+      else
+        raise ::Spree::GraphQL::NotImplementedError.new
+      end
+    end
+    if args[:reverse]
+      r.reverse_order!
+    end
+    r
+  end
 end
