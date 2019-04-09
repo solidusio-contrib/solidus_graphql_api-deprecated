@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Spree
   class Domain
     attr_reader :host, :ssl_enabled, :url
