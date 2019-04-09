@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Spree::GraphQL::Schema::Types::CurrencyCode < Spree::GraphQL::Schema::Types::BaseEnum
   graphql_name 'CurrencyCode'
   description %q{Currency codes}

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Spree::GraphQL::Schema::Types::ProductVariant < Spree::GraphQL::Schema::Types::BaseObjectNode
   graphql_name 'ProductVariant'
 

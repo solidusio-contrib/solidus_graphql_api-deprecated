@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Spree::GraphQL::Schema::Types::Product < Spree::GraphQL::Schema::Types::BaseObjectNode; end
 class Spree::GraphQL::Schema::Types::Collection < Spree::GraphQL::Schema::Types::BaseObjectNode
   graphql_name 'Collection'

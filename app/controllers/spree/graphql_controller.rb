@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module Spree
   class GraphQLController < Spree::Api::BaseController
-
     skip_before_action :verify_authenticity_token
 
     # Shut off authentication for now
@@ -14,16 +15,16 @@ module Spree
       query = params[:query]
       operation_name = params[:operationName]
       context = {
-         # Query context goes here, for example:
-         current_spree_user: current_spree_user,
-         current_store: current_store,
-         helpers: helpers
+        current_spree_user: current_spree_user,
+        current_store: current_store,
+        helpers: helpers
       }
       result = Spree::GraphQL::Schema::Schema.execute(query, variables: variables, context: context, operation_name: operation_name)
       render json: result
-    rescue => e
-      raise e unless Rails.env.development?
-      handle_error_in_development e
+    rescue StandardError => exception
+      raise exception unless Rails.env.development?
+
+      handle_error_in_development exception
     end
 
     private
@@ -46,11 +47,11 @@ module Spree
       end
     end
 
-    def handle_error_in_development(e)
-      logger.error e.message
-      logger.error e.backtrace.join("\n")
+    def handle_error_in_development(exception)
+      logger.error exception.message
+      logger.error exception.backtrace.join("\n")
 
-      render json: { error: { message: e.message, backtrace: e.backtrace }, data: {} }, status: 500
+      render json: { error: { message: exception.message, backtrace: exception.backtrace }, data: {} }, status: 500
     end
   end
 end

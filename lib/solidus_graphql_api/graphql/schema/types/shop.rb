@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Spree::GraphQL::Schema::Types::Shop < Spree::GraphQL::Schema::Types::BaseObject
   graphql_name 'Shop'
 

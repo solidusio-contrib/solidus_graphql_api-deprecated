@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 solidus_branch = ENV.fetch('SOLIDUS_BRANCH', 'master')
