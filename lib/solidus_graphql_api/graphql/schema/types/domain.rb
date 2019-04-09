@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Spree::GraphQL::Schema::Types::Domain < Spree::GraphQL::Schema::Types::BaseObject
   graphql_name 'Domain'
 

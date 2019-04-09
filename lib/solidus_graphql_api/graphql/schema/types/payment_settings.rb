@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Spree::GraphQL::Schema::Types::PaymentSettings < Spree::GraphQL::Schema::Types::BaseObject
   graphql_name 'PaymentSettings'
 

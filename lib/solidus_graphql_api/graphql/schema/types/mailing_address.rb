@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Spree::GraphQL::Schema::Types::MailingAddress < Spree::GraphQL::Schema::Types::BaseObjectNode
   graphql_name 'MailingAddress'
 

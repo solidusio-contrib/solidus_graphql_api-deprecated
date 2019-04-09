@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Spree::GraphQL::Schema::Types::CountryCode < Spree::GraphQL::Schema::Types::BaseEnum
   graphql_name 'CountryCode'
   description %q{ISO 3166-1 alpha-2 country codes with some differences.}

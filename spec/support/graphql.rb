@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Spree::GraphQL::Spec
   module Helpers
     def current_store
