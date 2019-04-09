@@ -5,7 +5,6 @@ require 'ostruct'
 
 module Spree
   module GraphQL
-
     module Schema
       module Inputs
       end
