@@ -19,12 +19,15 @@ module Spree::GraphQL
       t = taxonomies.first.taxons.first
       t.permalink = 'taxon-one'
       t.save
+      taxonomies.each(&:reload)
       t
     }
     let!(:product) {
       p = products.first
       p.taxons = [taxon]
       p.save
+      taxonomies.each(&:reload)
+      taxon.reload
       p
     }
     let!(:ctx) { { current_store: current_store } }

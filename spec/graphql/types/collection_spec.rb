@@ -22,6 +22,8 @@ module Spree::GraphQL
       p.slug = 'product1'
       p.taxons= [collection]
       p.save
+      collection.reload
+      p
     }
     let!(:product2) {
       p = create(:product)
@@ -30,6 +32,8 @@ module Spree::GraphQL
       p.slug = 'product2'
       p.taxons= [collection]
       p.save
+      collection.reload
+      p
     }
     let!(:products) { collection.products }
     let!(:ctx) do
