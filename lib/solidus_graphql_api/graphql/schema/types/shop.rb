@@ -88,13 +88,6 @@ See the detailed [search syntax](https://help.solidus.io/api/getting-started/sea
     ::Spree::Product.find_by(slug: handle)
   end
 
-  field :product_types, ::GraphQL::Types::String.connection_type, null: false do
-    description %q{List of the shop’s product types.}
-  end
-  def product_types
-    raise ::Spree::GraphQL::NotImplementedError.new
-  end
-
   field :products, ::Spree::GraphQL::Schema::Types::Product.connection_type, null: false do
     description %q{List of the shop’s products.}
     argument :reverse, ::GraphQL::Types::Boolean, required: false, default_value: false, description: %q{Reverse the order of the underlying list.}
