@@ -34,6 +34,7 @@ module Spree::GraphQL
           # errors: {},
         }
       end
+
       it 'succeeds' do
         execute
         result[:data][:node][:id] = product_id
@@ -72,6 +73,7 @@ module Spree::GraphQL
           # errors: {},
         }
       end
+
       it 'succeeds' do
         execute
         result[:data][:nodes][0][:id] = product_id_1

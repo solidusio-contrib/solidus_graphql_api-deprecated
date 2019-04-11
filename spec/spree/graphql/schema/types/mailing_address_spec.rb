@@ -76,6 +76,7 @@ module Spree::GraphQL
           # errors: {},
         }
       end
+
       it 'succeeds' do
         execute
         expect(response_hash).to eq(result_hash)
