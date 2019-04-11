@@ -9,7 +9,7 @@ class Spree::GraphQL::Schema::Types::ProductVariant < Spree::GraphQL::Schema::Ty
     description %q{Indicates if the product variant is available for sale.}
   end
   def available_for_sale
-    raise ::Spree::GraphQL::NotImplementedError.new
+    raise ::Spree::GraphQL::NotImplementedError
   end
 
   field :product, ::Spree::GraphQL::Schema::Types::Product, null: false do

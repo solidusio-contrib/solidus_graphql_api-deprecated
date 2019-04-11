@@ -13,11 +13,11 @@ end
 module Spree::GraphQL
   describe 'Types::CreditCard' do
     let!(:credit_card) { create(:credit_card) { |c| c.cc_type = 'VISA' } }
-    let!(:variables) { }
+    let!(:variables) {}
     let!(:ctx) { { credit_card: credit_card } }
 
     describe 'brand' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             testCreditCard {
@@ -31,8 +31,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             testCreditCard: {
@@ -42,12 +42,13 @@ module Spree::GraphQL
               lastDigits: credit_card.last_digits,
               firstName: 'Spree',
               lastName: 'Commerce',
-              maskedNumber: 'XXXX-XXXX-XXXX-1111',
+              maskedNumber: 'XXXX-XXXX-XXXX-1111'
             }
-          },
-          #errors: {},
+          }
+          # errors: {},
         }
-      }
+      end
+
       it 'succeeds' do
         execute
         expect(response_hash).to eq(result_hash)
@@ -57,7 +58,7 @@ module Spree::GraphQL
     # firstDigits
     # @return [Types::String]
     describe 'firstDigits' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             creditCard {
@@ -65,22 +66,21 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             creditCard: {
-              firstDigits: 'String',
+              firstDigits: 'String'
             }
-          },
-          #errors: {},
+          }
+          # errors: {},
         }
-      }
-      #it 'succeeds' do
+      end
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
-
   end
 end

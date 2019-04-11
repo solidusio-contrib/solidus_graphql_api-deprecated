@@ -5,24 +5,24 @@ require 'spec_helper'
 module Spree::GraphQL
   describe 'Types::ProductVariant' do
     let!(:shop) { create(:store) }
-    let!(:product) {
+    let!(:product) do
       p = create(:product)
       p.slug = 'product'
       p.save
       p
-    }
-    let!(:variant) {
+    end
+    let!(:variant) do
       v = create(:variant)
       v.product = product
       v.weight = 5.84
       v.save
       v
-    }
+    end
     let!(:ctx) { { current_store: current_store } }
-    let!(:variables) { }
+    let!(:variables) {}
 
     describe 'fields' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             shop {
@@ -43,8 +43,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             shop: {
@@ -57,16 +57,17 @@ module Spree::GraphQL
                     title: variant.name,
                     weight: variant.weight,
                     product: {
-                      id: ::Spree::GraphQL::Schema.id_from_object(product),
+                      id: ::Spree::GraphQL::Schema.id_from_object(product)
                     }
-                  }],
-                },
-              },
+                  }]
+                }
+              }
             }
-          },
-          #errors: {},
+          }
+          # errors: {},
         }
-      }
+      end
+
       it 'succeeds' do
         execute
         expect(response_hash).to eq(result_hash)
@@ -76,7 +77,7 @@ module Spree::GraphQL
     # availableForSale: Indicates if the product variant is available for sale.
     # @return [Types::Boolean!]
     describe 'availableForSale' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             productVariant {
@@ -84,27 +85,27 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             productVariant: {
-              availableForSale: 'Boolean',
+              availableForSale: 'Boolean'
             }
-          },
-          #errors: {},
+          }
+          # errors: {},
         }
-      }
-      #it 'succeeds' do
+      end
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # compareAtPrice: The compare at price of the variant. This can be used to mark a variant as on sale, when `compareAtPrice` is higher than `price`.
     # @return [Types::Money]
     describe 'compareAtPrice' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             productVariant {
@@ -112,21 +113,21 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             productVariant: {
-              compareAtPrice: 'Money',
+              compareAtPrice: 'Money'
             }
-          },
-          #errors: {},
+          }
+          # errors: {},
         }
-      }
-      #it 'succeeds' do
+      end
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # image: Image associated with the product variant. This field falls back to the product image if no image is available.
@@ -136,7 +137,7 @@ module Spree::GraphQL
     # @param scale [Types::Int] (1)
     # @return [Types::Image]
     describe 'image' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             productVariant {
@@ -161,8 +162,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             productVariant: {
@@ -171,23 +172,23 @@ module Spree::GraphQL
                 id: 'ID',
                 originalSrc: 'URL',
                 src: 'URL',
-                transformedSrc: 'URL',
-              },
+                transformedSrc: 'URL'
+              }
             }
-          },
-          #errors: {},
+          }
+          # errors: {},
         }
-      }
-      #it 'succeeds' do
+      end
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # price: The product variant’s price.
     # @return [Types::Money!]
     describe 'price' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             productVariant {
@@ -195,27 +196,27 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             productVariant: {
-              price: 'Money',
+              price: 'Money'
             }
-          },
-          #errors: {},
+          }
+          # errors: {},
         }
-      }
-      #it 'succeeds' do
+      end
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # selectedOptions: List of product options applied to the variant.
     # @return [[Types::SelectedOption!]!]
     describe 'selectedOptions' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             productVariant {
@@ -226,30 +227,30 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             productVariant: {
               selectedOptions: [{
                 name: 'String',
-                value: 'String',
-              }],
+                value: 'String'
+              }]
             }
-          },
-          #errors: {},
+          }
+          # errors: {},
         }
-      }
-      #it 'succeeds' do
+      end
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # weightUnit: Unit of measurement for weight.
     # @return [Types::WeightUnit!]
     describe 'weightUnit' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             productVariant {
@@ -257,21 +258,21 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             productVariant: {
-              weightUnit: 'KILOGRAMS | GRAMS | POUNDS | OUNCES',
+              weightUnit: 'KILOGRAMS | GRAMS | POUNDS | OUNCES'
             }
-          },
-          #errors: {},
+          }
+          # errors: {},
         }
-      }
-      #it 'succeeds' do
+      end
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
   end
 end

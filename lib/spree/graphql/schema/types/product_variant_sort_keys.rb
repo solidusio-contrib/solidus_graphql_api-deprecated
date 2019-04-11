@@ -16,25 +16,24 @@ deterministic and should not be used.
 
   def self.apply!(r, **args)
     if args[:sort_key]
-      r.reorder! \
-      case args[:sort_key]
+      r.reorder!(
+        case args[:sort_key]
         when 'TITLE'
           :name
         when 'SKU'
-          raise ::Spree::GraphQL::NotImplementedError.new
+          raise ::Spree::GraphQL::NotImplementedError
         when 'POSITION'
           :position
         when 'ID'
           :id
         when 'RELEVANCE'
-          raise ::Spree::GraphQL::NotImplementedError.new
+          raise ::Spree::GraphQL::NotImplementedError
         else
-          raise ::Spree::GraphQL::NotImplementedError.new
-      end
+          raise ::Spree::GraphQL::NotImplementedError
+        end
+      )
     end
-    if args[:reverse]
-      r.reverse_order!
-    end
+    r.reverse_order! if args[:reverse]
     r
   end
 end

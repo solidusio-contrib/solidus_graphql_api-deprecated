@@ -26,13 +26,12 @@ See the detailed [search syntax](https://help.solidus.io/api/getting-started/sea
 }
   end
   def collections(reverse:, sort_key:, query:)
-    if query
-      raise ::Spree::GraphQL::NotImplementedError.new
-    end
+    raise ::Spree::GraphQL::NotImplementedError if query
+
     ::Spree::GraphQL::Schema::Types::CollectionSortKeys.apply!(
       ::Spree::Taxonomy.all,
       reverse: reverse,
-      sort_key: sort_key,
+      sort_key: sort_key
     )
   end
 
@@ -47,7 +46,7 @@ See the detailed [search syntax](https://help.solidus.io/api/getting-started/sea
     description %q{A string representing the way currency is formatted when the currency isn’t specified.}
   end
   def money_format
-    format = ::Spree::Money.new(123456789, currency: Spree::Config.currency, no_cents: true).format
+    format = ::Spree::Money.new(123_456_789, currency: Spree::Config.currency, no_cents: true).format
     format.sub! /1.+?9/, '{{amount}}'
     format
   end
@@ -105,13 +104,12 @@ See the detailed [search syntax](https://help.solidus.io/api/getting-started/sea
 }
   end
   def products(reverse:, sort_key:, query:)
-    if query
-      raise ::Spree::GraphQL::NotImplementedError.new
-    end
+    raise ::Spree::GraphQL::NotImplementedError if query
+
     ::Spree::GraphQL::Schema::Types::ProductSortKeys.apply!(
       ::Spree::Product.all,
       reverse: reverse,
-      sort_key: sort_key,
+      sort_key: sort_key
     )
   end
 

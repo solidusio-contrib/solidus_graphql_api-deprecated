@@ -20,33 +20,32 @@ deterministic and should not be used.
 
   def self.apply!(r, **args)
     if args[:sort_key]
-      r.reorder! \
-      case args[:sort_key]
-      when 'TITLE'
-        :name
-      when 'PRODUCT_TYPE'
-        raise ::Spree::GraphQL::NotImplementedError.new
-      when 'VENDOR'
-        raise ::Spree::GraphQL::NotImplementedError.new
-      when 'UPDATED_AT'
-        :updated_at
-      when 'CREATED_AT'
-        :created_at
-      when 'BEST_SELLING'
-        raise ::Spree::GraphQL::NotImplementedError.new
-      when 'PRICE'
-        raise ::Spree::GraphQL::NotImplementedError.new
-      when 'ID'
-        :id
-      when 'RELEVANCE'
-        raise ::Spree::GraphQL::NotImplementedError.new
-      else
-        raise ::Spree::GraphQL::NotImplementedError.new
-      end
+      r.reorder!(
+        case args[:sort_key]
+        when 'TITLE'
+          :name
+        when 'PRODUCT_TYPE'
+          raise ::Spree::GraphQL::NotImplementedError
+        when 'VENDOR'
+          raise ::Spree::GraphQL::NotImplementedError
+        when 'UPDATED_AT'
+          :updated_at
+        when 'CREATED_AT'
+          :created_at
+        when 'BEST_SELLING'
+          raise ::Spree::GraphQL::NotImplementedError
+        when 'PRICE'
+          raise ::Spree::GraphQL::NotImplementedError
+        when 'ID'
+          :id
+        when 'RELEVANCE'
+          raise ::Spree::GraphQL::NotImplementedError
+        else
+          raise ::Spree::GraphQL::NotImplementedError
+        end
+      )
     end
-    if args[:reverse]
-      r.reverse_order!
-    end
+    r.reverse_order! if args[:reverse]
     r
   end
 end
