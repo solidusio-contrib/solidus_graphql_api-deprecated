@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-module Spree
-  module GraphQL
-    VERSION = '0.0.1'
-  end
+module SolidusGraphqlApi
+  VERSION = '0.0.1'
 end
