@@ -25,7 +25,6 @@ class Spree::GraphQL::Schema::Types::CreditCard < Spree::GraphQL::Schema::Types:
     raise ::Spree::GraphQL::NotImplementedError.new
   end
 
-
   field :first_name, ::GraphQL::Types::String, null: true
   def first_name
     object.first_name
