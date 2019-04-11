@@ -19,7 +19,7 @@ class Spree::GraphQL::Schema::Types::QueryRoot < Spree::GraphQL::Schema::Types::
       lastname: 'Doe',
       phone: '0123456789',
       state: province,
-      zipcode: 10000
+      zipcode: '10000'
   end
 end
 
