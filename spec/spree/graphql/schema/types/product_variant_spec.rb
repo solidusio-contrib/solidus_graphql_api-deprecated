@@ -64,7 +64,7 @@ module Spree::GraphQL
               }
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
       it 'succeeds' do
@@ -92,13 +92,13 @@ module Spree::GraphQL
               availableForSale: 'Boolean'
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # compareAtPrice: The compare at price of the variant. This can be used to mark a variant as on sale, when `compareAtPrice` is higher than `price`.
@@ -120,13 +120,13 @@ module Spree::GraphQL
               compareAtPrice: 'Money'
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # image: Image associated with the product variant. This field falls back to the product image if no image is available.
@@ -175,13 +175,13 @@ module Spree::GraphQL
               }
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # price: The product variant’s price.
@@ -203,13 +203,13 @@ module Spree::GraphQL
               price: 'Money'
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # selectedOptions: List of product options applied to the variant.
@@ -237,13 +237,13 @@ module Spree::GraphQL
               }]
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # weightUnit: Unit of measurement for weight.
@@ -265,13 +265,13 @@ module Spree::GraphQL
               weightUnit: 'KILOGRAMS | GRAMS | POUNDS | OUNCES'
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
   end
 end

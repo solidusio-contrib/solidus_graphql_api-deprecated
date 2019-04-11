@@ -73,7 +73,7 @@ module Spree::GraphQL
               name: 'John Doe'
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
       it 'succeeds' do
@@ -106,13 +106,13 @@ module Spree::GraphQL
               formatted: ['String']
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # latitude: The latitude coordinate of the customer address.
@@ -134,13 +134,13 @@ module Spree::GraphQL
               latitude: 'Float'
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # longitude: The longitude coordinate of the customer address.
@@ -162,13 +162,13 @@ module Spree::GraphQL
               longitude: 'Float'
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
   end
 end

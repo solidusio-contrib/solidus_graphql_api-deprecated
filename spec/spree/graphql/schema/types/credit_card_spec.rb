@@ -45,7 +45,7 @@ module Spree::GraphQL
               maskedNumber: 'XXXX-XXXX-XXXX-1111'
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
       it 'succeeds' do
@@ -73,13 +73,13 @@ module Spree::GraphQL
               firstDigits: 'String'
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
   end

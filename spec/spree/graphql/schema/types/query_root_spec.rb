@@ -31,7 +31,7 @@ module Spree::GraphQL
               id: 'To be filled in'
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
       it 'succeeds' do
@@ -67,7 +67,7 @@ module Spree::GraphQL
               id: 'To be filled in'
             }]
           }
-          #errors: {},
+          # errors: {},
         }
       }
       it 'succeeds' do

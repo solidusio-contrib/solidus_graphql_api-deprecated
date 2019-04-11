@@ -75,7 +75,7 @@ module Spree::GraphQL
               }
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
       it 'succeeds' do
@@ -103,13 +103,13 @@ module Spree::GraphQL
               availableForSale: 'Boolean'
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # collections: List of collections a product belongs to.
@@ -214,13 +214,13 @@ module Spree::GraphQL
               }
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # images: List of images associated with the product.
@@ -293,13 +293,13 @@ module Spree::GraphQL
               }
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # onlineStoreUrl: The online store URL for the product. A value of `null` indicates that the product is not published to the Online Store sales channel.
@@ -321,13 +321,13 @@ module Spree::GraphQL
               onlineStoreUrl: 'URL'
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # options: List of custom product options (maximum of 3 per product).
@@ -358,13 +358,13 @@ module Spree::GraphQL
               }]
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # priceRange: The price range.
@@ -404,13 +404,13 @@ module Spree::GraphQL
               }
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # productType: A categorization that a product can be tagged with, commonly used for filtering and searching.
@@ -432,13 +432,13 @@ module Spree::GraphQL
               productType: 'String'
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # tags: A categorization that a product can be tagged with, commonly used for filtering and searching. Each comma-separated tag has a character limit of 255.
@@ -460,13 +460,13 @@ module Spree::GraphQL
               tags: ['String']
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # variantBySelectedOptions: Find a product’s variant based on its selected options. This is useful for converting a user’s selection of product options into a single matching variant. If there is not a variant for the selected options, `null` will be returned.
@@ -698,13 +698,13 @@ module Spree::GraphQL
               }
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # variants: List of the product’s variants.
@@ -893,13 +893,13 @@ module Spree::GraphQL
               }
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
 
     # vendor: The product’s vendor name.
@@ -921,13 +921,13 @@ module Spree::GraphQL
               vendor: 'String'
             }
           }
-          #errors: {},
+          # errors: {},
         }
       }
-      #it 'succeeds' do
+      # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
-      #end
+      # end
     end
   end
 end
