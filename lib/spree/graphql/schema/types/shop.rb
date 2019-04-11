@@ -31,7 +31,7 @@ See the detailed [search syntax](https://help.solidus.io/api/getting-started/sea
     ::Spree::GraphQL::Schema::Types::CollectionSortKeys.apply!(
       ::Spree::Taxonomy.all,
       reverse: reverse,
-      sort_key: sort_key,
+      sort_key: sort_key
     )
   end
 
@@ -109,7 +109,7 @@ See the detailed [search syntax](https://help.solidus.io/api/getting-started/sea
     ::Spree::GraphQL::Schema::Types::ProductSortKeys.apply!(
       ::Spree::Product.all,
       reverse: reverse,
-      sort_key: sort_key,
+      sort_key: sort_key
     )
   end
 

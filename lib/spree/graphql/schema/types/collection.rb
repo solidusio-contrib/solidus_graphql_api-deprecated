@@ -33,7 +33,7 @@ Limit of 255 characters.
       ::Spree::GraphQL::Schema::Types::ProductCollectionSortKeys.apply!(
         object.products,
         reverse: reverse,
-        sort_key: sort_key,
+        sort_key: sort_key
       )
     else
       []

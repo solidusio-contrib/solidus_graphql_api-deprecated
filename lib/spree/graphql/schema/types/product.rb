@@ -92,7 +92,7 @@ Each comma-separated tag has a character limit of 255.
     ::Spree::GraphQL::Schema::Types::ProductVariantSortKeys.apply!(
       object.variants,
       reverse: reverse,
-      sort_key: sort_key,
+      sort_key: sort_key
     )
   end
 
