@@ -60,12 +60,14 @@ module Spree::GraphQL
       let!(:result) do
         {
           data: {
-            nodes: [{
-              id: 'To be filled in'
-            },
-            {
-              id: 'To be filled in'
-            }]
+            nodes: [
+              {
+                id: 'To be filled in'
+              },
+              {
+                id: 'To be filled in'
+              }
+            ]
           }
           # errors: {},
         }

@@ -52,26 +52,28 @@ module Spree::GraphQL
           data: {
             shop: {
               products: {
-                edges: [{
-                  node: {
-                    createdAt: product.created_at.iso8601,
-                    publishedAt: product.available_on.iso8601,
-                    updatedAt: product.updated_at.iso8601,
-                    description: description.strip,
-                    handle: product.slug,
-                    title: product.name
+                edges: [
+                  {
+                    node: {
+                      createdAt: product.created_at.iso8601,
+                      publishedAt: product.available_on.iso8601,
+                      updatedAt: product.updated_at.iso8601,
+                      description: description.strip,
+                      handle: product.slug,
+                      title: product.name
+                    }
+                  },
+                  {
+                    node: {
+                      createdAt: product2.created_at.iso8601,
+                      publishedAt: product2.available_on.iso8601,
+                      updatedAt: product2.updated_at.iso8601,
+                      description: '',
+                      handle: product2.slug,
+                      title: product2.name
+                    }
                   }
-                },
-                {
-                  node: {
-                    createdAt: product2.created_at.iso8601,
-                    publishedAt: product2.available_on.iso8601,
-                    updatedAt: product2.updated_at.iso8601,
-                    description: '',
-                    handle: product2.slug,
-                    title: product2.name
-                  }
-                }]
+                ]
               }
             }
           }
