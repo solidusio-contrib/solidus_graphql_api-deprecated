@@ -31,7 +31,7 @@ module Spree::GraphQL
     let!(:variables) {}
 
     describe 'fields' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             testAddress {
@@ -52,8 +52,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             testAddress: {
@@ -75,7 +75,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       it 'succeeds' do
         execute
         expect(response_hash).to eq(result_hash)
@@ -87,7 +87,7 @@ module Spree::GraphQL
     # @param with_company [Types::Boolean] (true)
     # @return [[Types::String!]!]
     describe 'formatted' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             mailingAddress {
@@ -98,8 +98,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             mailingAddress: {
@@ -108,7 +108,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
@@ -118,7 +118,7 @@ module Spree::GraphQL
     # latitude: The latitude coordinate of the customer address.
     # @return [Types::Float]
     describe 'latitude' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             mailingAddress {
@@ -126,8 +126,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             mailingAddress: {
@@ -136,7 +136,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
@@ -146,7 +146,7 @@ module Spree::GraphQL
     # longitude: The longitude coordinate of the customer address.
     # @return [Types::Float]
     describe 'longitude' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             mailingAddress {
@@ -154,8 +154,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             mailingAddress: {
@@ -164,7 +164,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)

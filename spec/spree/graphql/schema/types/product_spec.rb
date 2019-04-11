@@ -6,18 +6,18 @@ module Spree::GraphQL
   describe 'Types::Product' do
     let(:description) { '  Not stripped product description  ' }
     let!(:shop) { create(:store) }
-    let!(:product) {
+    let!(:product) do
       p = create(:product)
       p.description = description
       p.save!
       p
-    }
-    let!(:product2) {
+    end
+    let!(:product2) do
       p = create(:product)
       p.description = nil
       p.save!
       p
-    }
+    end
     let!(:ctx) do
       {
         current_store: current_store,
@@ -27,7 +27,7 @@ module Spree::GraphQL
     let!(:variables) {}
 
     describe 'fields' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             shop {
@@ -46,8 +46,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             shop: {
@@ -77,7 +77,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       it 'succeeds' do
         execute
         expect(response_hash).to eq(result_hash)
@@ -87,7 +87,7 @@ module Spree::GraphQL
     # availableForSale: Indicates if at least one product variant is available for sale.
     # @return [Types::Boolean!]
     describe 'availableForSale' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             product {
@@ -95,8 +95,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             product: {
@@ -105,7 +105,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
@@ -116,7 +116,7 @@ module Spree::GraphQL
     # @param reverse [Types::Boolean] (false)
     # @return [Types::Collection.connection_type!]
     describe 'collections' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             product {
@@ -177,8 +177,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             product: {
@@ -216,7 +216,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
@@ -232,7 +232,7 @@ module Spree::GraphQL
     # @param scale [Types::Int] (1)
     # @return [Types::Image.connection_type!]
     describe 'images' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             product {
@@ -271,8 +271,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             product: {
@@ -295,7 +295,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
@@ -305,7 +305,7 @@ module Spree::GraphQL
     # onlineStoreUrl: The online store URL for the product. A value of `null` indicates that the product is not published to the Online Store sales channel.
     # @return [Types::URL]
     describe 'onlineStoreUrl' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             product {
@@ -313,8 +313,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             product: {
@@ -323,7 +323,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
@@ -334,7 +334,7 @@ module Spree::GraphQL
     # @param first [Types::Int]
     # @return [[Types::ProductOption!]!]
     describe 'options' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             product {
@@ -346,8 +346,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             product: {
@@ -360,7 +360,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
@@ -370,7 +370,7 @@ module Spree::GraphQL
     # priceRange: The price range.
     # @return [Types::ProductPriceRange!]
     describe 'priceRange' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             product {
@@ -387,8 +387,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             product: {
@@ -406,7 +406,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
@@ -416,7 +416,7 @@ module Spree::GraphQL
     # productType: A categorization that a product can be tagged with, commonly used for filtering and searching.
     # @return [Types::String!]
     describe 'productType' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             product {
@@ -424,8 +424,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             product: {
@@ -434,7 +434,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
@@ -444,7 +444,7 @@ module Spree::GraphQL
     # tags: A categorization that a product can be tagged with, commonly used for filtering and searching. Each comma-separated tag has a character limit of 255.
     # @return [[Types::String!]!]
     describe 'tags' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             product {
@@ -452,8 +452,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             product: {
@@ -462,7 +462,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
@@ -473,7 +473,7 @@ module Spree::GraphQL
     # @param selected_options [[Inputs::SelectedOption!]!]
     # @return [Types::ProductVariant]
     describe 'variantBySelectedOptions' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             product {
@@ -608,8 +608,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             product: {
@@ -700,7 +700,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
@@ -712,7 +712,7 @@ module Spree::GraphQL
     # @param sort_key [Types::ProductVariantSortKeys] ('POSITION')
     # @return [Types::ProductVariant.connection_type!]
     describe 'variants' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             product {
@@ -826,8 +826,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             product: {
@@ -895,7 +895,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
@@ -905,7 +905,7 @@ module Spree::GraphQL
     # vendor: The product’s vendor name.
     # @return [Types::String!]
     describe 'vendor' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             product {
@@ -913,8 +913,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             product: {
@@ -923,7 +923,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)

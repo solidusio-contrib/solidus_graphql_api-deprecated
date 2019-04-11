@@ -17,7 +17,7 @@ module Spree::GraphQL
     let!(:ctx) { { credit_card: credit_card } }
 
     describe 'brand' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             testCreditCard {
@@ -31,8 +31,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             testCreditCard: {
@@ -47,7 +47,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       it 'succeeds' do
         execute
         expect(response_hash).to eq(result_hash)
@@ -57,7 +57,7 @@ module Spree::GraphQL
     # firstDigits
     # @return [Types::String]
     describe 'firstDigits' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             creditCard {
@@ -65,8 +65,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             creditCard: {
@@ -75,7 +75,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)

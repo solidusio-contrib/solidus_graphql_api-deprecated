@@ -15,7 +15,7 @@ module Spree::GraphQL
     describe 'node' do
       let(:product_id) { ::Spree::GraphQL::Schema.id_from_object(products.first) }
       let(:variables) { { product_id: product_id } }
-      let!(:query) {
+      let!(:query) do
         %q{
           query node($product_id: ID!) {
             node(id: $product_id) {
@@ -23,8 +23,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             node: {
@@ -33,7 +33,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       it 'succeeds' do
         execute
         result[:data][:node][:id] = product_id
@@ -48,7 +48,7 @@ module Spree::GraphQL
       let(:product_id_1) { ::Spree::GraphQL::Schema.id_from_object(products.first) }
       let(:product_id_2) { ::Spree::GraphQL::Schema.id_from_object(products.second) }
       let(:variables) { { product_id_1: product_id_1, product_id_2: product_id_2 } }
-      let!(:query) {
+      let!(:query) do
         %q{
           query nodes($product_id_1: ID!, $product_id_2: ID!) {
             nodes(ids: [$product_id_1, $product_id_2]) {
@@ -56,8 +56,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             nodes: [{
@@ -69,7 +69,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       it 'succeeds' do
         execute
         result[:data][:nodes][0][:id] = product_id_1

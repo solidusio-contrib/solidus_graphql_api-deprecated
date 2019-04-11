@@ -11,7 +11,7 @@ module Spree::GraphQL
     # acceptedCardBrands: List of the card brands which the shop accepts.
     # @return [[Types::CardBrand!]!]
     describe 'acceptedCardBrands' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             paymentSettings {
@@ -19,8 +19,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             paymentSettings: {
@@ -29,7 +29,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
@@ -39,7 +39,7 @@ module Spree::GraphQL
     # cardVaultUrl: The url pointing to the endpoint to vault credit cards.
     # @return [Types::URL!]
     describe 'cardVaultUrl' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             paymentSettings {
@@ -47,8 +47,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             paymentSettings: {
@@ -57,7 +57,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
@@ -67,7 +67,7 @@ module Spree::GraphQL
     # countryCode: The country where the shop is located.
     # @return [Types::CountryCode!]
     describe 'countryCode' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             paymentSettings {
@@ -75,8 +75,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             paymentSettings: {
@@ -85,7 +85,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
@@ -95,7 +95,7 @@ module Spree::GraphQL
     # currencyCode: The three-letter code for the currency that the shop accepts.
     # @return [Types::CurrencyCode!]
     describe 'currencyCode' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             paymentSettings {
@@ -103,8 +103,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             paymentSettings: {
@@ -113,7 +113,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
@@ -123,7 +123,7 @@ module Spree::GraphQL
     # solidusPaymentsAccountId: The shop’s Solidus Payments account id.
     # @return [Types::String]
     describe 'solidusPaymentsAccountId' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             paymentSettings {
@@ -131,8 +131,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             paymentSettings: {
@@ -141,7 +141,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
@@ -151,7 +151,7 @@ module Spree::GraphQL
     # supportedDigitalWallets: List of the digital wallets which the shop supports.
     # @return [[Types::DigitalWallet!]!]
     describe 'supportedDigitalWallets' do
-      let!(:query) {
+      let!(:query) do
         %q{
           query {
             paymentSettings {
@@ -159,8 +159,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let!(:result) do
         {
           data: {
             paymentSettings: {
@@ -169,7 +169,7 @@ module Spree::GraphQL
           }
           # errors: {},
         }
-      }
+      end
       # it 'succeeds' do
       #  execute
       #  expect(response_hash).to eq(result_hash)
