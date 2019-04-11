@@ -31,7 +31,6 @@ RSpec.configure do |config|
 
   config.before do
     Spree::Core::Engine.routes.draw do
-      get :graphql, to: 'graphql#execute'
       post :graphql, to: 'graphql#execute'
     end
   end

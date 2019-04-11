@@ -30,8 +30,7 @@ NOTE: If this is your new Rails + Solidus application, please don't forget to ru
 3) Add routes to your application's `config/routes.rb` to serve GraphQL and optionally also GraphiQL queries in development mode:
 
 ```ruby
-  get "/graphql", to: "spree/graphql#execute"
-  post "/graphql", to: "spree/graphql#execute"
+  post :graphql, to: 'graphql#execute'
 
   if Rails.env.development?
     mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql'
@@ -45,17 +44,13 @@ To run the whole app, run your usual `bundle exec rails s`.
 To perform a test GraphQL query, you can use any of the following methods:
 
 ```shell
-# If using HTTP GET (arguments passed as query strings):
-wget -qO- 'http://localhost:3000/graphql?query={ shop { name } }'
-GET 'http://localhost:3000/graphql?query={ shop { name } }'
-
-# If using HTTP POST (arguments passed in JSON body):
+# Using HTTP POST (arguments passed in JSON body):
 curl http://localhost:3000/graphql -H content-type:application/json -d '{ "query": " { shop { name } }" }'
 wget http://localhost:3000/graphql --header content-type:application/json -qO- --post-data '{ "query": " { shop { name } }" }'
 echo '{ "query": "{ shop { name } }" }' | POST -c application/json http://localhost:3000/graphql
 POST -c application/json http://localhost:3000/graphql <<< '{ "query": "{ shop { name } }" }'
 
-# If using HTTP POST with query strings (also works, may be simpler to write during testing):
+# Using HTTP POST with query strings (also works, may be simpler to write during testing):
 curl http://localhost:3000/graphql -d 'query={ shop { name } }'
 wget http://localhost:3000/graphql -qO- --post-data 'query={ shop { name } }'
 echo 'query={ shop { name } }' | POST http://localhost:3000/graphql
