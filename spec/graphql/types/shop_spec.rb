@@ -4,38 +4,28 @@ require 'spec_helper'
 
 module Spree::GraphQL
   describe 'Types::Shop' do
-    let!(:shop) {
-      s = create(:store)
-      s.update(
-        default_currency: 'USD',
-        cart_tax_country_iso: 'US',
-      )
-      s
-    }
+    let!(:shop) do
+      create :store,
+             default_currency: 'USD',
+             cart_tax_country_iso: 'US'
+    end
     let!(:products) { create_list(:product, 10) }
-    # Taxonomy factory implicitly creates a taxon.
     let!(:taxonomies) { create_list(:taxonomy, 10) }
-    let!(:taxon) {
-      t = taxonomies.first.taxons.first
-      t.permalink = 'taxon-one'
-      t.save
-      t
-    }
-    let!(:product) {
-      p = products.first
-      p.taxons = [taxon]
-      p.save
-      p
-    }
-    let!(:ctx) { { current_store: current_store } }
-    let!(:variables) { }
+    let!(:taxon) do
+      taxonomy = taxonomies.first
+      taxon = create :taxon,
+                     name: 'Test taxon',
+                     taxonomy: taxonomy,
+                     products: [products.first]
+      taxonomy.reload
+      taxon
+    end
+    let(:ctx) { { current_store: current_store } }
+    let(:variables) {}
 
-    # collectionByHandle: Find a collection by its handle.
-    # @param handle [Types::String!]
-    # @return [Types::Collection]
     describe 'collectionByHandle' do
-      let!(:variables) { { collection_handle: taxon.permalink } }
-      let!(:query) {
+      let(:variables) { { collection_handle: taxon.permalink } }
+      let(:query) do
         %q{
           query($collection_handle: String!) {
             shop {
@@ -45,32 +35,27 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let(:result) do
         {
           data: {
             shop: {
               collectionByHandle: {
-                id: ::Spree::GraphQL::Schema::Schema.id_from_object(taxon),
-              },
+                id: ::Spree::GraphQL::Schema::Schema.id_from_object(taxon)
+              }
             }
-          },
-          #errors: {},
+          }
         }
-      }
+      end
+
       it 'succeeds' do
         execute
         expect(response_hash).to eq(result_hash)
       end
     end
 
-    # collections: List of the shop’s collections.
-    # @param reverse [Types::Boolean] (false)
-    # @param sort_key [Types::CollectionSortKeys] ('ID')
-    # @param query [Types::String]
-    # @return [Types::Collection.connection_type!]
     describe 'collections' do
-      let!(:query) {
+      let(:query) do
         %q{
           query {
             shop {
@@ -83,8 +68,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let(:result) do
         {
           data: {
             shop: {
@@ -92,26 +77,26 @@ module Spree::GraphQL
                 edges: [{
                   node: {
                     id: ::Spree::GraphQL::Schema::Schema.id_from_object(taxonomies.first),
-                    title: taxonomies.first.name,
-                  },
+                    title: taxonomies.first.name
+                  }
                 }],
                 pageInfo: {
                   hasNextPage: true,
-                  hasPreviousPage: false,
-                },
-              },
+                  hasPreviousPage: false
+                }
+              }
             }
-          },
-          #errors: {},
+          }
         }
-      }
+      end
+
       it 'succeeds' do
         execute
         expect(response_hash).to eq(result_hash)
       end
 
-      context 'reverse' do
-        let!(:query) {
+      describe 'reverse' do
+        let(:query) do
           %q{
             query {
               shop {
@@ -125,8 +110,8 @@ module Spree::GraphQL
               }
             }
           }
-        }
-        let!(:result) {
+        end
+        let(:result) do
           {
             data: {
               shop: {
@@ -134,27 +119,28 @@ module Spree::GraphQL
                   edges: [{
                     node: {
                       id: ::Spree::GraphQL::Schema::Schema.id_from_object(taxonomies.last),
-                      title: taxonomies.last.name,
-                    },
+                      title: taxonomies.last.name
+                    }
                   }],
                   pageInfo: {
                     hasNextPage: true,
-                    hasPreviousPage: false,
-                  },
-                },
+                    hasPreviousPage: false
+                  }
+                }
               }
-            },
-            #errors: {},
+            }
           }
-        }
+        end
+
         it 'succeeds' do
           execute
           expect(response_hash).to eq(result_hash)
         end
       end
-      context 'sortKey' do
-        context 'updatedAt' do
-          let!(:query) {
+
+      describe 'sortKey' do
+        describe 'updatedAt' do
+          let(:query) do
             %q{
               query {
                 shop {
@@ -165,34 +151,35 @@ module Spree::GraphQL
                 }
               }
             }
-          }
-          let!(:result) {
+          end
+          let(:result) do
             {
               data: {
                 shop: {
                   collections: {
                     edges: [{
                       node: {
-                        updatedAt: taxonomies.sort{|a,b| a.updated_at <=> b.updated_at }.last.updated_at.iso8601,
-                      },
+                        updatedAt: taxonomies.max_by(&:updated_at).updated_at.iso8601
+                      }
                     }],
                     pageInfo: {
                       hasNextPage: false,
-                      hasPreviousPage: true,
-                    },
-                  },
+                      hasPreviousPage: true
+                    }
+                  }
                 }
-              },
-              #errors: {},
+              }
             }
-          }
+          end
+
           it 'succeeds' do
             execute
             expect(response_hash).to eq(result_hash)
           end
         end
-        context 'title' do
-          let!(:query) {
+
+        describe 'title' do
+          let(:query) do
             %q{
               query {
                 shop {
@@ -203,34 +190,35 @@ module Spree::GraphQL
                 }
               }
             }
-          }
-          let!(:result) {
+          end
+          let(:result) do
             {
               data: {
                 shop: {
                   collections: {
                     edges: [{
                       node: {
-                        title: taxonomies.sort{|a,b| a.name <=> b.name }.first.name,
-                      },
+                        title: taxonomies.min_by(&:name).name
+                      }
                     }],
                     pageInfo: {
                       hasNextPage: true,
-                      hasPreviousPage: false,
-                    },
-                  },
+                      hasPreviousPage: false
+                    }
+                  }
                 }
-              },
-              #errors: {},
+              }
             }
-          }
+          end
+
           it 'succeeds' do
             execute
             expect(response_hash).to eq(result_hash)
           end
         end
-        context 'id' do
-          let!(:query) {
+
+        describe 'id' do
+          let(:query) do
             %q{
               query {
                 shop {
@@ -241,27 +229,27 @@ module Spree::GraphQL
                 }
               }
             }
-          }
-          let!(:result) {
+          end
+          let(:result) do
             {
               data: {
                 shop: {
                   collections: {
                     edges: [{
                       node: {
-                        id: ::Spree::GraphQL::Schema::Schema.id_from_object(taxonomies.sort{|a,b| a.id <=> b.id }.last),
-                      },
+                        id: ::Spree::GraphQL::Schema::Schema.id_from_object(taxonomies.max_by(&:id))
+                      }
                     }],
                     pageInfo: {
                       hasNextPage: true,
-                      hasPreviousPage: false,
-                    },
-                  },
+                      hasPreviousPage: false
+                    }
+                  }
                 }
-              },
-              #errors: {},
+              }
             }
-          }
+          end
+
           it 'succeeds' do
             execute
             expect(response_hash).to eq(result_hash)
@@ -270,11 +258,9 @@ module Spree::GraphQL
       end
     end
 
-    # description: A description of the shop.
-    # @return [Types::String]
     describe 'description' do
-      let!(:description) {'Sample Store Description'}
-      let!(:query) {
+      let(:description) { 'Sample Store Description' }
+      let(:query) do
         %q{
           query {
             shop {
@@ -282,17 +268,17 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let(:result) do
         {
           data: {
             shop: {
-              description: description,
+              description: description
             }
-          },
-          #errors: {},
+          }
         }
-      }
+      end
+
       it 'succeeds' do
         ctx[:current_store].meta_description = description
         execute
@@ -300,10 +286,8 @@ module Spree::GraphQL
       end
     end
 
-    # moneyFormat: A string representing the way currency is formatted when the currency isn’t specified.
-    # @return [Types::String!]
     describe 'moneyFormat' do
-      let!(:query) {
+      let(:query) do
         %q{
           query {
             shop {
@@ -311,27 +295,25 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let(:result) do
         {
           data: {
             shop: {
-              moneyFormat: '${{amount}}',
+              moneyFormat: '${{amount}}'
             }
-          },
-          #errors: {},
+          }
         }
-      }
+      end
+
       it 'succeeds' do
         execute
         expect(response_hash).to eq(result_hash)
       end
     end
 
-    # name: The shop’s name.
-    # @return [Types::String!]
     describe 'name' do
-      let!(:query) {
+      let(:query) do
         %q{
           query {
             shop {
@@ -339,27 +321,25 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let(:result) do
         {
           data: {
             shop: {
-              name: shop.name,
+              name: shop.name
             }
-          },
-          #errors: {},
+          }
         }
-      }
+      end
+
       it 'succeeds' do
         execute
         expect(response_hash).to eq(result_hash)
       end
     end
 
-    # paymentSettings: Settings related to payments.
-    # @return [Types::PaymentSettings!]
     describe 'paymentSettings' do
-      let!(:query) {
+      let(:query) do
         %q{
           query {
             shop {
@@ -374,34 +354,32 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let(:result) do
         {
           data: {
             shop: {
               paymentSettings: {
-                #acceptedCardBrands: 'VISA | MASTERCARD | DISCOVER | AMERICAN_EXPRESS | DINERS_CLUB | JCB',
-                #cardVaultUrl: 'URL',
+                # acceptedCardBrands: 'VISA | MASTERCARD | DISCOVER | AMERICAN_EXPRESS | DINERS_CLUB | JCB',
+                # cardVaultUrl: 'URL',
                 countryCode: 'US',
-                currencyCode: 'USD',
-                #solidusPaymentsAccountId: 'String',
-                #supportedDigitalWallets: 'APPLE_PAY | ANDROID_PAY | GOOGLE_PAY | SOLIDUS_PAY',
-              },
+                currencyCode: 'USD'
+                # solidusPaymentsAccountId: 'String',
+                # supportedDigitalWallets: 'APPLE_PAY | ANDROID_PAY | GOOGLE_PAY | SOLIDUS_PAY',
+              }
             }
-          },
-          #errors: {},
+          }
         }
-      }
+      end
+
       it 'succeeds' do
         execute
         expect(response_hash).to eq(result_hash)
       end
     end
 
-    # primaryDomain: The shop’s primary domain.
-    # @return [Types::Domain!]
     describe 'primaryDomain' do
-      let!(:query) {
+      let(:query) do
         %q{
           query {
             shop {
@@ -413,71 +391,30 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let(:result) do
         {
           data: {
             shop: {
               primaryDomain: {
                 host: ctx[:current_store].url,
-                sslEnabled: Rails.configuration.force_ssl,
-                url: ((@ssl_enabled ? 'https://' : 'http://') + ctx[:current_store].url),
-              },
+                sslEnabled: false,
+                url: "http://#{ctx[:current_store].url}"
+              }
             }
-          },
-          #errors: {},
+          }
         }
-      }
+      end
+
       it 'succeeds' do
         execute
         expect(response_hash).to eq(result_hash)
       end
     end
 
-    # privacyPolicy: The shop’s privacy policy.
-    # @return [Types::ShopPolicy]
-    describe 'privacyPolicy' do
-      let!(:query) {
-        %q{
-          query {
-            shop {
-              privacyPolicy {
-                body
-                id
-                title
-                url
-              }
-            }
-          }
-        }
-      }
-      let!(:result) {
-        {
-          data: {
-            shop: {
-              privacyPolicy: {
-                body: 'String',
-                id: 'ID',
-                title: 'String',
-                url: 'URL',
-              },
-            }
-          },
-          #errors: {},
-        }
-      }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
-    end
-
-    # productByHandle: Find a product by its handle.
-    # @param handle [Types::String!]
-    # @return [Types::Product]
     describe 'productByHandle' do
-      let!(:variables) { { product_handle: products.first.slug } }
-      let!(:query) {
+      let(:variables) { { product_handle: products.first.slug } }
+      let(:query) do
         %q{
           query($product_handle: String!) {
             shop {
@@ -488,77 +425,28 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let(:result) do
         {
           data: {
             shop: {
               productByHandle: {
                 id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.first),
-                title: products.first.name,
-              },
+                title: products.first.name
+              }
             }
-          },
-          #errors: {},
+          }
         }
-      }
+      end
+
       it 'succeeds' do
         execute
         expect(response_hash).to eq(result_hash)
       end
     end
 
-    # productTypes: List of the shop’s product types.
-    # @return [Types::String.connection_type!]
-    describe 'productTypes' do
-      let!(:query) {
-        %q{
-          query {
-            shop {
-              productTypes(first: Int) {
-                edges {
-                  node
-                }
-                pageInfo {
-                  hasNextPage
-                  hasPreviousPage
-                }
-              }
-            }
-          }
-        }
-      }
-      let!(:result) {
-        {
-          data: {
-            shop: {
-              productTypes: {
-                edges: {
-                  node: ['String'],
-                },
-                pageInfo: {
-                  hasNextPage: true,
-                  hasPreviousPage: false,
-                },
-              },
-            }
-          },
-          #errors: {},
-        }
-      }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
-    end
-
-    # products: List of the shop’s products.
-    # @param reverse [Types::Boolean] (false)
-    # @param sort_key [Types::ProductSortKeys] ('ID')
-    # @param query [Types::String]
-    # @return [Types::Product.connection_type!]
     describe 'products' do
-      let!(:query) {
+      let(:query) do
         %q{
           query {
             shop {
@@ -571,8 +459,8 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let(:result) do
         {
           data: {
             shop: {
@@ -580,26 +468,26 @@ module Spree::GraphQL
                 edges: [{
                   node: {
                     id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.first),
-                    handle: products.first.slug,
-                  },
+                    handle: products.first.slug
+                  }
                 }],
                 pageInfo: {
                   hasNextPage: true,
-                  hasPreviousPage: false,
-                },
-              },
+                  hasPreviousPage: false
+                }
+              }
             }
-          },
-          #errors: {},
+          }
         }
-      }
+      end
+
       it 'succeeds' do
         execute
         expect(response_hash).to eq(result_hash)
       end
 
-      context 'reverse' do
-        let!(:query) {
+      describe 'reverse' do
+        let(:query) do
           %q{
             query {
               shop {
@@ -613,8 +501,8 @@ module Spree::GraphQL
               }
             }
           }
-        }
-        let!(:result) {
+        end
+        let(:result) do
           {
             data: {
               shop: {
@@ -622,27 +510,28 @@ module Spree::GraphQL
                   edges: [{
                     node: {
                       id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.last),
-                      handle: products.last.slug,
-                    },
+                      handle: products.last.slug
+                    }
                   }],
                   pageInfo: {
                     hasNextPage: true,
-                    hasPreviousPage: false,
-                  },
-                },
+                    hasPreviousPage: false
+                  }
+                }
               }
-            },
-            #errors: {},
+            }
           }
-        }
+        end
+
         it 'succeeds' do
           execute
           expect(response_hash).to eq(result_hash)
         end
       end
-      context 'sortKey' do
-        context 'createdAt' do
-          let!(:query) {
+
+      describe 'sortKey' do
+        describe 'createdAt' do
+          let(:query) do
             %q{
               query {
                 shop {
@@ -653,34 +542,35 @@ module Spree::GraphQL
                 }
               }
             }
-          }
-          let!(:result) {
+          end
+          let(:result) do
             {
               data: {
                 shop: {
                   products: {
                     edges: [{
                       node: {
-                        createdAt: products.sort{|a,b| a.created_at <=> b.created_at }.last.created_at.iso8601,
-                      },
+                        createdAt: products.max_by(&:created_at).created_at.iso8601
+                      }
                     }],
                     pageInfo: {
                       hasNextPage: false,
-                      hasPreviousPage: true,
-                    },
-                  },
+                      hasPreviousPage: true
+                    }
+                  }
                 }
-              },
-              #errors: {},
+              }
             }
-          }
+          end
+
           it 'succeeds' do
             execute
             expect(response_hash).to eq(result_hash)
           end
         end
-        context 'updatedAt' do
-          let!(:query) {
+
+        describe 'updatedAt' do
+          let(:query) do
             %q{
               query {
                 shop {
@@ -691,34 +581,35 @@ module Spree::GraphQL
                 }
               }
             }
-          }
-          let!(:result) {
+          end
+          let(:result) do
             {
               data: {
                 shop: {
                   products: {
                     edges: [{
                       node: {
-                        updatedAt: products.sort{|a,b| a.updated_at <=> b.updated_at }.last.updated_at.iso8601,
-                      },
+                        updatedAt: products.max_by(&:updated_at).updated_at.iso8601
+                      }
                     }],
                     pageInfo: {
                       hasNextPage: false,
-                      hasPreviousPage: true,
-                    },
-                  },
+                      hasPreviousPage: true
+                    }
+                  }
                 }
-              },
-              #errors: {},
+              }
             }
-          }
+          end
+
           it 'succeeds' do
             execute
             expect(response_hash).to eq(result_hash)
           end
         end
-        context 'title' do
-          let!(:query) {
+
+        describe 'title' do
+          let(:query) do
             %q{
               query {
                 shop {
@@ -729,34 +620,35 @@ module Spree::GraphQL
                 }
               }
             }
-          }
-          let!(:result) {
+          end
+          let(:result) do
             {
               data: {
                 shop: {
                   products: {
                     edges: [{
                       node: {
-                        title: products.sort{|a,b| a.name <=> b.name }.first.name,
-                      },
+                        title: products.min_by(&:name).name
+                      }
                     }],
                     pageInfo: {
                       hasNextPage: true,
-                      hasPreviousPage: false,
-                    },
-                  },
+                      hasPreviousPage: false
+                    }
+                  }
                 }
-              },
-              #errors: {},
+              }
             }
-          }
+          end
+
           it 'succeeds' do
             execute
             expect(response_hash).to eq(result_hash)
           end
         end
-        context 'id' do
-          let!(:query) {
+
+        describe 'id' do
+          let(:query) do
             %q{
               query {
                 shop {
@@ -767,27 +659,27 @@ module Spree::GraphQL
                 }
               }
             }
-          }
-          let!(:result) {
+          end
+          let(:result) do
             {
               data: {
                 shop: {
                   products: {
                     edges: [{
                       node: {
-                        id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.sort{|a,b| a.id <=> b.id }.last),
-                      },
+                        id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.max_by(&:id))
+                      }
                     }],
                     pageInfo: {
                       hasNextPage: true,
-                      hasPreviousPage: false,
-                    },
-                  },
+                      hasPreviousPage: false
+                    }
+                  }
                 }
-              },
-              #errors: {},
+              }
             }
-          }
+          end
+
           it 'succeeds' do
             execute
             expect(response_hash).to eq(result_hash)
@@ -796,56 +688,16 @@ module Spree::GraphQL
       end
     end
 
-    # refundPolicy: The shop’s refund policy.
-    # @return [Types::ShopPolicy]
-    describe 'refundPolicy' do
-      let!(:query) {
-        %q{
-          query {
-            shop {
-              refundPolicy {
-                body
-                id
-                title
-                url
-              }
-            }
-          }
-        }
-      }
-      let!(:result) {
-        {
-          data: {
-            shop: {
-              refundPolicy: {
-                body: 'String',
-                id: 'ID',
-                title: 'String',
-                url: 'URL',
-              },
-            }
-          },
-          #errors: {},
-        }
-      }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
-    end
-
-    # shipsToCountries: Countries that the shop ships to.
-    # @return [[Types::CountryCode!]!]
     describe 'shipsToCountries' do
       let(:available_countries_isos) { %w[IT US] }
-      let(:available_countries) { double(:available_countries, map: available_countries_isos) }
-      let!(:ctx) do
+      let(:available_countries) { instance_double('available_countries', map: available_countries_isos) }
+      let(:ctx) do
         {
           current_store: current_store,
-          helpers: double(:helpers)
+          helpers: instance_double('helpers')
         }
       end
-      let!(:query) {
+      let(:query) do
         %q{
           query {
             shop {
@@ -853,60 +705,22 @@ module Spree::GraphQL
             }
           }
         }
-      }
-      let!(:result) {
+      end
+      let(:result) do
         {
           data: {
             shop: {
-              shipsToCountries: available_countries_isos,
+              shipsToCountries: available_countries_isos
             }
-          },
-          #errors: {},
+          }
         }
-      }
+      end
+
       it 'succeeds' do
         expect(ctx[:helpers]).to receive(:available_countries).once.with(no_args).and_return(available_countries)
         execute
         expect(response_hash).to eq(result_hash)
       end
-    end
-
-    # termsOfService: The shop’s terms of service.
-    # @return [Types::ShopPolicy]
-    describe 'termsOfService' do
-      let!(:query) {
-        %q{
-          query {
-            shop {
-              termsOfService {
-                body
-                id
-                title
-                url
-              }
-            }
-          }
-        }
-      }
-      let!(:result) {
-        {
-          data: {
-            shop: {
-              termsOfService: {
-                body: 'String',
-                id: 'ID',
-                title: 'String',
-                url: 'URL',
-              },
-            }
-          },
-          #errors: {},
-        }
-      }
-      #it 'succeeds' do
-      #  execute
-      #  expect(response_hash).to eq(result_hash)
-      #end
     end
   end
 end
