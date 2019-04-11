@@ -70,18 +70,18 @@ Assuming you are running this on a default Rails/Solidus installation with sampl
 
 To open GraphiQL browser, visit [http://localhost:3000/graphiql](http://localhost:3000/graphiql) in your browser while in development environment.
 
-To see what queries can currently be specified, see GraphiQL's web interface or files `lib/solidus_graphql_api/graphql/schema/types/query_root.rb` and `lib/solidus_graphql_api/graphql/schema/types/mutation.rb`.
+To see what queries can currently be specified, see GraphiQL's web interface.
 
 Please note that all GraphQL API fields which do not yet contain an actual implementation will return a `NotImplementedError`. For all such fields that you attempt to use but they aren't available, please submit an issue or report them in Solidus Slack channel #graphql. That will help prioritize work and ensure we begin with the implementation on the next working day.
 
 ## How to Contribute
 
-In solidus_graphql_api, GraphQL files are located in directory `lib/solidus_graphql_api/graphql/schema/`. And additionally, there is also top-level directory `spec/` with all the specs.
+In solidus_graphql_api, GraphQL files are located in directory `lib/spree/graphql/`. And additionally, there is also top-level directory `spec/` with all the specs.
 
 To e.g. implement `Order.totalTax`, you would do as follows:
 
-1. Add the schema definition and the implementation code in file `./lib/solidus_graphql_api/graphql/schema/types/order.rb`
-1. Add specs in file `./spec/graphql/schema/types/order_spec.rb`
+1. Add the schema definition and the implementation code in file `./lib/spree/graphql/schema/types/order.rb`
+1. Add specs in file `./spec/spree/graphql/schema/types/order_spec.rb`
 1. After specs pass, update `README.md` to mark new GraphQL calls as implemented and submit a PR
 
 Notes / additional help on adding code and specs follow:
@@ -96,7 +96,7 @@ In the simplest cases, especially those in which the created GraphQL types have 
 
 Sometimes, however, types do not have direct mappings. For example, GraphQL type `Domain` has fields `host`, `sslEnabled`, and `url`. It does not have a direct equivalent in Solidus, and it is not backed by a database. However, we know we can put this information together; `host` by calling `Spree::Store#url`, `sslEnabled` by querying `Rails.configuration.force_ssl`, and `url` by concatenating the protocol and host together. The only thing left to do then is to decide where to put this code.
 
-Option 1: for insignificant, disposable types, we can add implementation directly in the GraphQL method for `shop.primaryDomain` (`./lib/solidus_graphql_api/graphql/types/shop.rb`):
+Option 1: for insignificant, disposable types, we can add implementation directly in the GraphQL method for `shop.primaryDomain` (`./lib/spree/graphql/schema/types/shop.rb`):
 
 ```
 require 'ostruct'
@@ -112,7 +112,7 @@ def primaryDomain
 end
 ```
 
-Option 2: for more important types which may be created and have additional methods defined on them, we can create a Ruby class (`./lib/spree/domain.rb`) and instantiate it from `primaryDomain`:
+Option 2: for more important types which may be created and have additional methods defined on them, we can create a Ruby class (`./lib/spree/graphql/domain.rb`) and instantiate it from `primaryDomain`:
 
 ```
 class Spree::GraphQL::Domain
@@ -127,11 +127,11 @@ end
 
 ```
 
-(If a type is backed by a database and represents a model, `app/models/` would be used instead of `lib/spree/`.)
+(If a type is backed by a database and represents a model, `app/models/` would be used instead of `lib/spree/graphql/`.)
 
 ### Adding Corresponding specs
 
-[Spec helpers](spec/support/graphql.rb) are provided to run a typical GraphQL spec: these helpers are automatically defined for specs located within `spec/graphql/`.
+[Spec helpers](spec/support/graphql.rb) are provided to run a typical GraphQL spec: these helpers are automatically defined for specs located within `spec/spree/graphql/schema/`.
 
 A typical spec is structured as the following:
 
