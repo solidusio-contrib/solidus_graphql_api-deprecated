@@ -33,9 +33,7 @@ deterministic and should not be used.
         end
       )
     end
-    if args[:reverse]
-      r.reverse_order!
-    end
+    r.reverse_order! if args[:reverse]
     r
   end
 end
