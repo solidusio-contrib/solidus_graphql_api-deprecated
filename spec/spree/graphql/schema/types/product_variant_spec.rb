@@ -49,15 +49,15 @@ module Spree::GraphQL
           data: {
             shop: {
               productByHandle: {
-                id: ::Spree::GraphQL::Schema::Schema.id_from_object(product),
+                id: ::Spree::GraphQL::Schema.id_from_object(product),
                 variants: {
                   nodes: [{
-                    id: ::Spree::GraphQL::Schema::Schema.id_from_object(variant),
+                    id: ::Spree::GraphQL::Schema.id_from_object(variant),
                     sku: variant.sku,
                     title: variant.name,
                     weight: variant.weight,
                     product: {
-                      id: ::Spree::GraphQL::Schema::Schema.id_from_object(product),
+                      id: ::Spree::GraphQL::Schema.id_from_object(product),
                     }
                   }],
                 },

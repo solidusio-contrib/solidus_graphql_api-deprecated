@@ -13,7 +13,7 @@ module Spree::GraphQL
     # @param id [Types::ID!]
     # @return [Interfaces::Node]
     describe 'node' do
-      let(:product_id) { ::Spree::GraphQL::Schema::Schema.id_from_object(products.first) }
+      let(:product_id) { ::Spree::GraphQL::Schema.id_from_object(products.first) }
       let(:variables) { { product_id: product_id } }
       let!(:query) {
         %q{
@@ -45,8 +45,8 @@ module Spree::GraphQL
     # @param ids [[Types::ID!]!]
     # @return [[Interfaces::Node]!]
     describe 'nodes' do
-      let(:product_id_1) { ::Spree::GraphQL::Schema::Schema.id_from_object(products.first) }
-      let(:product_id_2) { ::Spree::GraphQL::Schema::Schema.id_from_object(products.second) }
+      let(:product_id_1) { ::Spree::GraphQL::Schema.id_from_object(products.first) }
+      let(:product_id_2) { ::Spree::GraphQL::Schema.id_from_object(products.second) }
       let(:variables) { { product_id_1: product_id_1, product_id_2: product_id_2 } }
       let!(:query) {
         %q{

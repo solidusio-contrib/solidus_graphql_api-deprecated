@@ -41,7 +41,7 @@ module Spree::GraphQL
           data: {
             shop: {
               collectionByHandle: {
-                id: ::Spree::GraphQL::Schema::Schema.id_from_object(taxon)
+                id: ::Spree::GraphQL::Schema.id_from_object(taxon)
               }
             }
           }
@@ -76,7 +76,7 @@ module Spree::GraphQL
               collections: {
                 edges: [{
                   node: {
-                    id: ::Spree::GraphQL::Schema::Schema.id_from_object(taxonomies.first),
+                    id: ::Spree::GraphQL::Schema.id_from_object(taxonomies.first),
                     title: taxonomies.first.name
                   }
                 }],
@@ -118,7 +118,7 @@ module Spree::GraphQL
                 collections: {
                   edges: [{
                     node: {
-                      id: ::Spree::GraphQL::Schema::Schema.id_from_object(taxonomies.last),
+                      id: ::Spree::GraphQL::Schema.id_from_object(taxonomies.last),
                       title: taxonomies.last.name
                     }
                   }],
@@ -237,7 +237,7 @@ module Spree::GraphQL
                   collections: {
                     edges: [{
                       node: {
-                        id: ::Spree::GraphQL::Schema::Schema.id_from_object(taxonomies.max_by(&:id))
+                        id: ::Spree::GraphQL::Schema.id_from_object(taxonomies.max_by(&:id))
                       }
                     }],
                     pageInfo: {
@@ -431,7 +431,7 @@ module Spree::GraphQL
           data: {
             shop: {
               productByHandle: {
-                id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.first),
+                id: ::Spree::GraphQL::Schema.id_from_object(products.first),
                 title: products.first.name
               }
             }
@@ -467,7 +467,7 @@ module Spree::GraphQL
               products: {
                 edges: [{
                   node: {
-                    id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.first),
+                    id: ::Spree::GraphQL::Schema.id_from_object(products.first),
                     handle: products.first.slug
                   }
                 }],
@@ -509,7 +509,7 @@ module Spree::GraphQL
                 products: {
                   edges: [{
                     node: {
-                      id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.last),
+                      id: ::Spree::GraphQL::Schema.id_from_object(products.last),
                       handle: products.last.slug
                     }
                   }],
@@ -667,7 +667,7 @@ module Spree::GraphQL
                   products: {
                     edges: [{
                       node: {
-                        id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.max_by(&:id))
+                        id: ::Spree::GraphQL::Schema.id_from_object(products.max_by(&:id))
                       }
                     }],
                     pageInfo: {

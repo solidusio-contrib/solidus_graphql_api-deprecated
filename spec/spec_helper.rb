@@ -23,7 +23,7 @@ RSpec.configure do |config|
   # you configure your source control system to ignore this file.
   config.example_status_persistence_file_path = 'spec/examples.txt'
 
-  config.define_derived_metadata(file_path: %r{/spec/graphql/}) do |metadata|
+  config.define_derived_metadata(file_path: %r{/spec/spree/graphql/schema/}) do |metadata|
     metadata[:type] = :graphql
   end
 
