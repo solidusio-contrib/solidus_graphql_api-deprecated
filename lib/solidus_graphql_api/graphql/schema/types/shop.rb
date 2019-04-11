@@ -77,7 +77,7 @@ See the detailed [search syntax](https://help.solidus.io/api/getting-started/sea
     description %q{The shop’s primary domain.}
   end
   def primary_domain
-    ::Spree::Domain.new(context[:current_store].url, Rails.configuration.force_ssl)
+    ::Spree::GraphQL::Domain.new(context[:current_store].url, Rails.configuration.force_ssl)
   end
 
   field :product_by_handle, ::Spree::GraphQL::Schema::Types::Product, null: true do

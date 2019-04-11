@@ -37,6 +37,8 @@ class Spree::GraphQL::Schema < ::GraphQL::Schema
 
   require_relative './schema/types/credit_card'
   require_relative './schema/types/collection_sort_keys'
+
+  require_relative './domain'
   require_relative './schema/types/domain'
   require_relative './schema/types/payment_settings'
   require_relative './schema/types/shop'
