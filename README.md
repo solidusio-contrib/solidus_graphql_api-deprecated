@@ -12,7 +12,7 @@ The complete list of Solidus GraphQL calls and their implementation status can b
 ```ruby
 gem 'solidus'
 gem 'solidus_auth_devise'
-gem 'solidus_graphql_api', github: 'boomerdigital/solidus_graphql_api'
+gem 'solidus_graphql_api', github: 'solidusio-contrib/solidus_graphql_api'
 
 gem 'graphiql-rails', group: :development
 ```
@@ -254,7 +254,7 @@ bundle exec rspec spec/graphql/types/product_spec.rb
 
 This section contains notes related to implementation or behavior of some GraphQL fields:
 
-1. Collections and Products. The upstream API has a concept of Collections which are nested product categories. In Solidus, these are implemented through top-level Taxonomies and contained Taxons. Taxonomies have a small number of fields, and cannot be nested. Taxons have a longer list of existing fields, can be nested, and more closely match the concept of Collections. Solidus' GraphQL implementation for Collections emulates them by transparently returning Taxonomies at the top level and Taxons at lower levels. However, more work is needed to make it fully transparent, and `collectionByHandle()` should be improved too. For more discussion about the approach itself, see https://github.com/boomerdigital/solidus_graphql_api/issues/25.
+1. Collections and Products. The upstream API has a concept of Collections which are nested product categories. In Solidus, these are implemented through top-level Taxonomies and contained Taxons. Taxonomies have a small number of fields, and cannot be nested. Taxons have a longer list of existing fields, can be nested, and more closely match the concept of Collections. Solidus' GraphQL implementation for Collections emulates them by transparently returning Taxonomies at the top level and Taxons at lower levels. However, more work is needed to make it fully transparent, and `collectionByHandle()` should be improved too. For more discussion about the approach itself, see https://github.com/solidusio-contrib/solidus_graphql_api/issues/25.
 1. Domain.sslEnabled. This field returns value of `Rails.configuration.force_ssl` and so it does not accurately report whether SSL is "enabled", but whether it is "forced".
 1. PaymentSettings.countryCode. Since the default `Spree::Store` model does not have a field for the store's address and country, the value of this field is coming from `Spree::Store#cart_tax_country_iso`, which in turn is the default country whose tax should be applied. Comments as to whether this is a good way to produce this value are welcome.
 1. PaymentSettings.currencyCode. The value of this field is coming from `Spree::Store#default_currency` and so it does not necessarily represent the _only_ currency accepted, but just the _default_ one.
@@ -267,4 +267,4 @@ The primary TODOs related to this extension are:
 
 1. Add authentication (#14)
 1. Add authorization (#15)
-1. All other open issues (https://github.com/boomerdigital/solidus_graphql_api/issues)
+1. All other open issues (https://github.com/solidusio-contrib/solidus_graphql_api/issues)
