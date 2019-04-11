@@ -34,7 +34,7 @@ NOTE: If this is your new Rails + Solidus application, please don't forget to ru
   post "/graphql", to: "spree/graphql#execute"
 
   if Rails.env.development?
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+    mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql'
   end
 ```
 
