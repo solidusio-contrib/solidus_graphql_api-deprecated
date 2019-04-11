@@ -1,5 +1,7 @@
 # Solidus GraphQL API
 
+[![Build Status](https://api.travis-ci.org/solidusio-contrib/solidus_graphql_api.svg?branch=master)](https://travis-ci.org/solidusio-contrib/solidus_graphql_api)
+
 NOTE: This is a work in progress. Please join the Solidus Slack #graphql channel at [https://solidusio.slack.com/](https://solidusio.slack.com/) if you are interested.
 
 The complete list of Solidus GraphQL calls and their implementation status can be found below, towards the end of the document.
