@@ -57,13 +57,13 @@ module Spree::GraphQL
                     title: variant.name,
                     weight: variant.weight,
                     product: {
-                      id: ::Spree::GraphQL::Schema.id_from_object(product),
+                      id: ::Spree::GraphQL::Schema.id_from_object(product)
                     }
-                  }],
-                },
-              },
+                  }]
+                }
+              }
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -89,9 +89,9 @@ module Spree::GraphQL
         {
           data: {
             productVariant: {
-              availableForSale: 'Boolean',
+              availableForSale: 'Boolean'
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -117,9 +117,9 @@ module Spree::GraphQL
         {
           data: {
             productVariant: {
-              compareAtPrice: 'Money',
+              compareAtPrice: 'Money'
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -171,10 +171,10 @@ module Spree::GraphQL
                 id: 'ID',
                 originalSrc: 'URL',
                 src: 'URL',
-                transformedSrc: 'URL',
-              },
+                transformedSrc: 'URL'
+              }
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -200,9 +200,9 @@ module Spree::GraphQL
         {
           data: {
             productVariant: {
-              price: 'Money',
+              price: 'Money'
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -233,10 +233,10 @@ module Spree::GraphQL
             productVariant: {
               selectedOptions: [{
                 name: 'String',
-                value: 'String',
-              }],
+                value: 'String'
+              }]
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -262,9 +262,9 @@ module Spree::GraphQL
         {
           data: {
             productVariant: {
-              weightUnit: 'KILOGRAMS | GRAMS | POUNDS | OUNCES',
+              weightUnit: 'KILOGRAMS | GRAMS | POUNDS | OUNCES'
             }
-          },
+          }
           #errors: {},
         }
       }

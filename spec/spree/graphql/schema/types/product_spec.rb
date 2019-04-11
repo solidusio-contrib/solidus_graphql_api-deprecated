@@ -59,7 +59,7 @@ module Spree::GraphQL
                     updatedAt: product.updated_at.iso8601,
                     description: description.strip,
                     handle: product.slug,
-                    title: product.name,
+                    title: product.name
                   }
                 },
                 {
@@ -69,12 +69,12 @@ module Spree::GraphQL
                     updatedAt: product2.updated_at.iso8601,
                     description: '',
                     handle: product2.slug,
-                    title: product2.name,
+                    title: product2.name
                   }
-                }],
+                }]
               }
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -100,9 +100,9 @@ module Spree::GraphQL
         {
           data: {
             product: {
-              availableForSale: 'Boolean',
+              availableForSale: 'Boolean'
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -193,7 +193,7 @@ module Spree::GraphQL
                       id: 'ID',
                       originalSrc: 'URL',
                       src: 'URL',
-                      transformedSrc: 'URL',
+                      transformedSrc: 'URL'
                     },
                     products: {
                       edges: {
@@ -201,19 +201,19 @@ module Spree::GraphQL
                       },
                       pageInfo: {
                         # ...
-                      },
+                      }
                     },
                     title: 'String',
-                    updatedAt: 'DateTime',
-                  }],
+                    updatedAt: 'DateTime'
+                  }]
                 },
                 pageInfo: {
                   hasNextPage: true,
-                  hasPreviousPage: false,
-                },
-              },
+                  hasPreviousPage: false
+                }
+              }
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -283,16 +283,16 @@ module Spree::GraphQL
                     id: 'ID',
                     originalSrc: 'URL',
                     src: 'URL',
-                    transformedSrc: 'URL',
-                  }],
+                    transformedSrc: 'URL'
+                  }]
                 },
                 pageInfo: {
                   hasNextPage: true,
-                  hasPreviousPage: false,
-                },
-              },
+                  hasPreviousPage: false
+                }
+              }
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -318,9 +318,9 @@ module Spree::GraphQL
         {
           data: {
             product: {
-              onlineStoreUrl: 'URL',
+              onlineStoreUrl: 'URL'
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -354,10 +354,10 @@ module Spree::GraphQL
               options: [{
                 id: 'ID',
                 name: 'String',
-                values: 'String',
-              }],
+                values: 'String'
+              }]
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -395,15 +395,15 @@ module Spree::GraphQL
               priceRange: {
                 maxVariantPrice: {
                   amount: 'Decimal',
-                  currencyCode: 'USD | EUR | GBP | CAD | AFN | ALL | DZD | AOA | ARS | AMD | AWG | AUD | BBD | AZN | BDT | BSD | BHD | BIF | BYR | BZD | BTN | BAM | BRL | BOB | BWP | BND | BGN | MMK | KHR | CVE | KYD | XAF | CLP | CNY | COP | KMF | CDF | CRC | HRK | CZK | DKK | DOP | XCD | EGP | ETB | XPF | FJD | GMD | GHS | GTQ | GYD | GEL | HTG | HNL | HKD | HUF | ISK | INR | IDR | ILS | IQD | JMD | JPY | JEP | JOD | KZT | KES | KWD | KGS | LAK | LVL | LBP | LSL | LRD | LTL | MGA | MKD | MOP | MWK | MVR | MXN | MYR | MUR | MDL | MAD | MNT | MZN | NAD | NPR | ANG | NZD | NIO | NGN | NOK | OMR | PKR | PGK | PYG | PEN | PHP | PLN | QAR | RON | RUB | RWF | WST | SAR | STD | RSD | SCR | SGD | SDG | SYP | ZAR | KRW | SSP | SBD | LKR | SRD | SZL | SEK | CHF | TWD | THB | TZS | TTD | TND | TRY | TMT | UGX | UAH | AED | UYU | UZS | VUV | VEF | VND | XOF | YER | ZMW',
+                  currencyCode: 'USD | EUR | GBP | CAD | AFN | ALL | DZD | AOA | ARS | AMD | AWG | AUD | BBD | AZN | BDT | BSD | BHD | BIF | BYR | BZD | BTN | BAM | BRL | BOB | BWP | BND | BGN | MMK | KHR | CVE | KYD | XAF | CLP | CNY | COP | KMF | CDF | CRC | HRK | CZK | DKK | DOP | XCD | EGP | ETB | XPF | FJD | GMD | GHS | GTQ | GYD | GEL | HTG | HNL | HKD | HUF | ISK | INR | IDR | ILS | IQD | JMD | JPY | JEP | JOD | KZT | KES | KWD | KGS | LAK | LVL | LBP | LSL | LRD | LTL | MGA | MKD | MOP | MWK | MVR | MXN | MYR | MUR | MDL | MAD | MNT | MZN | NAD | NPR | ANG | NZD | NIO | NGN | NOK | OMR | PKR | PGK | PYG | PEN | PHP | PLN | QAR | RON | RUB | RWF | WST | SAR | STD | RSD | SCR | SGD | SDG | SYP | ZAR | KRW | SSP | SBD | LKR | SRD | SZL | SEK | CHF | TWD | THB | TZS | TTD | TND | TRY | TMT | UGX | UAH | AED | UYU | UZS | VUV | VEF | VND | XOF | YER | ZMW'
                 },
                 minVariantPrice: {
                   amount: 'Decimal',
-                  currencyCode: 'USD | EUR | GBP | CAD | AFN | ALL | DZD | AOA | ARS | AMD | AWG | AUD | BBD | AZN | BDT | BSD | BHD | BIF | BYR | BZD | BTN | BAM | BRL | BOB | BWP | BND | BGN | MMK | KHR | CVE | KYD | XAF | CLP | CNY | COP | KMF | CDF | CRC | HRK | CZK | DKK | DOP | XCD | EGP | ETB | XPF | FJD | GMD | GHS | GTQ | GYD | GEL | HTG | HNL | HKD | HUF | ISK | INR | IDR | ILS | IQD | JMD | JPY | JEP | JOD | KZT | KES | KWD | KGS | LAK | LVL | LBP | LSL | LRD | LTL | MGA | MKD | MOP | MWK | MVR | MXN | MYR | MUR | MDL | MAD | MNT | MZN | NAD | NPR | ANG | NZD | NIO | NGN | NOK | OMR | PKR | PGK | PYG | PEN | PHP | PLN | QAR | RON | RUB | RWF | WST | SAR | STD | RSD | SCR | SGD | SDG | SYP | ZAR | KRW | SSP | SBD | LKR | SRD | SZL | SEK | CHF | TWD | THB | TZS | TTD | TND | TRY | TMT | UGX | UAH | AED | UYU | UZS | VUV | VEF | VND | XOF | YER | ZMW',
-                },
-              },
+                  currencyCode: 'USD | EUR | GBP | CAD | AFN | ALL | DZD | AOA | ARS | AMD | AWG | AUD | BBD | AZN | BDT | BSD | BHD | BIF | BYR | BZD | BTN | BAM | BRL | BOB | BWP | BND | BGN | MMK | KHR | CVE | KYD | XAF | CLP | CNY | COP | KMF | CDF | CRC | HRK | CZK | DKK | DOP | XCD | EGP | ETB | XPF | FJD | GMD | GHS | GTQ | GYD | GEL | HTG | HNL | HKD | HUF | ISK | INR | IDR | ILS | IQD | JMD | JPY | JEP | JOD | KZT | KES | KWD | KGS | LAK | LVL | LBP | LSL | LRD | LTL | MGA | MKD | MOP | MWK | MVR | MXN | MYR | MUR | MDL | MAD | MNT | MZN | NAD | NPR | ANG | NZD | NIO | NGN | NOK | OMR | PKR | PGK | PYG | PEN | PHP | PLN | QAR | RON | RUB | RWF | WST | SAR | STD | RSD | SCR | SGD | SDG | SYP | ZAR | KRW | SSP | SBD | LKR | SRD | SZL | SEK | CHF | TWD | THB | TZS | TTD | TND | TRY | TMT | UGX | UAH | AED | UYU | UZS | VUV | VEF | VND | XOF | YER | ZMW'
+                }
+              }
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -429,9 +429,9 @@ module Spree::GraphQL
         {
           data: {
             product: {
-              productType: 'String',
+              productType: 'String'
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -457,9 +457,9 @@ module Spree::GraphQL
         {
           data: {
             product: {
-              tags: ['String'],
+              tags: ['String']
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -623,7 +623,7 @@ module Spree::GraphQL
                   id: 'ID',
                   originalSrc: 'URL',
                   src: 'URL',
-                  transformedSrc: 'URL',
+                  transformedSrc: 'URL'
                 },
                 price: 'Money',
                 product: {
@@ -632,12 +632,12 @@ module Spree::GraphQL
                     edges: {
                       node: [{
                         # ...
-                      }],
+                      }]
                     },
                     pageInfo: {
                       hasNextPage: true,
-                      hasPreviousPage: false,
-                    },
+                      hasPreviousPage: false
+                    }
                   },
                   createdAt: 'DateTime',
                   description: 'String',
@@ -647,28 +647,28 @@ module Spree::GraphQL
                     edges: {
                       node: [{
                         # ...
-                      }],
+                      }]
                     },
                     pageInfo: {
                       hasNextPage: true,
-                      hasPreviousPage: false,
-                    },
+                      hasPreviousPage: false
+                    }
                   },
                   onlineStoreUrl: 'URL',
                   options: {
                     id: 'ID',
                     name: 'String',
-                    values: 'String',
+                    values: 'String'
                   },
                   priceRange: {
                     maxVariantPrice: {
                       amount: 'Decimal',
-                      currencyCode: 'USD | EUR | GBP | CAD | AFN | ALL | DZD | AOA | ARS | AMD | AWG | AUD | BBD | AZN | BDT | BSD | BHD | BIF | BYR | BZD | BTN | BAM | BRL | BOB | BWP | BND | BGN | MMK | KHR | CVE | KYD | XAF | CLP | CNY | COP | KMF | CDF | CRC | HRK | CZK | DKK | DOP | XCD | EGP | ETB | XPF | FJD | GMD | GHS | GTQ | GYD | GEL | HTG | HNL | HKD | HUF | ISK | INR | IDR | ILS | IQD | JMD | JPY | JEP | JOD | KZT | KES | KWD | KGS | LAK | LVL | LBP | LSL | LRD | LTL | MGA | MKD | MOP | MWK | MVR | MXN | MYR | MUR | MDL | MAD | MNT | MZN | NAD | NPR | ANG | NZD | NIO | NGN | NOK | OMR | PKR | PGK | PYG | PEN | PHP | PLN | QAR | RON | RUB | RWF | WST | SAR | STD | RSD | SCR | SGD | SDG | SYP | ZAR | KRW | SSP | SBD | LKR | SRD | SZL | SEK | CHF | TWD | THB | TZS | TTD | TND | TRY | TMT | UGX | UAH | AED | UYU | UZS | VUV | VEF | VND | XOF | YER | ZMW',
+                      currencyCode: 'USD | EUR | GBP | CAD | AFN | ALL | DZD | AOA | ARS | AMD | AWG | AUD | BBD | AZN | BDT | BSD | BHD | BIF | BYR | BZD | BTN | BAM | BRL | BOB | BWP | BND | BGN | MMK | KHR | CVE | KYD | XAF | CLP | CNY | COP | KMF | CDF | CRC | HRK | CZK | DKK | DOP | XCD | EGP | ETB | XPF | FJD | GMD | GHS | GTQ | GYD | GEL | HTG | HNL | HKD | HUF | ISK | INR | IDR | ILS | IQD | JMD | JPY | JEP | JOD | KZT | KES | KWD | KGS | LAK | LVL | LBP | LSL | LRD | LTL | MGA | MKD | MOP | MWK | MVR | MXN | MYR | MUR | MDL | MAD | MNT | MZN | NAD | NPR | ANG | NZD | NIO | NGN | NOK | OMR | PKR | PGK | PYG | PEN | PHP | PLN | QAR | RON | RUB | RWF | WST | SAR | STD | RSD | SCR | SGD | SDG | SYP | ZAR | KRW | SSP | SBD | LKR | SRD | SZL | SEK | CHF | TWD | THB | TZS | TTD | TND | TRY | TMT | UGX | UAH | AED | UYU | UZS | VUV | VEF | VND | XOF | YER | ZMW'
                     },
                     minVariantPrice: {
                       amount: 'Decimal',
-                      currencyCode: 'USD | EUR | GBP | CAD | AFN | ALL | DZD | AOA | ARS | AMD | AWG | AUD | BBD | AZN | BDT | BSD | BHD | BIF | BYR | BZD | BTN | BAM | BRL | BOB | BWP | BND | BGN | MMK | KHR | CVE | KYD | XAF | CLP | CNY | COP | KMF | CDF | CRC | HRK | CZK | DKK | DOP | XCD | EGP | ETB | XPF | FJD | GMD | GHS | GTQ | GYD | GEL | HTG | HNL | HKD | HUF | ISK | INR | IDR | ILS | IQD | JMD | JPY | JEP | JOD | KZT | KES | KWD | KGS | LAK | LVL | LBP | LSL | LRD | LTL | MGA | MKD | MOP | MWK | MVR | MXN | MYR | MUR | MDL | MAD | MNT | MZN | NAD | NPR | ANG | NZD | NIO | NGN | NOK | OMR | PKR | PGK | PYG | PEN | PHP | PLN | QAR | RON | RUB | RWF | WST | SAR | STD | RSD | SCR | SGD | SDG | SYP | ZAR | KRW | SSP | SBD | LKR | SRD | SZL | SEK | CHF | TWD | THB | TZS | TTD | TND | TRY | TMT | UGX | UAH | AED | UYU | UZS | VUV | VEF | VND | XOF | YER | ZMW',
-                    },
+                      currencyCode: 'USD | EUR | GBP | CAD | AFN | ALL | DZD | AOA | ARS | AMD | AWG | AUD | BBD | AZN | BDT | BSD | BHD | BIF | BYR | BZD | BTN | BAM | BRL | BOB | BWP | BND | BGN | MMK | KHR | CVE | KYD | XAF | CLP | CNY | COP | KMF | CDF | CRC | HRK | CZK | DKK | DOP | XCD | EGP | ETB | XPF | FJD | GMD | GHS | GTQ | GYD | GEL | HTG | HNL | HKD | HUF | ISK | INR | IDR | ILS | IQD | JMD | JPY | JEP | JOD | KZT | KES | KWD | KGS | LAK | LVL | LBP | LSL | LRD | LTL | MGA | MKD | MOP | MWK | MVR | MXN | MYR | MUR | MDL | MAD | MNT | MZN | NAD | NPR | ANG | NZD | NIO | NGN | NOK | OMR | PKR | PGK | PYG | PEN | PHP | PLN | QAR | RON | RUB | RWF | WST | SAR | STD | RSD | SCR | SGD | SDG | SYP | ZAR | KRW | SSP | SBD | LKR | SRD | SZL | SEK | CHF | TWD | THB | TZS | TTD | TND | TRY | TMT | UGX | UAH | AED | UYU | UZS | VUV | VEF | VND | XOF | YER | ZMW'
+                    }
                   },
                   productType: 'String',
                   publishedAt: 'DateTime',
@@ -678,26 +678,26 @@ module Spree::GraphQL
                   variantBySelectedOptions: 'ProductVariant...',
                   variants: {
                     edges: {
-                      node: ['ProductVariant...'],
+                      node: ['ProductVariant...']
                     },
                     pageInfo: {
                       hasNextPage: true,
-                      hasPreviousPage: false,
-                    },
+                      hasPreviousPage: false
+                    }
                   },
-                  vendor: 'String',
+                  vendor: 'String'
                 },
                 selectedOptions: {
                   name: 'String',
-                  value: 'String',
+                  value: 'String'
                 },
                 sku: 'String',
                 title: 'String',
                 weight: 'Float',
-                weightUnit: 'KILOGRAMS | GRAMS | POUNDS | OUNCES',
-              },
+                weightUnit: 'KILOGRAMS | GRAMS | POUNDS | OUNCES'
+              }
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -843,7 +843,7 @@ module Spree::GraphQL
                       id: 'ID',
                       originalSrc: 'URL',
                       src: 'URL',
-                      transformedSrc: 'URL',
+                      transformedSrc: 'URL'
                     },
                     price: 'Money',
                     product: {
@@ -874,25 +874,25 @@ module Spree::GraphQL
                       variants: {
                         # ...
                       },
-                      vendor: 'String',
+                      vendor: 'String'
                     },
                     selectedOptions: {
                       name: 'String',
-                      value: 'String',
+                      value: 'String'
                     },
                     sku: 'String',
                     title: 'String',
                     weight: 'Float',
-                    weightUnit: 'KILOGRAMS | GRAMS | POUNDS | OUNCES',
-                  }],
+                    weightUnit: 'KILOGRAMS | GRAMS | POUNDS | OUNCES'
+                  }]
                 },
                 pageInfo: {
                   hasNextPage: true,
-                  hasPreviousPage: false,
-                },
-              },
+                  hasPreviousPage: false
+                }
+              }
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -918,9 +918,9 @@ module Spree::GraphQL
         {
           data: {
             product: {
-              vendor: 'String',
+              vendor: 'String'
             }
-          },
+          }
           #errors: {},
         }
       }

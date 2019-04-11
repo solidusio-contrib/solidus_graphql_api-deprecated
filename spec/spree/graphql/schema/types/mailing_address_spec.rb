@@ -70,9 +70,9 @@ module Spree::GraphQL
               provinceCode: state.abbr,
               zip: '10000',
               formattedArea: ['City', state.name, country.name].join(', '),
-              name: 'John Doe',
+              name: 'John Doe'
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -103,9 +103,9 @@ module Spree::GraphQL
         {
           data: {
             mailingAddress: {
-              formatted: ['String'],
+              formatted: ['String']
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -131,9 +131,9 @@ module Spree::GraphQL
         {
           data: {
             mailingAddress: {
-              latitude: 'Float',
+              latitude: 'Float'
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -159,9 +159,9 @@ module Spree::GraphQL
         {
           data: {
             mailingAddress: {
-              longitude: 'Float',
+              longitude: 'Float'
             }
-          },
+          }
           #errors: {},
         }
       }

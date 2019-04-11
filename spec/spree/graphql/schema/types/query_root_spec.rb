@@ -29,8 +29,8 @@ module Spree::GraphQL
           data: {
             node: {
               id: 'To be filled in'
-            },
-          },
+            }
+          }
           #errors: {},
         }
       }
@@ -65,8 +65,8 @@ module Spree::GraphQL
             },
             {
               id: 'To be filled in'
-            }],
-          },
+            }]
+          }
           #errors: {},
         }
       }

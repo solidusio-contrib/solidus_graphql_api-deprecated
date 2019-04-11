@@ -42,9 +42,9 @@ module Spree::GraphQL
               lastDigits: credit_card.last_digits,
               firstName: 'Spree',
               lastName: 'Commerce',
-              maskedNumber: 'XXXX-XXXX-XXXX-1111',
+              maskedNumber: 'XXXX-XXXX-XXXX-1111'
             }
-          },
+          }
           #errors: {},
         }
       }
@@ -70,9 +70,9 @@ module Spree::GraphQL
         {
           data: {
             creditCard: {
-              firstDigits: 'String',
+              firstDigits: 'String'
             }
-          },
+          }
           #errors: {},
         }
       }
