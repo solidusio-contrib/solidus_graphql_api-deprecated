@@ -17,16 +17,16 @@ deterministic and should not be used.
     if args[:sort_key]
       r.reorder! \
       case args[:sort_key]
-        when 'TITLE'
-          :name
-        when 'UPDATED_AT'
-          :updated_at
-        when 'ID'
-          :id
-        when 'RELEVANCE'
-          raise ::Spree::GraphQL::NotImplementedError.new
-        else
-          raise ::Spree::GraphQL::NotImplementedError.new
+      when 'TITLE'
+        :name
+      when 'UPDATED_AT'
+        :updated_at
+      when 'ID'
+        :id
+      when 'RELEVANCE'
+        raise ::Spree::GraphQL::NotImplementedError.new
+      else
+        raise ::Spree::GraphQL::NotImplementedError.new
       end
     end
     if args[:reverse]

@@ -18,18 +18,18 @@ deterministic and should not be used.
     if args[:sort_key]
       r.reorder! \
       case args[:sort_key]
-        when 'TITLE'
-          :name
-        when 'SKU'
-          raise ::Spree::GraphQL::NotImplementedError.new
-        when 'POSITION'
-          :position
-        when 'ID'
-          :id
-        when 'RELEVANCE'
-          raise ::Spree::GraphQL::NotImplementedError.new
-        else
-          raise ::Spree::GraphQL::NotImplementedError.new
+      when 'TITLE'
+        :name
+      when 'SKU'
+        raise ::Spree::GraphQL::NotImplementedError.new
+      when 'POSITION'
+        :position
+      when 'ID'
+        :id
+      when 'RELEVANCE'
+        raise ::Spree::GraphQL::NotImplementedError.new
+      else
+        raise ::Spree::GraphQL::NotImplementedError.new
       end
     end
     if args[:reverse]
