@@ -19,7 +19,7 @@ module Spree::GraphQL
       v
     }
     let!(:ctx) { { current_store: current_store } }
-    let!(:variables) { }
+    let!(:variables) {}
 
     describe 'fields' do
       let!(:query) {

@@ -6,6 +6,6 @@ module Spree::GraphQL
   describe 'Types::ProductVariantSortKeys' do
     let!(:product_variant_sort_keys) { create(:product_variant_sort_keys) }
     let!(:ctx) { { current_store: current_store } }
-    let!(:variables) { }
+    let!(:variables) {}
   end
 end

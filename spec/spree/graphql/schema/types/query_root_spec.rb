@@ -5,7 +5,7 @@ require 'spec_helper'
 module Spree::GraphQL
   describe 'Types::QueryRoot' do
     let!(:ctx) { { current_store: current_store } }
-    let!(:variables) { }
+    let!(:variables) {}
 
     let!(:products) { create_list(:product, 2) }
 

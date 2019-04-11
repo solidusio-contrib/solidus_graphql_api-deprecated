@@ -28,7 +28,7 @@ module Spree::GraphQL
     let!(:state) { create(:state) }
     let!(:country) { state.country }
     let!(:ctx) { { current_store: current_store } }
-    let!(:variables) { }
+    let!(:variables) {}
 
     describe 'fields' do
       let!(:query) {

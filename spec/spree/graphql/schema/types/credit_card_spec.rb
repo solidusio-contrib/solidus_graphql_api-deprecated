@@ -13,7 +13,7 @@ end
 module Spree::GraphQL
   describe 'Types::CreditCard' do
     let!(:credit_card) { create(:credit_card) { |c| c.cc_type = 'VISA' } }
-    let!(:variables) { }
+    let!(:variables) {}
     let!(:ctx) { { credit_card: credit_card } }
 
     describe 'brand' do

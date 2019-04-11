@@ -24,7 +24,7 @@ module Spree::GraphQL
         helpers: double(:helpers)
       }
     end
-    let!(:variables) { }
+    let!(:variables) {}
 
     describe 'fields' do
       let!(:query) {

@@ -10,8 +10,8 @@ module Spree
     let!(:ssl2) { true }
     let!(:url1) { 'http://example.com' }
     let!(:url2) { 'https://test.org' }
-    let!(:domain1) { ::Spree::GraphQL::Domain.new(host1, ssl1)}
-    let!(:domain2) { ::Spree::GraphQL::Domain.new(host2, ssl2)}
+    let!(:domain1) { ::Spree::GraphQL::Domain.new(host1, ssl1) }
+    let!(:domain2) { ::Spree::GraphQL::Domain.new(host2, ssl2) }
 
     # host: The host name of the domain (eg: `example.com`).
     # @return [Types::String!]
