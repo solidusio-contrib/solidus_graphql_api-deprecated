@@ -81,6 +81,5 @@ module Spree::GraphQL
       #  expect(response_hash).to eq(result_hash)
       # end
     end
-
   end
 end
