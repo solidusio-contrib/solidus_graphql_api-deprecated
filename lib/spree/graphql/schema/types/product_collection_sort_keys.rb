@@ -24,22 +24,22 @@ deterministic and should not be used.
         when 'TITLE'
           :name
         when 'PRICE'
-          raise ::Spree::GraphQL::NotImplementedError.new
+          raise ::Spree::GraphQL::NotImplementedError
         when 'BEST_SELLING'
-          raise ::Spree::GraphQL::NotImplementedError.new
+          raise ::Spree::GraphQL::NotImplementedError
         when 'CREATED'
           :created_at
         when 'ID'
           :id
         when 'MANUAL'
-          raise ::Spree::GraphQL::NotImplementedError.new
+          raise ::Spree::GraphQL::NotImplementedError
         when 'COLLECTION_DEFAULT'
           # TODO Should be set to collection's chosen value
           # if/when this field gets added to the model.
         when 'RELEVANCE'
-          raise ::Spree::GraphQL::NotImplementedError.new
+          raise ::Spree::GraphQL::NotImplementedError
         else
-          raise ::Spree::GraphQL::NotImplementedError.new
+          raise ::Spree::GraphQL::NotImplementedError
         end
       )
     end

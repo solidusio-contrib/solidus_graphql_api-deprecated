@@ -24,9 +24,9 @@ deterministic and should not be used.
         when 'ID'
           :id
         when 'RELEVANCE'
-          raise ::Spree::GraphQL::NotImplementedError.new
+          raise ::Spree::GraphQL::NotImplementedError
         else
-          raise ::Spree::GraphQL::NotImplementedError.new
+          raise ::Spree::GraphQL::NotImplementedError
         end
       )
     end

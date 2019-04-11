@@ -22,7 +22,7 @@ class Spree::GraphQL::Schema::Types::CreditCard < Spree::GraphQL::Schema::Types:
 
   field :first_digits, ::GraphQL::Types::String, null: true
   def first_digits
-    raise ::Spree::GraphQL::NotImplementedError.new
+    raise ::Spree::GraphQL::NotImplementedError
   end
 
   field :first_name, ::GraphQL::Types::String, null: true

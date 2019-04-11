@@ -26,7 +26,7 @@ See the detailed [search syntax](https://help.solidus.io/api/getting-started/sea
 }
   end
   def collections(reverse:, sort_key:, query:)
-    raise ::Spree::GraphQL::NotImplementedError.new if query
+    raise ::Spree::GraphQL::NotImplementedError if query
 
     ::Spree::GraphQL::Schema::Types::CollectionSortKeys.apply!(
       ::Spree::Taxonomy.all,
@@ -104,7 +104,7 @@ See the detailed [search syntax](https://help.solidus.io/api/getting-started/sea
 }
   end
   def products(reverse:, sort_key:, query:)
-    raise ::Spree::GraphQL::NotImplementedError.new if query
+    raise ::Spree::GraphQL::NotImplementedError if query
 
     ::Spree::GraphQL::Schema::Types::ProductSortKeys.apply!(
       ::Spree::Product.all,

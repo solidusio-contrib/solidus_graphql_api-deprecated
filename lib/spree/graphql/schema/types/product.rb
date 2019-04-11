@@ -12,7 +12,7 @@ For example, a digital download (such as a movie, music or ebook file) also qual
     description %q{Indicates if at least one product variant is available for sale.}
   end
   def available_for_sale
-    raise ::Spree::GraphQL::NotImplementedError.new
+    raise ::Spree::GraphQL::NotImplementedError
   end
 
   field :collections, ::Spree::GraphQL::Schema::Types::Collection.connection_type, null: false do
@@ -20,7 +20,7 @@ For example, a digital download (such as a movie, music or ebook file) also qual
     argument :reverse, ::GraphQL::Types::Boolean, required: false, default_value: false, description: %q{Reverse the order of the underlying list.}
   end
   def collections(reverse:)
-    raise ::Spree::GraphQL::NotImplementedError.new
+    raise ::Spree::GraphQL::NotImplementedError
   end
 
   field :created_at, ::Spree::GraphQL::Schema::Types::DateTime, null: false do
@@ -50,7 +50,7 @@ They are used by the Liquid templating language to refer to objects.
     description %q{A categorization that a product can be tagged with, commonly used for filtering and searching.}
   end
   def product_type
-    raise ::Spree::GraphQL::NotImplementedError.new
+    raise ::Spree::GraphQL::NotImplementedError
   end
 
   field :published_at, ::Spree::GraphQL::Schema::Types::DateTime, null: false do
@@ -66,7 +66,7 @@ Each comma-separated tag has a character limit of 255.
 }
   end
   def tags
-    raise ::Spree::GraphQL::NotImplementedError.new
+    raise ::Spree::GraphQL::NotImplementedError
   end
 
   field :title, ::GraphQL::Types::String, null: false do
@@ -100,6 +100,6 @@ Each comma-separated tag has a character limit of 255.
     description %q{The product’s vendor name.}
   end
   def vendor
-    raise ::Spree::GraphQL::NotImplementedError.new
+    raise ::Spree::GraphQL::NotImplementedError
   end
 end

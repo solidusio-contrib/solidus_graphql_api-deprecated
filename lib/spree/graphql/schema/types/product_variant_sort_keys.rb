@@ -21,15 +21,15 @@ deterministic and should not be used.
         when 'TITLE'
           :name
         when 'SKU'
-          raise ::Spree::GraphQL::NotImplementedError.new
+          raise ::Spree::GraphQL::NotImplementedError
         when 'POSITION'
           :position
         when 'ID'
           :id
         when 'RELEVANCE'
-          raise ::Spree::GraphQL::NotImplementedError.new
+          raise ::Spree::GraphQL::NotImplementedError
         else
-          raise ::Spree::GraphQL::NotImplementedError.new
+          raise ::Spree::GraphQL::NotImplementedError
         end
       )
     end

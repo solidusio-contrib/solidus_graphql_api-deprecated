@@ -68,7 +68,7 @@ For example, US.
     argument :with_company, ::GraphQL::Types::Boolean, required: false, default_value: true, description: %q{Whether to include the customer's company in the formatted address.}
   end
   def formatted(with_name:, with_company:)
-    raise ::Spree::GraphQL::NotImplementedError.new
+    raise ::Spree::GraphQL::NotImplementedError
   end
 
   field :formatted_area, ::GraphQL::Types::String, null: true do
@@ -89,14 +89,14 @@ For example, US.
     description %q{The latitude coordinate of the customer address.}
   end
   def latitude
-    raise ::Spree::GraphQL::NotImplementedError.new
+    raise ::Spree::GraphQL::NotImplementedError
   end
 
   field :longitude, ::GraphQL::Types::Float, null: true do
     description %q{The longitude coordinate of the customer address.}
   end
   def longitude
-    raise ::Spree::GraphQL::NotImplementedError.new
+    raise ::Spree::GraphQL::NotImplementedError
   end
 
   field :name, ::GraphQL::Types::String, null: true do

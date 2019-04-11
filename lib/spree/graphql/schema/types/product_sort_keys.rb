@@ -25,23 +25,23 @@ deterministic and should not be used.
         when 'TITLE'
           :name
         when 'PRODUCT_TYPE'
-          raise ::Spree::GraphQL::NotImplementedError.new
+          raise ::Spree::GraphQL::NotImplementedError
         when 'VENDOR'
-          raise ::Spree::GraphQL::NotImplementedError.new
+          raise ::Spree::GraphQL::NotImplementedError
         when 'UPDATED_AT'
           :updated_at
         when 'CREATED_AT'
           :created_at
         when 'BEST_SELLING'
-          raise ::Spree::GraphQL::NotImplementedError.new
+          raise ::Spree::GraphQL::NotImplementedError
         when 'PRICE'
-          raise ::Spree::GraphQL::NotImplementedError.new
+          raise ::Spree::GraphQL::NotImplementedError
         when 'ID'
           :id
         when 'RELEVANCE'
-          raise ::Spree::GraphQL::NotImplementedError.new
+          raise ::Spree::GraphQL::NotImplementedError
         else
-          raise ::Spree::GraphQL::NotImplementedError.new
+          raise ::Spree::GraphQL::NotImplementedError
         end
       )
     end
