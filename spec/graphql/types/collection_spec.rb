@@ -52,7 +52,7 @@ RSpec.describe Spree::GraphQL::Schema::Types::Collection do
             collectionByHandle: {
               description: collection_description.strip,
               handle: collection.permalink,
-              id: ::Spree::GraphQL::Schema::Schema.id_from_object(collection),
+              id: ::Spree::GraphQL::Schema.id_from_object(collection),
               title: collection.name,
               updatedAt: collection.updated_at.iso8601
             }
@@ -92,12 +92,12 @@ RSpec.describe Spree::GraphQL::Schema::Types::Collection do
               products: {
                 nodes: [
                   {
-                    id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.first),
+                    id: ::Spree::GraphQL::Schema.id_from_object(products.first),
                     handle: products.first.slug,
                     title: products.first.name
                   },
                   {
-                    id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.second),
+                    id: ::Spree::GraphQL::Schema.id_from_object(products.second),
                     handle: products.second.slug,
                     title: products.second.name
                   }
@@ -106,7 +106,7 @@ RSpec.describe Spree::GraphQL::Schema::Types::Collection do
               reverse: {
                 nodes: [
                   {
-                    id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.last),
+                    id: ::Spree::GraphQL::Schema.id_from_object(products.last),
                     handle: products.last.slug,
                     title: products.last.name
                   }
@@ -145,7 +145,7 @@ RSpec.describe Spree::GraphQL::Schema::Types::Collection do
                 products: {
                   nodes: [
                     {
-                      id: ::Spree::GraphQL::Schema::Schema.id_from_object(products.last),
+                      id: ::Spree::GraphQL::Schema.id_from_object(products.last),
                       handle: products.last.slug,
                       title: products.last.name
                     }

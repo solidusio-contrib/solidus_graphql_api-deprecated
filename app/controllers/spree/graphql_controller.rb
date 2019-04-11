@@ -19,7 +19,7 @@ module Spree
         current_store: current_store,
         helpers: helpers
       }
-      result = Spree::GraphQL::Schema::Schema.execute(query, variables: variables, context: context, operation_name: operation_name)
+      result = Spree::GraphQL::Schema.execute(query, variables: variables, context: context, operation_name: operation_name)
       render json: result
     rescue StandardError => exception
       raise exception unless Rails.env.development?

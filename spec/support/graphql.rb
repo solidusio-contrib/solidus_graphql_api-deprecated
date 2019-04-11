@@ -18,7 +18,7 @@ module Spree::GraphQL::Spec
       params[:context] ||= ctx
       params[:variables] ||= variables
 
-      @response = ::Spree::GraphQL::Schema::Schema.execute(action, params)
+      @response = ::Spree::GraphQL::Schema.execute(action, params)
     end
 
     def response
