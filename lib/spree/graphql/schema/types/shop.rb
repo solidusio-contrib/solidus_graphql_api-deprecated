@@ -29,6 +29,7 @@ See the detailed [search syntax](https://help.solidus.io/api/getting-started/sea
     if query
       raise ::Spree::GraphQL::NotImplementedError.new
     end
+
     ::Spree::GraphQL::Schema::Types::CollectionSortKeys.apply!(
       ::Spree::Taxonomy.all,
       reverse: reverse,
@@ -108,6 +109,7 @@ See the detailed [search syntax](https://help.solidus.io/api/getting-started/sea
     if query
       raise ::Spree::GraphQL::NotImplementedError.new
     end
+
     ::Spree::GraphQL::Schema::Types::ProductSortKeys.apply!(
       ::Spree::Product.all,
       reverse: reverse,
