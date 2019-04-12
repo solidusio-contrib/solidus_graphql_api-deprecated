@@ -2,6 +2,8 @@
 
 source 'https://rubygems.org'
 
+git_source(:github) { |name| "https://github.com/#{name}.git" }
+
 solidus_branch = ENV.fetch('SOLIDUS_BRANCH', 'master')
 
 gem 'solidus', github: 'solidusio/solidus', branch: solidus_branch
