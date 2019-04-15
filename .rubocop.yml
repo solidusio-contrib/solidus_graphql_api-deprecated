@@ -8,6 +8,10 @@ AllCops:
     - 'vendor/bundle/**/*'
   TargetRubyVersion: 2.3
 
+RSpec/FilePath:
+  CustomTransform:
+    GraphQL: 'graphql'
+
 Style/AsciiComments:
   Enabled: false
 Style/SpecialGlobalVars:

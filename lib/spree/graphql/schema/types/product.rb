@@ -17,7 +17,7 @@ For example, a digital download (such as a movie, music or ebook file) also qual
     description %q{List of collections a product belongs to.}
     argument :reverse, ::GraphQL::Types::Boolean, required: false, default_value: false, description: %q{Reverse the order of the underlying list.}
   end
-  def collections(reverse:)
+  def collections(*)
     raise ::Spree::GraphQL::NotImplementedError
   end
 
