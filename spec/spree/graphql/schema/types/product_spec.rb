@@ -4,11 +4,10 @@ require 'spec_helper'
 
 module Spree::GraphQL
   describe 'Types::Product' do
-    let(:description) { '  Not stripped product description  ' }
     let!(:shop) { create(:store) }
     let!(:product) do
       p = create(:product)
-      p.description = description
+      p.description = 'Product description'
       p.save!
       p
     end
@@ -36,10 +35,10 @@ module Spree::GraphQL
                   node {
                     createdAt
                     updatedAt
-                    publishedAt
+                    availableOn
                     description
-                    handle
-                    title
+                    name
+                    slug
                   }
                 }
               }
@@ -56,21 +55,21 @@ module Spree::GraphQL
                   {
                     node: {
                       createdAt: product.created_at.iso8601,
-                      publishedAt: product.available_on.iso8601,
+                      availableOn: product.available_on.iso8601,
                       updatedAt: product.updated_at.iso8601,
-                      description: description.strip,
-                      handle: product.slug,
-                      title: product.name
+                      description: product.description,
+                      name: product.name,
+                      slug: product.slug
                     }
                   },
                   {
                     node: {
                       createdAt: product2.created_at.iso8601,
-                      publishedAt: product2.available_on.iso8601,
+                      availableOn: product2.available_on.iso8601,
                       updatedAt: product2.updated_at.iso8601,
-                      description: '',
-                      handle: product2.slug,
-                      title: product2.name
+                      description: product2.description,
+                      name: product2.name,
+                      slug: product2.slug
                     }
                   }
                 ]

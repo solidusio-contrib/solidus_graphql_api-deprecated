@@ -420,7 +420,7 @@ module Spree::GraphQL
             shop {
               productByHandle(handle: $product_handle) {
                 id
-                title
+                name
               }
             }
           }
@@ -432,7 +432,7 @@ module Spree::GraphQL
             shop: {
               productByHandle: {
                 id: ::Spree::GraphQL::Schema.id_from_object(products.first),
-                title: products.first.name
+                name: products.first.name
               }
             }
           }
@@ -453,7 +453,12 @@ module Spree::GraphQL
               products(
                 first: 1
               ) {
-                edges { node { handle id } }
+                edges {
+                  node {
+                    id
+                    slug
+                  }
+                }
                 pageInfo { hasNextPage hasPreviousPage }
               }
             }
@@ -468,7 +473,7 @@ module Spree::GraphQL
                 edges: [{
                   node: {
                     id: ::Spree::GraphQL::Schema.id_from_object(products.first),
-                    handle: products.first.slug
+                    slug: products.first.slug
                   }
                 }],
                 pageInfo: {
@@ -495,7 +500,12 @@ module Spree::GraphQL
                   first: 1
                   reverse: true,
                 ) {
-                  edges { node { handle id } }
+                  edges {
+                    node {
+                      id
+                      slug
+                    }
+                  }
                   pageInfo { hasNextPage hasPreviousPage }
                 }
               }
@@ -510,7 +520,7 @@ module Spree::GraphQL
                   edges: [{
                     node: {
                       id: ::Spree::GraphQL::Schema.id_from_object(products.last),
-                      handle: products.last.slug
+                      slug: products.last.slug
                     }
                   }],
                   pageInfo: {
@@ -613,8 +623,12 @@ module Spree::GraphQL
             %q{
               query {
                 shop {
-                  products( first: 1 reverse: false, sortKey: TITLE) {
-                    edges { node { title } }
+                  products( first: 1 reverse: false, sortKey: NAME) {
+                    edges {
+                      node {
+                        name
+                      }
+                    }
                     pageInfo { hasNextPage hasPreviousPage }
                   }
                 }
@@ -628,7 +642,7 @@ module Spree::GraphQL
                   products: {
                     edges: [{
                       node: {
-                        title: products.min_by(&:name).name
+                        name: products.min_by(&:name).name
                       }
                     }],
                     pageInfo: {

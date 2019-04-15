@@ -28,49 +28,31 @@ For example, a digital download (such as a movie, music or ebook file) also qual
     object.created_at
   end
 
-  field :description, ::GraphQL::Types::String, null: false do
-    description %q{Stripped description of the product.}
+  field :description, ::GraphQL::Types::String, null: true do
+    description %q{Description of the product.}
   end
   def description
-    object.description.to_s.strip
+    object.description
   end
 
-  field :handle, ::GraphQL::Types::String, null: false do
-    description %q{A human-friendly unique string for the Product automatically generated from its title.
-They are used by the Liquid templating language to refer to objects.
-}
+  field :slug, ::GraphQL::Types::String, null: false do
+    description %q{A human-friendly unique string for the Product automatically generated from its title.}
   end
-  def handle
+  def slug
     object.slug
   end
 
-  field :product_type, ::GraphQL::Types::String, null: false do
-    description %q{A categorization that a product can be tagged with, commonly used for filtering and searching.}
-  end
-  def product_type
-    raise ::Spree::GraphQL::NotImplementedError
-  end
-
-  field :published_at, ::Spree::GraphQL::Schema::Types::DateTime, null: false do
-    description %q{The date and time when the product was published to the channel.}
+  field :available_on, ::Spree::GraphQL::Schema::Types::DateTime, null: false do
+    description 'The first date and the time the product becomes available for sale online in your shop. If the `available_on` attribute is not set, the product does not appear among the store’s products for sale.'
   end
   def published_at
     object.available_on
   end
 
-  field :tags, [::GraphQL::Types::String], null: false do
-    description %q{A categorization that a product can be tagged with, commonly used for filtering and searching.
-Each comma-separated tag has a character limit of 255.
-}
+  field :name, ::GraphQL::Types::String, null: false do
+    description %q{The product’s name.}
   end
-  def tags
-    raise ::Spree::GraphQL::NotImplementedError
-  end
-
-  field :title, ::GraphQL::Types::String, null: false do
-    description %q{The product’s title.}
-  end
-  def title
+  def name
     object.name
   end
 
@@ -92,12 +74,5 @@ Each comma-separated tag has a character limit of 255.
       reverse: reverse,
       sort_key: sort_key
     )
-  end
-
-  field :vendor, ::GraphQL::Types::String, null: false do
-    description %q{The product’s vendor name.}
-  end
-  def vendor
-    raise ::Spree::GraphQL::NotImplementedError
   end
 end

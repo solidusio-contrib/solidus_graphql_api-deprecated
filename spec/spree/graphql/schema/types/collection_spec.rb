@@ -74,10 +74,18 @@ RSpec.describe Spree::GraphQL::Schema::Types::Collection do
           shop {
             collectionByHandle(handle: "handle") {
               products(first: 2) {
-                nodes { handle id title }
+                nodes {
+                  id
+                  name
+                  slug
+                }
               }
               reverse: products(first: 1, reverse: true) {
-                nodes { handle id title }
+                nodes {
+                  id
+                  name
+                  slug
+                }
               }
             }
           }
@@ -93,13 +101,13 @@ RSpec.describe Spree::GraphQL::Schema::Types::Collection do
                 nodes: [
                   {
                     id: ::Spree::GraphQL::Schema.id_from_object(products.first),
-                    handle: products.first.slug,
-                    title: products.first.name
+                    name: products.first.name,
+                    slug: products.first.slug
                   },
                   {
                     id: ::Spree::GraphQL::Schema.id_from_object(products.second),
-                    handle: products.second.slug,
-                    title: products.second.name
+                    name: products.second.name,
+                    slug: products.second.slug
                   }
                 ]
               },
@@ -107,8 +115,8 @@ RSpec.describe Spree::GraphQL::Schema::Types::Collection do
                 nodes: [
                   {
                     id: ::Spree::GraphQL::Schema.id_from_object(products.last),
-                    handle: products.last.slug,
-                    title: products.last.name
+                    name: products.last.name,
+                    slug: products.last.slug
                   }
                 ]
               }
@@ -130,7 +138,11 @@ RSpec.describe Spree::GraphQL::Schema::Types::Collection do
             shop {
               collectionByHandle(handle: "handle") {
                 products(first: 1, sortKey: TITLE, reverse: false) {
-                  nodes { handle id title }
+                  nodes {
+                    id
+                    name
+                    slug
+                  }
                 }
               }
             }
@@ -146,8 +158,8 @@ RSpec.describe Spree::GraphQL::Schema::Types::Collection do
                   nodes: [
                     {
                       id: ::Spree::GraphQL::Schema.id_from_object(products.last),
-                      handle: products.last.slug,
-                      title: products.last.name
+                      name: products.last.name,
+                      slug: products.last.slug
                     }
                   ]
                 }
