@@ -13,6 +13,13 @@ For example, a digital download (such as a movie, music or ebook file) also qual
     raise ::Spree::GraphQL::NotImplementedError
   end
 
+  field :available_on, ::Spree::GraphQL::Schema::Types::DateTime, null: false do
+    description 'The first date and the time the product becomes available for sale online in your shop. If the `available_on` attribute is not set, the product does not appear among the store’s products for sale.'
+  end
+  def published_at
+    object.available_on
+  end
+
   field :collections, ::Spree::GraphQL::Schema::Types::Collection.connection_type, null: false do
     description %q{List of collections a product belongs to.}
     argument :reverse, ::GraphQL::Types::Boolean, required: false, default_value: false, description: %q{Reverse the order of the underlying list.}
@@ -35,25 +42,18 @@ For example, a digital download (such as a movie, music or ebook file) also qual
     object.description
   end
 
-  field :slug, ::GraphQL::Types::String, null: false do
-    description %q{A human-friendly unique string for the Product automatically generated from its title.}
-  end
-  def slug
-    object.slug
-  end
-
-  field :available_on, ::Spree::GraphQL::Schema::Types::DateTime, null: false do
-    description 'The first date and the time the product becomes available for sale online in your shop. If the `available_on` attribute is not set, the product does not appear among the store’s products for sale.'
-  end
-  def published_at
-    object.available_on
-  end
-
   field :name, ::GraphQL::Types::String, null: false do
     description %q{The product’s name.}
   end
   def name
     object.name
+  end
+
+  field :slug, ::GraphQL::Types::String, null: false do
+    description %q{A human-friendly unique string for the Product automatically generated from its title.}
+  end
+  def slug
+    object.slug
   end
 
   field :updated_at, ::Spree::GraphQL::Schema::Types::DateTime, null: false do
