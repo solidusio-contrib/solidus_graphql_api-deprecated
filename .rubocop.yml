@@ -8,6 +8,8 @@ AllCops:
     - 'vendor/bundle/**/*'
   TargetRubyVersion: 2.3
 
+Style/AsciiComments:
+  Enabled: false
 Style/SpecialGlobalVars:
   Exclude:
     - 'solidus_graphql_api.gemspec'
