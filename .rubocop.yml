@@ -8,6 +8,11 @@ AllCops:
     - 'vendor/bundle/**/*'
   TargetRubyVersion: 2.3
 
+# Currently disabled, it conflicts with `rubocop --auto-gen-config`
+# Metrics/LineLength:
+#   Max: 120
+#   AllowHeredoc: false
+
 RSpec/FilePath:
   CustomTransform:
     GraphQL: 'graphql'
