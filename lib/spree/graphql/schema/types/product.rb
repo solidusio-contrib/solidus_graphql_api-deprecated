@@ -49,6 +49,19 @@ class Spree::GraphQL::Schema::Types::Product < Spree::GraphQL::Schema::Types::Ba
     object.description
   end
 
+  field :images, ::Spree::GraphQL::Schema::Types::Image.connection_type, null: false do
+    description 'The product’s images.'
+    argument :query,
+             [Spree::GraphQL::Schema::Inputs::RansackQuery],
+             required: false,
+             default_value: [{ 'key' => 's', 'value' => 'position asc' }],
+             description: 'List of Ransack queries, can be used to filter and sort the results.'
+  end
+  def images(query:)
+    query = Spree::GraphQL::Schema::Inputs::RansackQuery.queries_to_ransack_query(query)
+    object.images.ransack(query).result
+  end
+
   field :name, ::GraphQL::Types::String, null: false do
     description 'The product’s name.'
   end
