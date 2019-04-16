@@ -28,7 +28,14 @@ class Spree::GraphQL::Schema::Types::Money < Spree::GraphQL::Schema::Types::Base
   field :amount, Spree::GraphQL::Schema::Types::Decimal, null: false do
     description 'Decimal money amount.'
   end
+  def amount
+    object.to_d
+  end
+
   field :currency_code, Spree::GraphQL::Schema::Types::CurrencyCode, null: false do
     description 'Currency of the money.'
+  end
+  def currency_code
+    object.currency
   end
 end

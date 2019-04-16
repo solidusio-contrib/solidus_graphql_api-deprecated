@@ -49,6 +49,13 @@ For example, a digital download (such as a movie, music or ebook file) also qual
     object.name
   end
 
+  field :price, ::Spree::GraphQL::Schema::Types::Money, null: false do
+    description %q{The date and time when the product was last modified.}
+  end
+  def price
+    object.price_for(context[:helpers].current_pricing_options)
+  end
+
   field :slug, ::GraphQL::Types::String, null: false do
     description %q{A human-friendly unique string for the Product automatically generated from its title.}
   end
