@@ -10,19 +10,17 @@ class Spree::GraphQL::Schema::Types::QueryRoot < Spree::GraphQL::Schema::Types::
 
   field :products, ::Spree::GraphQL::Schema::Types::Product.connection_type, null: false do
     description %q{List of the products.}
-    # GraphQL arguments can’t be hashes with open keys, so we have to define `:search_query` argument as an array of
+    # GraphQL arguments can’t be hashes with open keys, so we have to define `:query` argument as an array of
     # key-value tuples.
-    argument :search_query,
-             [Spree::GraphQL::Schema::Inputs::SearchQuery],
+    argument :query,
+             [Spree::GraphQL::Schema::Inputs::RansackQuery],
              required: false,
-             default_value: [{ 'key' => 'sort', 'value' => 'id asc' }],
-             description: 'List of query search commands.'
+             default_value: [{ 'key' => 's', 'value' => 'id asc' }],
+             description: 'List of Ransack queries, can be used to filter and sort the results.'
   end
-  def products(search_query:)
-    search_query = search_query.to_h do |search_query_item|
-      [search_query_item.key, search_query_item.value]
-    end
-    ::Spree::Product.ransack(search_query).result
+  def products(query:)
+    query = Spree::GraphQL::Schema::Inputs::RansackQuery.queries_to_ransack_query(query)
+    Spree::Product.ransack(query).result
   end
 
   field :shop, ::Spree::GraphQL::Schema::Types::Shop, null: false do

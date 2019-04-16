@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-class Spree::GraphQL::Schema::Inputs::SearchQuery < Spree::GraphQL::Schema::Inputs::BaseInput
-  description <<~MD
-    Query search command matching the
+class Spree::GraphQL::Schema::Inputs::RansackQuery < Spree::GraphQL::Schema::Inputs::BaseInput
+  description <<~MD.chomp
+    Query command matching the
     [Ransack](https://github.com/activerecord-hackery/ransack#search-matchers) syntax.
 
     ### Examples
 
     ```graphql
-    query productsList($searchQuery: [SearchQuery!]) {
-      products(searchQuery: $searchQuery) {
+    query productsList($query: [RansackQuery!]) {
+      products(query: $query) {
         nodes {
           id
         }
@@ -18,9 +18,9 @@ class Spree::GraphQL::Schema::Inputs::SearchQuery < Spree::GraphQL::Schema::Inpu
 
     # Sort by ID, in descending order
     {
-      "searchQuery": [
+      "query": [
         {
-          "key": "sort",
+          "key": "s",
           "value": "id desc"
         }
       ]
@@ -29,14 +29,14 @@ class Spree::GraphQL::Schema::Inputs::SearchQuery < Spree::GraphQL::Schema::Inpu
     # Match products whose name contains "t-shirt"
     # or whose any variants’ SKU is equal to "00016"
     {
-      "searchQuery": [
+      "query": [
         {
-          "key": "name_matches",
+          "key": "name_cont",
           "value": "t-shirt"
         },
         {
           "key": "variants_including_master_sku_eq",
-          "value": "00016"
+          "value": "ROR-00016"
         },
         {
           "key": "m",
@@ -49,4 +49,12 @@ class Spree::GraphQL::Schema::Inputs::SearchQuery < Spree::GraphQL::Schema::Inpu
 
   argument :key, ::GraphQL::Types::String, required: true
   argument :value, ::GraphQL::Types::String, required: true
+
+  def self.queries_to_ransack_query(queries)
+    queries.reduce({}) { |memo, query| memo.update query.to_ransack_query }
+  end
+
+  def to_ransack_query
+    { key => value }
+  end
 end
