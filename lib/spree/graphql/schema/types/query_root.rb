@@ -3,13 +3,14 @@
 class Spree::GraphQL::Schema::Types::QueryRoot < Spree::GraphQL::Schema::Types::BaseObject
   graphql_name 'QueryRoot'
 
-  description %q{The schema’s entry-point for queries. This acts as the public, top-level API from which all queries must start.}
+  description 'The schema’s entry-point for queries. This acts as the public, top-level API from which all queries must
+ start.'
 
   field :node, field: ::GraphQL::Relay::Node.field
   field :nodes, field: ::GraphQL::Relay::Node.plural_field
 
   field :products, ::Spree::GraphQL::Schema::Types::Product.connection_type, null: false do
-    description %q{List of the products.}
+    description 'List of the products.'
     # GraphQL arguments can’t be hashes with open keys, so we have to define `:query` argument as an array of
     # key-value tuples.
     argument :query,
