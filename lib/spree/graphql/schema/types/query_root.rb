@@ -9,6 +9,14 @@ class Spree::GraphQL::Schema::Types::QueryRoot < Spree::GraphQL::Schema::Types::
   field :node, field: ::GraphQL::Relay::Node.field
   field :nodes, field: ::GraphQL::Relay::Node.plural_field
 
+  field :product_by_slug, ::Spree::GraphQL::Schema::Types::Product, null: true do
+    description 'Find a product by its slug.'
+    argument :slug, ::GraphQL::Types::String, required: true, description: 'The handle of the product.'
+  end
+  def product_by_slug(slug:)
+    Spree::Product.find_by_slug(slug)
+  end
+
   field :products, ::Spree::GraphQL::Schema::Types::Product.connection_type, null: false do
     description 'List of the products.'
     # GraphQL arguments can’t be hashes with open keys, so we have to define `:query` argument as an array of
