@@ -22,6 +22,8 @@ RSpec/FilePath:
 
 Style/AsciiComments:
   Enabled: false
+Style/ClassAndModuleChildren:
+  EnforcedStyle: 'compact'
 Style/SpecialGlobalVars:
   Exclude:
     - 'solidus_graphql_api.gemspec'
