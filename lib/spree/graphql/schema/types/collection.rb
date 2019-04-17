@@ -9,7 +9,7 @@ class Spree::GraphQL::Schema::Types::Collection < Spree::GraphQL::Schema::Types:
     description %q{Stripped description of the collection.}
   end
   def description
-    text = ::Spree::Taxon === object ? object.description : object.name
+    text = object.is_a?(Spree::Taxon) ? object.description : object.name
     text.to_s.strip
   end
 
@@ -19,7 +19,7 @@ Limit of 255 characters.
 }
   end
   def handle
-    ::Spree::Taxon === object ? object.permalink : nil
+    object.is_a?(Spree::Taxon) ? object.permalink : nil
   end
 
   field :products, ::Spree::GraphQL::Schema::Types::Product.connection_type, null: false do
@@ -28,7 +28,7 @@ Limit of 255 characters.
     argument :sort_key, ::Spree::GraphQL::Schema::Types::ProductCollectionSortKeys, required: false, default_value: 'COLLECTION_DEFAULT', description: %q{Sort the underlying list by the given key.}
   end
   def products(reverse:, sort_key:)
-    if ::Spree::Taxon === object
+    if object.is_a?(Spree::Taxon)
       ::Spree::GraphQL::Schema::Types::ProductCollectionSortKeys.apply!(
         object.products,
         reverse: reverse,
