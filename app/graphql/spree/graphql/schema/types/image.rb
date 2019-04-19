@@ -11,7 +11,7 @@ class Spree::GraphQL::Schema::Types::Image < Spree::GraphQL::Schema::Types::Base
   end
 
   def self.url_field_default_value
-    default_style_value = Spree::Image.attachment_definitions.dig :attachment, :default_style
+    default_style_value = Spree::Image.attachment_definitions[:attachment][:default_style]
 
     if !default_style_value || Spree::GraphQL::Schema::Types::ImageStyle.values.none? do |_, enum_value|
          enum_value.value == default_style_value
@@ -21,8 +21,6 @@ class Spree::GraphQL::Schema::Types::Image < Spree::GraphQL::Schema::Types::Base
 
     default_style_value
   end
-  # App code is used here, so we need to defer the definition at app initialization
-  # (config/initializers/solidus_graphql_api.rb).
   def self.define_url_field
     default_value = url_field_default_value
 
@@ -35,6 +33,7 @@ class Spree::GraphQL::Schema::Types::Image < Spree::GraphQL::Schema::Types::Base
                description: 'The desired image style.'
     end
   end
+  define_url_field
   def url(style:)
     context[:helpers].asset_url object.url style
   end
