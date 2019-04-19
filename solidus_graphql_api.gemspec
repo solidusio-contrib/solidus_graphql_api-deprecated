@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'graphql', '~> 1.9.3'
   s.add_dependency 'solidus_core', '>= 2.7.0'
-  s.add_dependency 'zeitwerk', '~> 2.1', '>= 2.1.2'
 
   s.add_development_dependency 'database_cleaner'
   # s.add_development_dependency 'byebug'

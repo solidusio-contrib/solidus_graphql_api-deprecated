@@ -16,5 +16,7 @@ class SolidusGraphqlApi::Engine < Rails::Engine
     end
   end
 
+  config.eager_load_paths << File.expand_path('..', __dir__)
+
   config.to_prepare(&method(:activate).to_proc)
 end
