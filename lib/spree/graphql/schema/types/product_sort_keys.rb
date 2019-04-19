@@ -5,7 +5,7 @@ class Spree::GraphQL::Schema::Types::ProductSortKeys < Spree::GraphQL::Schema::T
 
   description %q{The set of valid sort keys for the products query.}
 
-  value 'TITLE', %q{Sort by the `title` value.}
+  value 'NAME', %q{Sort by the `name` value.}
   value 'PRODUCT_TYPE', %q{Sort by the `product_type` value.}
   value 'VENDOR', %q{Sort by the `vendor` value.}
   value 'UPDATED_AT', %q{Sort by the `updated_at` value.}
@@ -22,7 +22,7 @@ deterministic and should not be used.
     if args[:sort_key]
       r.reorder!(
         case args[:sort_key]
-        when 'TITLE'
+        when 'NAME'
           :name
         when 'PRODUCT_TYPE'
           raise ::Spree::GraphQL::NotImplementedError

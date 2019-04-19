@@ -8,6 +8,22 @@ AllCops:
     - 'vendor/bundle/**/*'
   TargetRubyVersion: 2.3
 
+Layout/EmptyLineBetweenDefs:
+  Enabled: false
+
+# Currently disabled, it conflicts with `rubocop --auto-gen-config`
+# Metrics/LineLength:
+#   Max: 120
+#   AllowHeredoc: false
+
+RSpec/FilePath:
+  CustomTransform:
+    GraphQL: 'graphql'
+
+Style/AsciiComments:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  EnforcedStyle: 'compact'
 Style/SpecialGlobalVars:
   Exclude:
     - 'solidus_graphql_api.gemspec'
