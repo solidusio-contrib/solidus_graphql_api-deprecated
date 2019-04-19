@@ -3,13 +3,6 @@
 class Spree::GraphQL::Schema::Types::Image < Spree::GraphQL::Schema::Types::BaseObjectNode
   graphql_name 'Image'
 
-  field :alt_text, ::GraphQL::Types::String, null: true do
-    description 'A word or phrase to share the nature or contents of an image.'
-  end
-  def alt_text
-    object.alt
-  end
-
   def self.url_field_default_value
     default_style_value = Spree::Image.attachment_definitions.dig :attachment, :default_style
 
@@ -21,19 +14,21 @@ class Spree::GraphQL::Schema::Types::Image < Spree::GraphQL::Schema::Types::Base
 
     default_style_value
   end
-  # App code is used here, so we need to defer the definition at app initialization
-  # (config/initializers/solidus_graphql_api.rb).
-  def self.define_url_field
-    default_value = url_field_default_value
 
-    field :url, ::Spree::GraphQL::Schema::Types::URL, null: false do
-      description 'The location of the image as a URL.'
-      argument :style,
-               Spree::GraphQL::Schema::Types::ImageStyle,
-               required: false,
-               default_value: default_value,
-               description: 'The desired image style.'
-    end
+  field :alt_text, ::GraphQL::Types::String, null: true do
+    description 'A word or phrase to share the nature or contents of an image.'
+  end
+  def alt_text
+    object.alt
+  end
+
+  field :url, ::Spree::GraphQL::Schema::Types::URL, null: false do
+    description 'The location of the image as a URL.'
+    argument :style,
+             Spree::GraphQL::Schema::Types::ImageStyle,
+             required: false,
+             default_value: owner.url_field_default_value,
+             description: 'The desired image style.'
   end
   def url(style:)
     context[:helpers].asset_url object.url style

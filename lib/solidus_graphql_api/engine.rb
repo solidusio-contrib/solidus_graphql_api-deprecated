@@ -10,6 +10,8 @@ class SolidusGraphqlApi::Engine < Rails::Engine
     g.test_framework :rspec
   end
 
+  config.eager_load_paths << File.expand_path('..', __dir__)
+
   def self.activate
     Dir.glob(File.join(File.dirname(__FILE__), '../../app/**/*_decorator*.rb')) do |c|
       Rails.configuration.cache_classes ? require(c) : load(c)
