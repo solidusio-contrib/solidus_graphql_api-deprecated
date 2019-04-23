@@ -24,7 +24,10 @@ class Spree::GraphQL::Schema::Types::QueryRoot < Spree::GraphQL::Schema::Types::
     argument :query,
              [Spree::GraphQL::Schema::Inputs::RansackQuery],
              required: false,
-             default_value: [{ 'key' => 's', 'value' => 'id asc' }],
+             default_value: [
+               { 'key' => 'available', 'value' => 'true' },
+               { 'key' => 's', 'value' => 'id asc' }
+             ],
              description: 'List of Ransack queries, can be used to filter and sort the results.'
   end
   def products(query:)
