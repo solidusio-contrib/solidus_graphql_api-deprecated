@@ -8,18 +8,18 @@ class Spree::GraphQL::Schema::Types::Product < Spree::GraphQL::Schema::Types::Ba
   product, as do services (such as equipment rental, work for hire, customization of another product or an extended
   warranty).'
 
-  field :available_for_sale, ::GraphQL::Types::Boolean, null: false do
-    description 'Indicates if at least one product variant is available for sale.'
+  field :available, ::GraphQL::Types::Boolean, null: false do
+    description 'Indicates if the product is available for sale.'
   end
-  def available_for_sale
-    raise ::Spree::GraphQL::NotImplementedError
+  def available
+    object.available?
   end
 
   field :available_on, ::Spree::GraphQL::Schema::Types::DateTime, null: false do
     description 'The first date and the time the product becomes available for sale online in your shop. If the
 `available_on` attribute is not set, the product does not appear among the store’s products for sale.'
   end
-  def published_at
+  def available_on
     object.available_on
   end
 
