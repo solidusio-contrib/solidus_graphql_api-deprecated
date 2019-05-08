@@ -90,7 +90,7 @@ class Spree::GraphQL::Schema::Types::Product < Spree::GraphQL::Schema::Types::Ba
     object.updated_at
   end
 
-  field :variants, ::Spree::GraphQL::Schema::Types::ProductVariant.connection_type, null: false do
+  field :variants, ::Spree::GraphQL::Schema::Types::Variant.connection_type, null: false do
     description 'List of the product’s variants.'
     argument :reverse,
              ::GraphQL::Types::Boolean,
