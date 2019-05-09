@@ -90,24 +90,10 @@ class Spree::GraphQL::Schema::Types::Product < Spree::GraphQL::Schema::Types::Ba
     object.updated_at
   end
 
-  field :variants, ::Spree::GraphQL::Schema::Types::ProductVariant.connection_type, null: false do
+  field :variants, ::Spree::GraphQL::Schema::Types::Variant.connection_type, null: false do
     description 'List of the product’s variants.'
-    argument :reverse,
-             ::GraphQL::Types::Boolean,
-             required: false,
-             default_value: false,
-             description: 'Reverse the order of the underlying list.'
-    argument :sort_key,
-             ::Spree::GraphQL::Schema::Types::ProductVariantSortKeys,
-             required: false,
-             default_value: 'POSITION',
-             description: 'Sort the underlying list by the given key.'
   end
-  def variants(reverse:, sort_key:)
-    ::Spree::GraphQL::Schema::Types::ProductVariantSortKeys.apply!(
-      object.variants,
-      reverse: reverse,
-      sort_key: sort_key
-    )
+  def variants
+    object.variants
   end
 end
