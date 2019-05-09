@@ -30,7 +30,7 @@ NOTE: If this is your new Rails + Solidus application, please don't forget to ru
 3) Add routes to your application's `config/routes.rb` to serve GraphQL and optionally also GraphiQL queries in development mode:
 
 ```ruby
-  post :graphql, to: 'graphql#execute'
+  post :graphql, to: 'spree/graphql#execute'
 
   if Rails.env.development?
     mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql'
