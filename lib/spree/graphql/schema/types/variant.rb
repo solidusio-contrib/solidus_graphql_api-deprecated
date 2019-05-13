@@ -14,6 +14,13 @@ class Spree::GraphQL::Schema::Types::Variant < Spree::GraphQL::Schema::Types::Ba
     raise ::Spree::GraphQL::NotImplementedError
   end
 
+  field :option_values, ::Spree::GraphQL::Schema::Types::OptionValue.connection_type, null: false do
+    description 'The product variant’s option values.'
+  end
+  def option_values
+    object.option_values.order(:position)
+  end
+
   field :product, ::Spree::GraphQL::Schema::Types::Product, null: false do
     description 'The product object that the product variant belongs to.'
   end

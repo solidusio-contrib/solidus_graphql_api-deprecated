@@ -3,6 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe Spree::GraphQL::Schema::Types::Variant do
+  let(:option_values) { create_list(:option_value, 2) }
   let!(:product) do
     p = create(:product)
     p.slug = 'product'
@@ -13,30 +14,32 @@ RSpec.describe Spree::GraphQL::Schema::Types::Variant do
     v = create(:variant)
     v.product = product
     v.weight = 5.84
+    v.option_values = option_values
     v.save
     v
   end
-  let(:ctx) { { current_store: current_store } }
+  let(:ctx) {}
   let(:variables) {}
-
-  before { create(:store) }
 
   describe 'fields' do
     let(:query) do
-      %q{
+      %{
         query {
-          shop {
-            productByHandle(handle: "product") {
-              id
-              variants {
-                nodes {
-                  id
-                  sku
-                  title
-                  weight
-                  product {
+          productBySlug(slug: #{product.slug.to_json}) {
+            id
+            variants {
+              nodes {
+                id
+                sku
+                title
+                weight
+                optionValues {
+                  nodes {
                     id
                   }
+                }
+                product {
+                  id
                 }
               }
             }
@@ -44,23 +47,29 @@ RSpec.describe Spree::GraphQL::Schema::Types::Variant do
         }
       }
     end
+    let(:expected_option_values) do
+      option_values
+        .sort_by(&:position)
+        .map { |option_value| { id: ::Spree::GraphQL::Schema.id_from_object(option_value) } }
+    end
     let(:result) do
       {
         data: {
-          shop: {
-            productByHandle: {
-              id: ::Spree::GraphQL::Schema.id_from_object(product),
-              variants: {
-                nodes: [{
-                  id: ::Spree::GraphQL::Schema.id_from_object(variant),
-                  sku: variant.sku,
-                  title: variant.name,
-                  weight: variant.weight,
-                  product: {
-                    id: ::Spree::GraphQL::Schema.id_from_object(product)
-                  }
-                }]
-              }
+          productBySlug: {
+            id: ::Spree::GraphQL::Schema.id_from_object(product),
+            variants: {
+              nodes: [{
+                id: ::Spree::GraphQL::Schema.id_from_object(variant),
+                sku: variant.sku,
+                title: variant.name,
+                weight: variant.weight,
+                optionValues: {
+                  nodes: expected_option_values
+                },
+                product: {
+                  id: ::Spree::GraphQL::Schema.id_from_object(product)
+                }
+              }]
             }
           }
         }
