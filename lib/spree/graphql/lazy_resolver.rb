@@ -8,6 +8,7 @@ module Spree::GraphQL::LazyResolver
     activate
     adapter_namespace
     clear_cache
+    install_generator_helper
     lookup_resolver_class
     require_dependencies
     resolvers_namespace
