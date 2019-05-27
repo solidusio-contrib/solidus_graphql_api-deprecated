@@ -7,6 +7,8 @@ class Spree::GraphQL::Schema < ::GraphQL::Schema
   query ::Spree::GraphQL::Schema::Types::QueryRoot
   mutation ::Spree::GraphQL::Schema::Types::Mutation
 
+  Spree::GraphQL::LazyResolver.activate(self)
+
   def self.id_from_object(object, _type_definition = nil, _query_context = nil)
     ::GraphQL::Schema::UniqueWithinType.encode(object.class.name, object.id)
   end

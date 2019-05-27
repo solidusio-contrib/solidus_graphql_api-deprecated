@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Spree::GraphQL::Schema::Types::Product < Spree::GraphQL::Schema::Types::BaseObjectNode
+  include Spree::GraphQL::LazyResolver::TypeHelper
+
   graphql_name 'Product'
 
   description 'A product represents an individual item for sale in a Solidus store. Products are often physical, but
@@ -92,8 +94,16 @@ class Spree::GraphQL::Schema::Types::Product < Spree::GraphQL::Schema::Types::Ba
 
   field :variants, ::Spree::GraphQL::Schema::Types::Variant.connection_type, null: false do
     description 'List of the product’s variants.'
+    argument :including_master,
+             ::GraphQL::Types::Boolean,
+             required: false,
+             default_value: false,
+             description: 'Whether the returned variants should include the master variant or not.'
+    argument :query,
+             [Spree::GraphQL::Schema::Inputs::RansackQuery],
+             required: false,
+             default_value: [{ 'key' => 's', 'value' => 'position asc' }],
+             description: 'List of Ransack queries, can be used to filter and sort the results.'
   end
-  def variants
-    object.variants
-  end
+  delegate :variants, to: :lazy_resolver
 end

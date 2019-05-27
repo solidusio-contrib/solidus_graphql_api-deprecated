@@ -27,12 +27,18 @@ RSpec.configure do |config|
     metadata[:type] = :graphql
   end
 
+  config.shared_context_metadata_behavior = :apply_to_host_groups
+
   config.include Spree::GraphQL::Spec::Helpers, type: :graphql
 
   config.before do
     Spree::Core::Engine.routes.draw do
       post :graphql, to: 'graphql#execute'
     end
+  end
+
+  config.before type: :graphql do
+    Spree::GraphQL::LazyResolver.clear_cache
   end
 
   config.after(:all) do
