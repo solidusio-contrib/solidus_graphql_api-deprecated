@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe Spree::GraphQL::Schema::Types::Variant do
-  let(:option_values) { create_list(:option_value, 2) }
+  let(:option_values) { Array.new(2) { |n| create(:option_value, position: n + 1) } }
   let!(:product) do
     p = create(:product)
     p.slug = 'product'
@@ -11,7 +11,7 @@ RSpec.describe Spree::GraphQL::Schema::Types::Variant do
     p
   end
   let!(:variant) do
-    v = create(:variant)
+    v = build(:variant)
     v.product = product
     v.weight = 5.84
     v.option_values = option_values

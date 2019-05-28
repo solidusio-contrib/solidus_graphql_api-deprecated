@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Spree::GraphQL::Schema::Types::OptionValue < Spree::GraphQL::Schema::Types::BaseObjectNode
+  include Spree::GraphQL::LazyResolver::TypeHelper
+
   graphql_name 'OptionValue'
 
   description <<~MD
@@ -18,9 +20,7 @@ class Spree::GraphQL::Schema::Types::OptionValue < Spree::GraphQL::Schema::Types
   field :option_type, ::Spree::GraphQL::Schema::Types::OptionType, null: false do
     description 'The option value’s option type.'
   end
-  def option_type
-    object.option_type
-  end
+  delegate :option_type, to: :lazy_resolver
 
   field :presentation, ::GraphQL::Types::String, null: false do
     description 'The option value’s presentation.'

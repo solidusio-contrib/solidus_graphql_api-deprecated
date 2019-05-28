@@ -12,6 +12,10 @@ class SolidusGraphqlApi::Engine < Rails::Engine
 
   config.eager_load_paths << File.expand_path('..', __dir__)
 
+  initializer 'solidus_graphql_api.environment', before: :load_config_initializers do |_app|
+    SolidusGraphqlApi::Config = SolidusGraphqlApi::Configuration.new
+  end
+
   def self.activate
     Dir.glob(File.join(File.dirname(__FILE__), '../../app/**/*_decorator*.rb')) do |c|
       Rails.configuration.cache_classes ? require(c) : load(c)
