@@ -9,16 +9,18 @@ solidus_branch = ENV.fetch('SOLIDUS_BRANCH', 'master')
 gem 'solidus', github: 'solidusio/solidus', branch: solidus_branch
 gem 'solidus_auth_devise'
 
-case ENV['DB']
-when 'mysql'
-  gem 'mysql2', '~> 0.4.10'
-when 'postgres'
-  gem 'pg', '~> 0.21'
-end
+if ENV['CI']
+  case ENV['DB']
+  when 'mysql'
+    gem 'mysql2', '~> 0.4.10'
+  when 'postgres'
+    gem 'pg', '~> 0.21'
+  end
 
-case ENV['LAZY_RESOLVER']
-when 'batch-loader'
-  gem 'batch-loader', '~> 1.4.0'
+  case ENV['LAZY_RESOLVER']
+  when 'batch-loader'
+    gem 'batch-loader', '~> 1.4.0'
+  end
 end
 
 gemspec
