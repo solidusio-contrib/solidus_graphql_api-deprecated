@@ -64,6 +64,14 @@ class Spree::GraphQL::Schema::Types::Product < Spree::GraphQL::Schema::Types::Ba
     object.images.ransack(query).result
   end
 
+  field :master_variant, ::Spree::GraphQL::Schema::Types::Variant, null: false do
+    description 'The product’s master variant.'
+  end
+  def master_variant
+    object.master
+  end
+  delegate :master_variant, to: :lazy_resolver
+
   field :name, ::GraphQL::Types::String, null: false do
     description 'The product’s name.'
   end

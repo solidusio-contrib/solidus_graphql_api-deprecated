@@ -30,12 +30,15 @@ RSpec.describe Spree::GraphQL::Schema::Types::Product do
             products(first: 2) {
               edges {
                 node {
-                  createdAt
-                  updatedAt
                   availableOn
+                  createdAt
                   description
+                  masterVariant {
+                    id
+                  }
                   name
                   slug
+                  updatedAt
                 }
               }
             }
@@ -51,22 +54,28 @@ RSpec.describe Spree::GraphQL::Schema::Types::Product do
               edges: [
                 {
                   node: {
-                    createdAt: product.created_at.iso8601,
                     availableOn: product.available_on.iso8601,
-                    updatedAt: product.updated_at.iso8601,
+                    createdAt: product.created_at.iso8601,
                     description: product.description,
+                    masterVariant: {
+                      id: ::Spree::GraphQL::Schema.id_from_object(product.master)
+                    },
                     name: product.name,
-                    slug: product.slug
+                    slug: product.slug,
+                    updatedAt: product.updated_at.iso8601
                   }
                 },
                 {
                   node: {
-                    createdAt: product2.created_at.iso8601,
                     availableOn: product2.available_on.iso8601,
-                    updatedAt: product2.updated_at.iso8601,
+                    createdAt: product2.created_at.iso8601,
                     description: product2.description,
+                    masterVariant: {
+                      id: ::Spree::GraphQL::Schema.id_from_object(product2.master)
+                    },
                     name: product2.name,
-                    slug: product2.slug
+                    slug: product2.slug,
+                    updatedAt: product2.updated_at.iso8601
                   }
                 }
               ]
