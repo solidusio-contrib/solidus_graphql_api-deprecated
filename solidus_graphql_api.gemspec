@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'ffaker'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency 'rubocop', '~> 0.66.0'
+  s.add_development_dependency 'rubocop', '~> 0.78.0'
   s.add_development_dependency 'rubocop-rspec', '~> 1.32.0'
   s.add_development_dependency 'solidus_support', '>= 0.1.3'
   s.add_development_dependency 'sqlite3', '~> 1.3.6'
