@@ -1,8 +1,10 @@
 # Solidus GraphQL API
-
 #DEPRECATED
+###
+This was an experimental approach and the community has decided to take a different direction.
 
-See -> https://github.com/boomerdigital/solidus_graphql_api
+
+See ->https://github.com/nebulab/solidus_graphql_api-1
 
 
 
